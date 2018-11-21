@@ -196,7 +196,7 @@ public class Joueur {
 	 * @return Le mot encodé par le joueur sur la console
 	 */
 	public Mot proposerMot() {
-		Mot proposition = new Mot("");
+		Mot proposition = new Mot();
 		String mot = JOptionPane.showInputDialog("Entrez votre proposition de mot");
 		proposition.setValeur(mot);
 		return proposition;
