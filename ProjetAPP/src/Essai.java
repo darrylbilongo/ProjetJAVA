@@ -6,7 +6,14 @@ import java.util.Scanner;
 
 public class Essai {
 
+	/**
+	 * Mot que les joueurs doivent deviner.
+	 */
 	private Mot motATrouver;
+	
+	/**
+	 * 
+	 */
 	private Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
@@ -58,7 +65,6 @@ public class Essai {
 						
 						motDuJeu += line + "\r\n";
 						cpt++;
-						//System.out.println(cpt);
 					}
 					
 					motsXlettres.write(motDuJeu);
@@ -83,7 +89,6 @@ public class Essai {
 				String line = input.nextLine();
 				
 				if(n == num) {
-					System.out.println(cpt + " " + n + " " + num + " " + tailleMot);
 					motATrouver = new Mot(line);
 				}
 			}
