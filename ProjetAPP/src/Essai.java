@@ -17,7 +17,6 @@ public class Essai {
 	private Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
-	private int cpt = 0;
 	private static int nbEssai = 0;
 	
 	
@@ -30,9 +29,9 @@ public class Essai {
 		Joueur joueur [] = Partie.getParticipants();
 		
 		
-		classerMot(tailleMot);
+		//classerMot(tailleMot);
 		int numMot = (int)(Math.random() * (cpt) + 1);
-		choixMots(numMot);
+		//choixMot(numMot);
 		
 	}
 	
@@ -46,57 +45,6 @@ public class Essai {
 	
 	public Mot motDansDict(int nbDeLettres) {
 		return new Mot("el");
-	}
-	
-	public void classerMot(int x){
-		try {
-			Scanner input = new Scanner(new File("liste_francais.txt"));
-			File ffx = new File("mots" + x +"lettres.txt");
-			
-			try {
-				ffx.createNewFile();
-				FileWriter motsXlettres = new FileWriter(ffx);
-				
-				while(input.hasNextLine()) {
-					String line = input.nextLine();
-					String motDuJeu = "";
-					
-					if(line.length() == x && !(line.contains("-") || line.contains("!"))) {
-						
-						motDuJeu += line + "\r\n";
-						cpt++;
-					}
-					
-					motsXlettres.write(motDuJeu);
-				}
-				input.close();
-			}
-			catch(IOException e){
-				e.printStackTrace();
-			}
-		}
-		catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}	
-	}
-	
-	public void choixMots(int num) {
-		try {
-			Scanner input = new Scanner(new File("mots" + tailleMot + "lettres.txt"));
-			int n = 0;
-			while(input.hasNextLine()) {
-				n++;
-				String line = input.nextLine();
-				
-				if(n == num) {
-					motATrouver = new Mot(line);
-				}
-			}
-			input.close();
-		}
-		catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	

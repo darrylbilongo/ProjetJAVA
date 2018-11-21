@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 /**
  * à partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'éssais.
@@ -124,6 +130,60 @@ public class Partie {
 
 
 	}
+	
+
+	public void classerMot(int x){
+		try {
+			Scanner input = new Scanner(new File("liste_francais.txt"));
+			File ffx = new File("mots" + x +"lettres.txt");
+			
+			try {
+				ffx.createNewFile();
+				FileWriter motsXlettres = new FileWriter(ffx);
+				
+				while(input.hasNextLine()) {
+					String line = input.nextLine();
+					String motDuJeu = "";
+					
+					if(line.length() == x && !(line.contains("-") || line.contains("!"))) {
+						
+						motDuJeu += line + "\r\n";
+						cpt++;
+					}
+					
+					motsXlettres.write(motDuJeu);
+				}
+				input.close();
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public Mot choixMot(int num) {
+		try {
+			Scanner input = new Scanner(new File("mots" + TAILLEMOT + "lettres.txt"));
+			int n = 0;
+			while(input.hasNextLine()) {
+				n++;
+				String line = input.nextLine();
+				
+				if(n == num) {
+					 return new Mot(line);
+				}
+			}
+			input.close();
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 	/**
 	 * Getters et Setters des différents attributs de Partie.
