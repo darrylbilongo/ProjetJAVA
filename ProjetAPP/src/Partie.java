@@ -1,7 +1,9 @@
+import java.io.IOException;
+
 /**
- * à partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
- * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'éssais.
- * Dans la premiere partie(etapeUn), on aura droit à 5 essais et dans la partie deux(etapeDeux)
+ * ï¿½ partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
+ * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'ï¿½ssais.
+ * Dans la premiere partie(etapeUn), on aura droit ï¿½ 5 essais et dans la partie deux(etapeDeux)
  * on aura 10 essais.
  * @author Manuelle Ndamtang
  * NUMERO DU GROUPE: 17
@@ -25,27 +27,27 @@ public class Partie {
 	private static Joueur participants[];
 	
 	/**
-	 * Cet entier se décrémente à chaque éssai. Il est devra être 
-	 * initialisé comme nombre maximum d'éssais au cours de la partie.
+	 * Cet entier se dï¿½crï¿½mente ï¿½ chaque ï¿½ssai. Il est devra ï¿½tre 
+	 * initialisï¿½ comme nombre maximum d'ï¿½ssais au cours de la partie.
 	 */
 	private int essaisRestant;
 	
 	/**
-	 * Cet entier est un constante qui sera utilisé durant toute la periode du jeu
-	 * comme nombre aléatoire entre 6 et 10. Cette nombre correspond au nombre de lettre ds mots
+	 * Cet entier est un constante qui sera utilisï¿½ durant toute la periode du jeu
+	 * comme nombre alï¿½atoire entre 6 et 10. Cette nombre correspond au nombre de lettre ds mots
 	 * surlequel  les joueurs vont se baser pour jouer. 
-	 * Ce nombre est lier à l'objet Partie, pas à une instance de Partie.
+	 * Ce nombre est lier ï¿½ l'objet Partie, pas ï¿½ une instance de Partie.
 	 */
 	private final static int TAILLEMOT = (int)(Math.random() * (11 - 6) + 6);
 	
 	/**
-	 * Cet entier designe l'étape dans laquelle le ou les joueur(s) se situent.
+	 * Cet entier designe l'ï¿½tape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
 	private static int etape;
 	
 	/**
-	 * Ce Constructeur prenant aucun paramètre se charge d'initialiser le jeu par défaut 
+	 * Ce Constructeur prenant aucun paramï¿½tre se charge d'initialiser le jeu par dï¿½faut 
 	 * avec juste avec un joueur.
 	 */
 	public Partie() {
@@ -55,9 +57,10 @@ public class Partie {
 	
 	/**
 	 * Ce Constructeur se charge d'initialiser la partie en tenant du nombre de joueurs
-	 * @param <i>nbJoueurs</i> entier chargé de donner le nombre de joueur de la partie.
+	 * @param <i>nbJoueurs</i> entier chargï¿½ de donner le nombre de joueur de la partie.
+	 * @throws IOException 
 	 */
-	public Partie(int nbJoueurs) {
+	public Partie(int nbJoueurs) throws IOException {
 		this.nbJoueurs = nbJoueurs;
 		if(nbJoueurs == 2) {
 			etape = 1;
@@ -72,9 +75,10 @@ public class Partie {
 	}
 	
 	/***
-	 * Cette méthode se chargera d'initialiser la partie par défaut avec juste un seul joueur.
+	 * Cette methode se chargera d'initialiser la partie par defaut avec juste un seul joueur.
+	 * @throws IOException 
 	 */
-	private void init() {
+	private void init() throws IOException {
 		etape = 1;
 		Joueur joueur1 = new Joueur();
 		participants = new Joueur[] {joueur1};
@@ -82,7 +86,7 @@ public class Partie {
 	}
 	
 	/**
-	 * Cette methode se charge de réaliser la premiere méthode.
+	 * Cette methode se charge de rï¿½aliser la premiere mï¿½thode.
 	 */
 	public void etapeUn() throws ArithmeticException {
 		if(nbJoueurs == 2) {
@@ -112,8 +116,8 @@ public class Partie {
 	}
 	
 	/**
-	 * Cette méthode ce charge de réaliser la deuxieme étape qui correspond
-	 * à la finale où le vainqueur joue seul pendant une periode de temps bien chronométrer.
+	 * Cette mï¿½thode ce charge de rï¿½aliser la deuxieme ï¿½tape qui correspond
+	 * ï¿½ la finale oï¿½ le vainqueur joue seul pendant une periode de temps bien chronomï¿½trer.
 	 */
 	public void etapeDeux(){
 		
@@ -121,12 +125,10 @@ public class Partie {
 			Essai essai = new Essai();
 			essaisRestant--;
 		}
-
-
 	}
 
 	/**
-	 * Getters et Setters des différents attributs de Partie.
+	 * Getters et Setters des differents attributs de Partie.
 	 */
 	
 	public int getNbJoueurs() {
@@ -161,7 +163,6 @@ public class Partie {
 		Partie.etape = etape;
 	}
 
-	
 
 	public static Joueur[] getParticipants() {
 		return participants;
