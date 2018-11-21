@@ -10,16 +10,17 @@ public class Essai {
 	private Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
-	private int cpt;
+	private int cpt = 0;
 	
 	
 	public Essai() {
-		int cpt = 0;
 		tailleMot = Partie.getTaillemot();
 		Joueur joueur [] = Partie.getParticipants();
+		
 		classerMot(tailleMot);
-		int numMot = (int)(Math.random() * (cpt - 1) + 1);
+		int numMot = (int)(Math.random() * (cpt) + 1);
 		choixMots(numMot);
+		
 	}
 	
 	public Essai(int i) {
@@ -51,7 +52,7 @@ public class Essai {
 						
 						motDuJeu += line + "\r\n";
 						cpt++;
-						//System.out.println(line);
+						//System.out.println(cpt);
 					}
 					
 					motsXlettres.write(motDuJeu);
@@ -70,16 +71,14 @@ public class Essai {
 	public void choixMots(int num) {
 		try {
 			Scanner input = new Scanner(new File("mots" + tailleMot + "lettres.txt"));
+			int n = 0;
 			while(input.hasNextLine()) {
+				n++;
 				String line = input.nextLine();
-				int n = 0;
 				
-				if(input.hasNextLine()) {
-					n++;
-					if(input.nextInt() == num) {
-						System.out.println("Bonjour");
-						motATrouver.setValeur(line);
-					}
+				if(n == num) {
+					System.out.println(cpt + " " + n + " " + num + " " + tailleMot);
+					motATrouver = new Mot(line);
 				}
 			}
 			input.close();
@@ -92,7 +91,12 @@ public class Essai {
 	
 	public static void main(String[] args) {
 		Essai e = new Essai();
-		//System.out.println(e.motATrouver.getValeur());
+		System.out.println(e.motATrouver.getValeur());
+		try {
+			Mot mot = new Mot();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 }

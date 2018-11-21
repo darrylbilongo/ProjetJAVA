@@ -14,7 +14,7 @@ public class Joueur {
 	
 	
 	public Mot proposerMot() {
-		return new Mot();
+		return new Mot("b");
 	}
 	
 	public void updateScore() {
