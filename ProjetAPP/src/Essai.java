@@ -6,7 +6,14 @@ import java.util.Scanner;
 
 public class Essai {
 
+	/**
+	 * Mot que les joueurs doivent deviner.
+	 */
 	private Mot motATrouver;
+	
+	/**
+	 * 
+	 */
 	private Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
