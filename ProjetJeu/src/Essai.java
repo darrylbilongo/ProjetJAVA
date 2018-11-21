@@ -18,7 +18,8 @@ public class Essai {
 		tailleMot = Partie.getTaillemot();
 		Joueur joueur [] = Partie.getParticipants();
 		classerMot(tailleMot);
-		int numMot = (int)(Math.random() * (cpt - 0) + 0);
+		int numMot = (int)(Math.random() * (cpt - 1) + 1);
+		choixMots(numMot);
 	}
 	
 	public Essai(int i) {
@@ -46,7 +47,7 @@ public class Essai {
 					String line = input.nextLine();
 					String motDuJeu = "";
 					
-					if(line.length() == x) {
+					if(line.length() == x && !(line.contains("-") || line.contains("!"))) {
 						
 						motDuJeu += line + "\r\n";
 						cpt++;
@@ -60,16 +61,38 @@ public class Essai {
 			catch(IOException e){
 				e.printStackTrace();
 			}
-			
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void choixMots(int num) {
+		try {
+			Scanner input = new Scanner(new File("mots" + tailleMot + "lettres.txt"));
+			while(input.hasNextLine()) {
+				String line = input.nextLine();
+				int n = 0;
+				
+				if(input.hasNextLine()) {
+					n++;
+					if(input.nextInt() == num) {
+						System.out.println("Bonjour");
+						motATrouver.setValeur(line);
+					}
+				}
+			}
+			input.close();
 		}
 		catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-				
 	}
 	
+	
 	public static void main(String[] args) {
-		
+		Essai e = new Essai();
+		//System.out.println(e.motATrouver.getValeur());
 	}
 	
 }

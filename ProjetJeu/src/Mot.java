@@ -1,6 +1,6 @@
 
 public class Mot {
-	String valeur;
+	private String valeur;
 	
 	public Mot(String valeur) {
 		this.valeur = valeur;
