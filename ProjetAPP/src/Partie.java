@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @date 16/11/2018
  */
 public class Partie {
+	private static int cpt = 0;
 	
 	/**
 	 * Le nombre de joueurs dans la partie.
@@ -234,5 +235,14 @@ public class Partie {
 	public static int getTaillemot() {
 		return TAILLEMOT;
 	}
+
+	public static int getCpt() {
+		return cpt;
+	}
+
+	public static void setCpt(int cpt) {
+		Partie.cpt = cpt;
+	}
+	
 	
 }
