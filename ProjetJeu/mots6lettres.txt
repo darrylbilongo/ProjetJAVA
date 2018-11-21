@@ -194,7 +194,6 @@ ascète
 aspect
 aspire
 assaut
-assez!
 assise
 assume
 assure
@@ -1647,7 +1646,6 @@ klaxon
 Konrad
 Koweït
 kurdes
-là-bas
 labeur
 labour
 lâcher
@@ -1880,7 +1878,6 @@ Mexico
 Michel
 mickey
 micmac
-micro-
 micros
 miellé
 mienne
@@ -2055,7 +2052,6 @@ oindre
 oiseau
 oiseux
 ombres
-on-dit
 ongles
 opaque
 opéras
@@ -3070,3 +3066,7 @@ Viktor
 vilain
 villes
 violer
+violet
+violon
+vipère
+virage
