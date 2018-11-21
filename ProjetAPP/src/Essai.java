@@ -65,7 +65,6 @@ public class Essai {
 						
 						motDuJeu += line + "\r\n";
 						cpt++;
-						//System.out.println(cpt);
 					}
 					
 					motsXlettres.write(motDuJeu);
@@ -90,7 +89,6 @@ public class Essai {
 				String line = input.nextLine();
 				
 				if(n == num) {
-					System.out.println(cpt + " " + n + " " + num + " " + tailleMot);
 					motATrouver = new Mot(line);
 				}
 			}
