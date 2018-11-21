@@ -2,6 +2,10 @@
 public class Mot {
 	
 	private String valeur; // valeur en String
+	
+	public Mot(String valeur) {
+		this.valeur = valeur;
+	}
 
 	public String getValeur() {
 		return valeur;
