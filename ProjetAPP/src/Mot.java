@@ -4,6 +4,9 @@ import java.io.InputStreamReader;
 
 public class Mot {
 	
+	/**
+	 *  Valeur du mot
+	 */
 	private String valeur; // valeur en String
 	
 	public Mot () throws IOException {
@@ -14,7 +17,6 @@ public class Mot {
 	public Mot(String valeur) {
 		this.valeur = valeur;
 	}
-	
 	
 
 	public String getValeur() {
