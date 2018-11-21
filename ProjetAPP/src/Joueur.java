@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -62,6 +66,16 @@ public class Joueur {
 	public Joueur(String pseudo) {
 		this.pseudo = pseudo;
 	}
+	
+	/**
+	 * @throws IOException 
+	 * 
+	 */
+	public Joueur() throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		pseudo = in.readLine();
+	}
+	
 	
 	/**
 	 * 
@@ -194,8 +208,9 @@ public class Joueur {
 	 * Cette méthode demande au joueur ayant la main
 	 * d'encoder une proposition pour le mot à deviner
 	 * @return Le mot encodé par le joueur sur la console
+	 * @throws IOException 
 	 */
-	public Mot proposerMot() {
+	public Mot proposerMot() throws IOException {
 		Mot proposition = new Mot();
 		String mot = JOptionPane.showInputDialog("Entrez votre proposition de mot");
 		proposition.setValeur(mot);
