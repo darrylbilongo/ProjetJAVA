@@ -8,9 +8,9 @@ import java.io.IOException;
 
 
 /**
- * � partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
- * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'�ssais.
- * Dans la premiere partie(etapeUn), on aura droit � 5 essais et dans la partie deux(etapeDeux)
+ * e partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
+ * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
+ * Dans la premiere partie(etapeUn), on aura droit e 5 essais et dans la partie deux(etapeDeux)
  * on aura 10 essais.
  * @author Manuelle Ndamtang
  * NUMERO DU GROUPE: 17
@@ -35,27 +35,27 @@ public class Partie {
 	private static Joueur participants[];
 	
 	/**
-	 * Cet entier se d�cr�mente � chaque �ssai. Il est devra �tre 
-	 * initialis� comme nombre maximum d'�ssais au cours de la partie.
+	 * Cet entier se decremente e chaque essai. Il est devra etre 
+	 * initialise comme nombre maximum d'essais au cours de la partie.
 	 */
 	private int essaisRestant;
 	
 	/**
-	 * Cet entier est un constante qui sera utilis� durant toute la periode du jeu
-	 * comme nombre al�atoire entre 6 et 10. Cette nombre correspond au nombre de lettre ds mots
+	 * Cet entier est un constante qui sera utilise durant toute la periode du jeu
+	 * comme nombre aleatoire entre 6 et 10. Cette nombre correspond au nombre de lettre ds mots
 	 * surlequel  les joueurs vont se baser pour jouer. 
-	 * Ce nombre est lier � l'objet Partie, pas � une instance de Partie.
+	 * Ce nombre est lier e l'objet Partie, pas e une instance de Partie.
 	 */
 	private final static int TAILLEMOT = (int)(Math.random() * (11 - 6) + 6);
 	
 	/**
-	 * Cet entier designe l'�tape dans laquelle le ou les joueur(s) se situent.
+	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
 	private static int etape;
 	
 	/**
-	 * Ce Constructeur prenant aucun param�tre se charge d'initialiser le jeu par d�faut 
+	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
 	public Partie() {
@@ -69,7 +69,7 @@ public class Partie {
 	
 	/**
 	 * Ce Constructeur se charge d'initialiser la partie en tenant du nombre de joueurs
-	 * @param <i>nbJoueurs</i> entier charg� de donner le nombre de joueur de la partie.
+	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
 	 * @throws IOException 
 	 */
 	public Partie(int nbJoueurs) throws IOException {
@@ -95,10 +95,12 @@ public class Partie {
 		Joueur joueur1 = new Joueur();
 		participants = new Joueur[] {joueur1};
 		essaisRestant = 10;
+		classerMot(TAILLEMOT);
+		
 	}
 	
 	/**
-	 * Cette methode se charge de r�aliser la premiere m�thode.
+	 * Cette methode se charge de realiser la premiere methode.
 	 */
 	public void etapeUn() throws ArithmeticException {
 		if(nbJoueurs == 2) {
@@ -128,8 +130,8 @@ public class Partie {
 	}
 	
 	/**
-	 * Cette m�thode ce charge de r�aliser la deuxieme �tape qui correspond
-	 * � la finale o� le vainqueur joue seul pendant une periode de temps bien chronom�trer.
+	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
+	 * e la finale oe le vainqueur joue seul pendant une periode de temps bien chronometrer.
 	 */
 	public void etapeDeux(){
 		
@@ -140,7 +142,7 @@ public class Partie {
 	}
 	
 
-	public void classerMot(int x){
+	public static void classerMot(int x){
 		try {
 			Scanner input = new Scanner(new File("liste_francais.txt"));
 			File ffx = new File("mots" + x +"lettres.txt");
@@ -172,7 +174,7 @@ public class Partie {
 		}	
 	}
 	
-	public Mot choixMot(int num) {
+	public static Mot choixMot(int num) {
 		try {
 			Scanner input = new Scanner(new File("mots" + TAILLEMOT + "lettres.txt"));
 			int n = 0;

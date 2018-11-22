@@ -27,13 +27,19 @@ public class Essai {
 		System.out.println("Essai: " + nbEssai);
 		
 		Joueur joueur [] = Partie.getParticipants();
-		
-		
-		//classerMot(tailleMot);
-		int numMot = (int)(Math.random() * (cpt) + 1);
-		//choixMot(numMot);
+		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
+		while ((motATrouver = Partie.choixMot(numMot))==null) {
+			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
+			motATrouver = Partie.choixMot(numMot);
+		}
+				
+	}
+	
+	void proposition() {
 		
 	}
+	
+	
 	
 	public Essai(int i) {
 		Joueur joueurs [] = Partie.getParticipants();
