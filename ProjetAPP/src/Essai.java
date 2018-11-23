@@ -40,7 +40,7 @@ public class Essai {
 		System.out.println(motATrouver.getValeur());
 		initMotATrouver();
 		System.out.println(etatActuel.getValeur());
-		motsDejaJoues.add(motAtrouver.getValeur());
+		motsDejaJoues.add(motATrouver.getValeur());
 	}
 	
 	void traitementProposition() throws IOException {
