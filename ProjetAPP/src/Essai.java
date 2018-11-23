@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Essai {
 
 	/**
-	 * Mot que les joueurs doivent deviner.
+	 * Le mot que les joueurs doivent deviner.
 	 */
 	private Mot motATrouver;
 	
@@ -21,7 +21,6 @@ public class Essai {
 	
 	
 	public Essai() {
-		nbEssai++;
 		tailleMot = Partie.getTaillemot();
 		System.out.println("Nombre de lettres: " + tailleMot);
 		System.out.println("Essai: " + nbEssai);
@@ -32,7 +31,7 @@ public class Essai {
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
 		}
-				
+		nbEssai++;		
 	}
 	
 	void proposition() {
@@ -53,6 +52,18 @@ public class Essai {
 		return new Mot("el");
 	}
 	
+	/*
+	 * 	public Etat(String motATrouver){
+			char [] characteres = motATrouver.toCharArray();
+			for(int i = 0; i < characteres.length; i++) {
+				int rand = (int)(Math.random() * characteres.length);
+				char tmp = characteres[i];
+				characteres[i] = characteres[rand];
+				characteres[rand] = tmp;
+			}
+			this.motEtat = new String(characteres);
+		}
+	 */
 	
 	public static void main(String[] args) {
 		Essai e = new Essai();

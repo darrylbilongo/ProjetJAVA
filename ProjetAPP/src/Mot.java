@@ -18,7 +18,6 @@ public class Mot {
 		this.valeur = valeur;
 	}
 	
-
 	public String getValeur() {
 		return valeur;
 	}
