@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -55,6 +56,11 @@ public class Partie {
 	private static int etape;
 	
 	/**
+	 * Cet attribut contient tous les mots déjà joués.
+	 */
+	private static ArrayList<String> motsDejaJoues;
+	
+	/**
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
@@ -80,6 +86,7 @@ public class Partie {
 			Joueur joueur2 = new Joueur();
 			participants = new Joueur[] {joueur1, joueur2};
 			essaisRestant = 10;
+			classerMot(TAILLEMOT);
 		}
 		else if(nbJoueurs == 1) {
 			init();
@@ -116,9 +123,13 @@ public class Partie {
 		else if(nbJoueurs == 1) {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai = new Essai();
+				String s = essai.getMotATrouver().getValeur();
 				vainqueur = participants[0];
-			
+				while(motsDejaJoues.contains(s)) {
+					essai = new Essai();
+				}
 				essaisRestant--;
+				motsDejaJoues.add(s);
 			}
 		}
 		else {
@@ -155,7 +166,7 @@ public class Partie {
 					String line = input.nextLine();
 					String motDuJeu = "";
 					
-					if(line.length() == x && !(line.contains("-") || line.contains("!"))) {
+					if(line.length() == x && !(line.contains(" ") || line.contains("-") || line.contains("!"))) {
 						
 						motDuJeu += line + "\r\n";
 						cpt++;
