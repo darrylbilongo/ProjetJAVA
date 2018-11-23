@@ -30,11 +30,13 @@ public class Essai {
 	
 	public Essai() {
 		tailleMot = Partie.getTaillemot();
+		motsDejaJoues = new ArrayList<String>();
+		lettresActuelles = new ArrayList<String>();
 		System.out.println("\nNombre de lettres: " + tailleMot);
 		System.out.println("Essai: " + nbEssai);
 		Joueur joueur [] = Partie.getParticipants();
 		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null/* && motsDejaJoues.contains(motATrouver.getValeur())*/)
+		while((motATrouver = Partie.choixMot(numMot)) == null && motsDejaJoues.contains(motATrouver.getValeur()))
 		{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
@@ -43,7 +45,7 @@ public class Essai {
 		System.out.println(motATrouver.getValeur());
 		initMotATrouver();
 		System.out.println(etatActuel.getValeur());
-		//motsDejaJoues.add(motATrouver.getValeur());
+		motsDejaJoues.add(motATrouver.getValeur());
 	}
 	
 	void traitementProposition() throws IOException {
@@ -94,7 +96,7 @@ public class Essai {
 		for(int i = 0; i < tailleMot; i++) {
 			if(i == 0 || i == 2) {
 				etatInit += lettreMot[i];
-				//lettresActuelles.add(lettreMot[i]);
+				lettresActuelles.add(lettreMot[i]);
 			}
 			else {
 				etatInit += "*";
@@ -114,19 +116,6 @@ public class Essai {
 	public Mot motDansDict(int nbDeLettres) {
 		return new Mot("el");
 	}
-	
-	/*
-	 * 	public Etat(String motATrouver){
-			char [] characteres = motATrouver.toCharArray();
-			for(int i = 0; i < characteres.length; i++) {
-				int rand = (int)(Math.random() * characteres.length);
-				char tmp = characteres[i];
-				characteres[i] = characteres[rand];
-				characteres[rand] = tmp;
-			}
-			this.motEtat = new String(characteres);
-		}
-	 */
 	
 	public static void main(String[] args) {
 		Partie p = new Partie();
