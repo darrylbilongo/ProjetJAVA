@@ -120,7 +120,6 @@ public class Partie {
 				Essai essai = new Essai();
 				String s = essai.getMotATrouver().getValeur();
 				essaisRestant--;
-				motsDejaJoues.add(s);
 			}
 		}
 		else {
