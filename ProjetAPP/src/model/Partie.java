@@ -1,3 +1,4 @@
+package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -117,9 +118,14 @@ public class Partie {
 		}
 		else if(nbJoueurs == 1) {
 			for(int i = 0; i <= 10; i++) {
-				Essai essai = new Essai();
-				String s = essai.getMotATrouver().getValeur();
-				essaisRestant--;
+				Essai essai;
+				try {
+					essai = new Essai();
+					String s = essai.getMotATrouver().getValeur();
+					essaisRestant--;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		else {
@@ -137,8 +143,12 @@ public class Partie {
 	public void etapeDeux(){
 		
 		for(int i = 0; i <= 9; i++) {
-			Essai essai = new Essai();
-			essaisRestant--;
+			try {
+				Essai essai = new Essai();
+				essaisRestant--;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

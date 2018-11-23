@@ -1,9 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+package model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Essai {
 
@@ -20,7 +20,7 @@ public class Essai {
 	private int tailleMot;
 	private static int nbEssai = 0;
 	
-	private ArrayList<String> lettresActuelles;
+	private String [] lettresActuelles;
 	
 	/**
 	 * Cet attribut contient tous les mots déjà joués.
@@ -28,56 +28,74 @@ public class Essai {
 	private static ArrayList<String> motsDejaJoues;
 	
 	
-	public Essai() {
+	public Essai() throws IOException {
 		tailleMot = Partie.getTaillemot();
+		lettresActuelles = new String[tailleMot];
 		motsDejaJoues = new ArrayList<String>();
-		lettresActuelles = new ArrayList<String>();
-		System.out.println("\nNombre de lettres: " + tailleMot);
-		System.out.println("Essai: " + nbEssai);
-		Joueur joueur [] = Partie.getParticipants();
+		joueurActuel = Partie.getParticipants()[0];
 		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 		while((motATrouver = Partie.choixMot(numMot)) == null && motsDejaJoues.contains(motATrouver.getValeur()))
 		{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
 		}
-		nbEssai++;		
-		System.out.println(motATrouver.getValeur());
+		nbEssai++;
 		initMotATrouver();
-		System.out.println(etatActuel.getValeur());
-		motsDejaJoues.add(motATrouver.getValeur());
+		System.out.println(motATrouver.getValeur());
+		System.out.println("Le mot à trouver est: \n" + etatActuel.getValeur());
+		for(int i = 0; i < 6; i++) {
+			Mot m = joueurActuel.proposerMot();
+			if(estTrouve(m))
+				break;
+			
+			System.out.println(etatActuel.getValeur());
+		}
+		System.out.println(motATrouver.getValeur());
 	}
 	
-	void traitementProposition() throws IOException {
+	private boolean estTrouve(Mot m) throws IOException {
 		Joueur joueur = Partie.getParticipants()[0];
-		Mot mot ;
-		mot = joueur.proposerMot();
-		if(mot.getValeur().equals(motATrouver.getValeur())) {
+		if(m.getValeur().equals(motATrouver.getValeur())) {
 			joueur.pointsPlus();
+			etatActuel = motATrouver;
+			return true;
 		}
 		else {
-			if(verifierMot(mot) && mot.getValeur().length() == tailleMot) {
-				System.out.println();
-			}
-			else {
-				System.out.println("\tPas bon du tout!");
+			if(verifierMot(m) && m.getValeur().length() == tailleMot) {
+				traiterMot(m);
 			}
 		}
+		return false;
 		
 	}
 	
 	void traiterMot(Mot mot) {
 		String s = mot.getValeur().toUpperCase();
 		String m = motATrouver.getValeur().toUpperCase();
-		String etat = "";
 		String lettres[] = s.split("");
 		for(int i = 0; i < s.length(); i++) {
+			
 			if(m.indexOf(lettres[i]) == i) {
-				etat += lettres[i];
+				lettresActuelles[i] = lettres[i];
+			}
+			
+			else if(m.contains(lettres[i])) {
+				lettresActuelles[i] = "+";
+				lettres[i] = "";
 			}
 		}
+		updateEtatActuel();
 	}
 	
+	private void updateEtatActuel() {
+		String s = "";
+		for(int i = 0; i < lettresActuelles.length; i++) {
+			s += lettresActuelles[i];
+		}
+		etatActuel.setValeur(s);
+	}
+	
+		
 	boolean verifierMot(Mot mot) {
 		Scanner input = new Scanner("liste_francais.txt");
 		while(input.hasNextLine()) {
@@ -90,16 +108,24 @@ public class Essai {
 		return false;
 	}
 	
+	public Mot chronometre(Joueur j) {
+		Timer chrono = new Timer();
+		Temps temps;
+		chrono.schedule((temps=new Temps()), 1000, 1000);
+		return temps.getMot();
+	}
+	
 	public void initMotATrouver() {
 		String lettreMot[] = motATrouver.getValeur().toUpperCase().split("");
 		String etatInit = "";
 		for(int i = 0; i < tailleMot; i++) {
 			if(i == 0 || i == 2) {
 				etatInit += lettreMot[i];
-				lettresActuelles.add(lettreMot[i]);
+				lettresActuelles[i] = lettreMot[i];
 			}
 			else {
 				etatInit += "*";
+				lettresActuelles[i] = "*";
 			}
 		}
 		etatActuel = new Mot(etatInit);
@@ -117,7 +143,7 @@ public class Essai {
 		return new Mot("el");
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Partie p = new Partie();
 		Essai e = new Essai();
 	}
