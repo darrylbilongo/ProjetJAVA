@@ -42,7 +42,13 @@ public class Joueur {
 	 */
 	private int points;
 	
+	/**
+	 * 
+	 */
+	private boolean erreur;
 	
+
+
 	/**
 	 * Construit un joueur avec un nom, prenom, pseudo et sexe.
 	 * @param nom le nom du joeur
@@ -57,6 +63,7 @@ public class Joueur {
 		this.sexe = sexe;
 		this.main = false;
 		this.points = 0;
+		this.erreur = false;
 	}
 	
 	/**
@@ -78,6 +85,13 @@ public class Joueur {
 		pseudo = in.readLine();
 	}
 	
+	public boolean isErreur() {
+		return erreur;
+	}
+
+	public void setErreur(boolean erreur) {
+		this.erreur = erreur;
+	}
 	
 	/**
 	 * 

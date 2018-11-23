@@ -123,6 +123,7 @@ public class Partie {
 				try {
 					essai = new Essai();
 					String s = essai.getMotATrouver().getValeur();
+					System.out.println(participants[0].getPoints());
 					essaisRestant--;
 				} catch (IOException e) {
 					e.printStackTrace();
