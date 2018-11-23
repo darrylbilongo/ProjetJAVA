@@ -1,16 +1,17 @@
 package model;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Essai {
 
 	/**
 	 * Le mot que les joueurs doivent deviner.
 	 */
-	private Mot motATrouver;
+	private Mot motATrouver = new Mot("");
 	
 	/**
 	 * 
@@ -34,7 +35,8 @@ public class Essai {
 		motsDejaJoues = new ArrayList<String>();
 		joueurActuel = Partie.getParticipants()[0];
 		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && motsDejaJoues.contains(motATrouver.getValeur()))
+		while((motATrouver = Partie.choixMot(numMot)) == null && 
+				motsDejaJoues.contains(motATrouver.getValeur()))
 		{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
@@ -46,12 +48,12 @@ public class Essai {
 		for(int i = 0; i < 6; i++) {
 			Mot m = joueurActuel.proposerMot();
 			if(estTrouve(m))
-				break;
-			
+				break;			
 			System.out.println(etatActuel.getValeur());
 		}
 		System.out.println(motATrouver.getValeur());
 	}
+	
 	
 	private boolean estTrouve(Mot m) throws IOException {
 		Joueur joueur = Partie.getParticipants()[0];
@@ -70,17 +72,19 @@ public class Essai {
 	}
 	
 	void traiterMot(Mot mot) {
-		String s = mot.getValeur().toUpperCase();
-		String m = motATrouver.getValeur().toUpperCase();
+		String s = mot.getValeur();
+		String m = motATrouver.getValeur();
 		String lettres[] = s.split("");
 		for(int i = 0; i < s.length(); i++) {
 			
 			if(m.indexOf(lettres[i]) == i) {
 				lettresActuelles[i] = lettres[i];
+				System.out.println(lettres[i] + " " + lettresActuelles[i]);
 			}
 			
 			else if(m.contains(lettres[i])) {
 				lettresActuelles[i] = "+";
+				System.out.println(lettresActuelles[i]);
 				lettres[i] = "";
 			}
 		}
@@ -94,13 +98,13 @@ public class Essai {
 		}
 		etatActuel.setValeur(s);
 	}
-	
+
 		
-	boolean verifierMot(Mot mot) {
-		Scanner input = new Scanner("liste_francais.txt");
+	boolean verifierMot(Mot mot) throws FileNotFoundException {
+		Scanner input = new Scanner(new File("liste_francais.txt"));
 		while(input.hasNextLine()) {
 			String line = input.nextLine();
-			if(line == mot.getValeur()) {
+			if(Mot.formatMot(line).equals(Mot.formatMot(mot.getValeur()))){
 				 return true;
 			}
 		}
@@ -116,7 +120,7 @@ public class Essai {
 	}
 	
 	public void initMotATrouver() {
-		String lettreMot[] = motATrouver.getValeur().toUpperCase().split("");
+		String lettreMot[] = motATrouver.getValeur().split("");
 		String etatInit = "";
 		for(int i = 0; i < tailleMot; i++) {
 			if(i == 0 || i == 2) {
@@ -143,9 +147,13 @@ public class Essai {
 		return new Mot("el");
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args){
 		Partie p = new Partie();
-		Essai e = new Essai();
+		try {
+			Essai e = new Essai();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Mot getMotATrouver() {

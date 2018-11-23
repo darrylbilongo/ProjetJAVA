@@ -2,6 +2,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.Normalizer;
 
 public class Mot {
 	
@@ -12,11 +13,16 @@ public class Mot {
 	
 	public Mot () throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		valeur = in.readLine();
+		valeur = formatMot(in.readLine());
+	}
+	
+	public static String formatMot(String valeur) {
+		String  mot = Normalizer.normalize(valeur, Normalizer.Form.NFD);
+		return mot.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
 	}
 	
 	public Mot(String valeur) {
-		this.valeur = valeur;
+		this.valeur = formatMot(valeur);
 	}
 	
 	public String getValeur() {
