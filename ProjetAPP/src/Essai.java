@@ -19,6 +19,11 @@ public class Essai {
 	private int tailleMot;
 	private static int nbEssai = 0;
 	
+	/**
+	 * Cet attribut contient tous les mots déjà joués.
+	 */
+	private static ArrayList<String> motsDejaJoues;
+	
 	
 	public Essai() {
 		tailleMot = Partie.getTaillemot();
@@ -26,7 +31,7 @@ public class Essai {
 		System.out.println("Essai: " + nbEssai);
 		Joueur joueur [] = Partie.getParticipants();
 		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null)
+		while((motATrouver = Partie.choixMot(numMot)) == null && motsDejaJoues.contains(s))
 		{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
@@ -35,6 +40,7 @@ public class Essai {
 		System.out.println(motATrouver.getValeur());
 		initMotATrouver();
 		System.out.println(etatActuel.getValeur());
+		motsDejaJoues.add(motAtrouver.getValeur());
 	}
 	
 	void traitementProposition() throws IOException {

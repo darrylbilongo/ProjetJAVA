@@ -56,11 +56,6 @@ public class Partie {
 	private static int etape;
 	
 	/**
-	 * Cet attribut contient tous les mots déjà joués.
-	 */
-	private static ArrayList<String> motsDejaJoues;
-	
-	/**
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
@@ -124,7 +119,6 @@ public class Partie {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai = new Essai();
 				String s = essai.getMotATrouver().getValeur();
-				vainqueur = participants[0];
 				while(motsDejaJoues.contains(s)) {
 					essai = new Essai();
 				}
