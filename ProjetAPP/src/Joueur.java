@@ -72,7 +72,7 @@ public class Joueur {
 	 * 
 	 */
 	public Joueur() throws IOException {
-		System.out.println("Vueillez ecrire votre pseudo: \n");
+		System.out.println("Vueillez ecrire votre pseudo: ");
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		pseudo = in.readLine();
 	}

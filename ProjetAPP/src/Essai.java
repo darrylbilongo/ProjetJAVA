@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Essai {
@@ -19,6 +20,8 @@ public class Essai {
 	private int tailleMot;
 	private static int nbEssai = 0;
 	
+	private ArrayList<String> lettresActuelles;
+	
 	/**
 	 * Cet attribut contient tous les mots déjà joués.
 	 */
@@ -31,7 +34,7 @@ public class Essai {
 		System.out.println("Essai: " + nbEssai);
 		Joueur joueur [] = Partie.getParticipants();
 		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && motsDejaJoues.contains(motAtrouver.getValeur()))
+		while((motATrouver = Partie.choixMot(numMot)) == null/* && motsDejaJoues.contains(motATrouver.getValeur())*/)
 		{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
@@ -40,7 +43,7 @@ public class Essai {
 		System.out.println(motATrouver.getValeur());
 		initMotATrouver();
 		System.out.println(etatActuel.getValeur());
-		motsDejaJoues.add(motATrouver.getValeur());
+		//motsDejaJoues.add(motATrouver.getValeur());
 	}
 	
 	void traitementProposition() throws IOException {
@@ -55,18 +58,20 @@ public class Essai {
 				System.out.println();
 			}
 			else {
-				System.out.println("\tPas bon du tout");
+				System.out.println("\tPas bon du tout!");
 			}
 		}
 		
 	}
 	
 	void traiterMot(Mot mot) {
-		String s = mot.getValeur();
+		String s = mot.getValeur().toUpperCase();
+		String m = motATrouver.getValeur().toUpperCase();
+		String etat = "";
 		String lettres[] = s.split("");
-		for(int i = 0; i <= tailleMot; i++) {
-			if(s.indexOf(lettres[i]) == i) {
-				//mo
+		for(int i = 0; i < s.length(); i++) {
+			if(m.indexOf(lettres[i]) == i) {
+				etat += lettres[i];
 			}
 		}
 	}
@@ -75,7 +80,6 @@ public class Essai {
 		Scanner input = new Scanner("liste_francais.txt");
 		while(input.hasNextLine()) {
 			String line = input.nextLine();
-			
 			if(line == mot.getValeur()) {
 				 return true;
 			}
@@ -90,6 +94,7 @@ public class Essai {
 		for(int i = 0; i < tailleMot; i++) {
 			if(i == 0 || i == 2) {
 				etatInit += lettreMot[i];
+				//lettresActuelles.add(lettreMot[i]);
 			}
 			else {
 				etatInit += "*";
