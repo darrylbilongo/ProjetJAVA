@@ -17,7 +17,7 @@ public class Joueur {
 	private String nom;
 	
 	/**
-	 * Le prénom du joueur
+	 * Le prenom du joueur
 	 */
 	private String prenom;
 	
@@ -45,7 +45,7 @@ public class Joueur {
 	/**
 	 * Construit un joueur avec un nom, prenom, pseudo et sexe.
 	 * @param nom le nom du joeur
-	 * @param prenom le prénom du joueur
+	 * @param prenom le prenom du joueur
 	 * @param pseudo le pseudo du joueur
 	 * @param sexe le sexe du joueur
 	 */
@@ -72,6 +72,7 @@ public class Joueur {
 	 * 
 	 */
 	public Joueur() throws IOException {
+		System.out.println("Vueillez ecrire votre pseudo: \n");
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		pseudo = in.readLine();
 	}
@@ -87,7 +88,7 @@ public class Joueur {
 
 
 	/**
-	 * Cette méthode permet de définir le nom du joueur
+	 * Cette methode permet de definir le nom du joueur
 	 * @param nom le nouveau nom à attribuer au joueur
 	 */
 	public void setNom(String nom) {
@@ -158,7 +159,7 @@ public class Joueur {
 
 
 	/**
-	 * Cette méthode permet de donner ou enlever la main à un joueur
+	 * Cette methode permet de donner ou enlever la main à un joueur
 	 * @param main
 	 */
 	public void setMain(boolean main) {
@@ -185,13 +186,13 @@ public class Joueur {
 
 	
 	/**
-	 * Retourne une représentation textuelle du joueur contenant
-	 * son nom, prénom, pseudo
+	 * Retourne une representation textuelle du joueur contenant
+	 * son nom, prenom, pseudo
 	 */
 	@Override
 	public String toString() {
 		String tmp = "";
-		tmp = "Nom: " + nom + "\nPrénom: " + prenom + "\nPseudo: " + pseudo + "\nPoints: " + points;
+		tmp = "Nom: " + nom + "\nPrenom: " + prenom + "\nPseudo: " + pseudo + "\nPoints: " + points;
 		return tmp;
 	}
 
@@ -205,20 +206,20 @@ public class Joueur {
 	}
 	
 	/**
-	 * Cette méthode demande au joueur ayant la main
+	 * Cette methode demande au joueur ayant la main
 	 * d'encoder une proposition pour le mot à deviner
-	 * @return Le mot encodé par le joueur sur la console
+	 * @return Le mot encode par le joueur sur la console
 	 * @throws IOException 
 	 */
 	public Mot proposerMot() throws IOException {
 		Mot proposition = new Mot();
-		String mot = JOptionPane.showInputDialog("Entrez votre proposition de mot");
-		proposition.setValeur(mot);
+		/*String mot = JOptionPane.showInputDialog("Entrez votre proposition de mot");
+		proposition.setValeur(mot);*/
 		return proposition;
 	}
 	
 	/**
-	 * Cette méthode ajoute 50 points au joueur pour chaque bonne réponse
+	 * Cette methode ajoute 50 points au joueur pour chaque bonne reponse
 	 */
 	public void pointsPlus() {
 		this.points += 50;

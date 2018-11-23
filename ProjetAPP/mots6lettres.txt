@@ -1007,7 +1007,6 @@ empire
 emplir
 emploi
 empoté
-en bas
 enclin
 enclos
 encore
@@ -1323,7 +1322,6 @@ gâchis
 gadget
 gadoue
 Gaëlle
-gager 
 gagnée
 gagner
 gaieté
@@ -2594,7 +2592,6 @@ russes
 Russie
 rustre
 rythme
-sa vie
 sabine
 sables
 sachem
@@ -3070,3 +3067,6 @@ violet
 violon
 vipère
 virage
+virent
+Virgin
+visage
