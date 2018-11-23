@@ -119,9 +119,6 @@ public class Partie {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai = new Essai();
 				String s = essai.getMotATrouver().getValeur();
-				while(motsDejaJoues.contains(s)) {
-					essai = new Essai();
-				}
 				essaisRestant--;
 				motsDejaJoues.add(s);
 			}
