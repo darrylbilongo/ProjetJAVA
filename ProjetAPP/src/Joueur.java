@@ -213,8 +213,6 @@ public class Joueur {
 	 */
 	public Mot proposerMot() throws IOException {
 		Mot proposition = new Mot();
-		/*String mot = JOptionPane.showInputDialog("Entrez votre proposition de mot");
-		proposition.setValeur(mot);*/
 		return proposition;
 	}
 	
