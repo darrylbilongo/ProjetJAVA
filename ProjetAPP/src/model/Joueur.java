@@ -10,8 +10,7 @@ import javax.swing.JOptionPane;
  * @author Darryl Bilongo 2TL2
  *
  */
-public class Joueur {
-	
+public class Joueur {	
 	/**
 	 *  Le nom du joueur
 	 */

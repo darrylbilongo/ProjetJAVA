@@ -25,7 +25,7 @@ class JoueurTest {
 	public void testToString() {
 		Joueur j = new Joueur("Dewulf", "Arnaud", "darnaud", "M");
 		j.pointsPlus();
-		assertEquals("Nom: Dewulf\nPre©nom: Arnaud\nPseudo: darnaud\nPoints: 50", j.toString());
+		assertEquals("Nom: Dewulf\nPrenom: Arnaud\nPseudo: darnaud\nPoints: 50", j.toString());
 	}
 	
 	@Test

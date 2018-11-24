@@ -24,7 +24,7 @@ public class Essai {
 	private String [] lettresActuelles;
 	
 	/**
-	 * Cet attribut contient tous les mots déjà joués.
+	 * Cet attribut contient tous les mots dÃ©ja jouÃ©s.
 	 */
 	private static ArrayList<String> motsDejaJoues;
 	
@@ -43,7 +43,7 @@ public class Essai {
 		nbEssai++;
 		initMotATrouver();
 		System.out.println(motATrouver.getValeur());
-		System.out.println("Le mot à trouver est: \n" + etatActuel.getValeur());
+		System.out.println("Le mot trouver est: \n" + etatActuel.getValeur());
 		for(int i = 0; i < 6; i++) {
 			Mot m = joueurActuel.proposerMot();
 			if(estTrouve(m))

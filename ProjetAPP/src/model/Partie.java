@@ -28,12 +28,12 @@ public class Partie {
 	private int nbJoueurs;
 	
 	/**
-	 * Le gagnant du jeu dans chaque partie.
+	 * Le vainqueur de chaque partie.
 	 */
 	private static Joueur vainqueur;
 	
 	/**
-	 * Un tableau donnant les joueurs de la partie.
+	 * Un tableau contenant les joueurs de la partie
 	 */
 	private static Joueur participants[];
 	
@@ -99,8 +99,7 @@ public class Partie {
 		Joueur joueur1 = new Joueur();
 		participants = new Joueur[] {joueur1};
 		essaisRestant = 10;
-		classerMot(TAILLEMOT);
-		
+		classerMot(TAILLEMOT);	
 	}
 	
 	/**
