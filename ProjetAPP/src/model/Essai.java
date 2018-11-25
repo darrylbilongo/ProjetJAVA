@@ -3,15 +3,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Scanner;
 import java.util.Timer;
 
-public class Essai {
+public class Essai extends Observable{
 
 	/**
 	 * Le mot que les joueurs doivent deviner.
 	 */
-	private Mot motATrouver = new Mot("");
+	private Mot motATrouver;
 	
 	/**
 	 * 
@@ -33,12 +34,12 @@ public class Essai {
 	
 	public Essai() throws IOException {
 		initEssai();
-		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && 
+		int numMot = (int)(Math.random() * (Motus.getCpt()) + 1);
+		while((motATrouver = Motus.choixMot(numMot)) == null && 
 				motsDejaJoues.contains(motATrouver.getValeur()))
 		{
-			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
-			motATrouver = Partie.choixMot(numMot);
+			numMot = (int)(Math.random() * (Motus.getCpt()) + 1);
+			motATrouver = Motus.choixMot(numMot);
 		}
 		nbEssai++;
 		initMotATrouver();
@@ -47,23 +48,28 @@ public class Essai {
 		for(int i = 0; i < 6; i++) {
 			Mot m = joueurActuel.proposerMot();
 			if(estTrouve(m))
-				break;			
-			System.out.println(etatActuel.getValeur());
+				break;
+			
+			updateEtatActuel();
+			setChanged();
+			notifyObservers();
 		}
 		System.out.println(motATrouver.getValeur());
 	}
 	
 	public void initEssai() {
-		tailleMot = Partie.getTaillemot();
+		motATrouver = new Mot("");
+		tailleMot = Motus.getTaillemot();
 		lettresActuelles = new String[tailleMot];
 		motsDejaJoues = new ArrayList<String>();
 		motsDejaUtilises = new ArrayList<String>();
-		joueurActuel = Partie.getParticipants()[0];
+		joueurActuel = Motus.getParticipants()[0];
 	}
 	
 	
+	
 	private boolean estTrouve(Mot m) throws IOException {
-		Joueur joueur = Partie.getParticipants()[0];
+		Joueur joueur = Motus.getParticipants()[0];
 		if(m.getValeur().equals("")) {
 			joueur.setErreur(true);
 			return false;
@@ -103,7 +109,6 @@ public class Essai {
 				
 			}
 		}
-		updateEtatActuel();
 	}
 	
 	private void updateEtatActuel() {
@@ -153,16 +158,7 @@ public class Essai {
 	}
 	
 	public Essai(int i) {
-		Joueur joueurs [] = Partie.getParticipants();
-	}
-	
-	public static void main(String[] args){
-		Partie p = new Partie();
-		try {
-			Essai e = new Essai();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Joueur joueurs [] = Motus.getParticipants();
 	}
 
 	public Mot getMotATrouver() {
