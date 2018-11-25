@@ -66,8 +66,7 @@ public class Essai extends Observable{
 		joueurActuel = Motus.getParticipants()[0];
 	}
 	
-	
-	
+
 	private boolean estTrouve(Mot m) throws IOException {
 		Joueur joueur = Motus.getParticipants()[0];
 		if(m.getValeur().equals("")) {

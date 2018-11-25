@@ -88,6 +88,7 @@ public class Joueur {
 		}*/
 	}
 	
+	/* ???????? */
 	public boolean isErreur() {
 		return erreur;
 	}

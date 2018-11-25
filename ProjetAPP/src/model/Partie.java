@@ -115,8 +115,9 @@ public class Partie extends Observable{
 			for(int i = 0; i <= 10; i++) {
 				Essai essai = new Essai(2);
 				for(int j = 0; j <= participants.length; j++) {
-					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints()))
+					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
 						vainqueur = participants[j];
+					}
 				}
 				essaisRestant--;
 			}
@@ -139,12 +140,11 @@ public class Partie extends Observable{
 		}
 
 		essaisRestant = 10;
-		
 	}
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
-	 * e la finale oe le vainqueur joue seul pendant une periode de temps bien chronometrer.
+	 * à la finale où le vainqueur joue seul pour determiner l'issue de la partie.
 	 */
 	public void etapeDeux(){
 		for(int i = 0; i <= 9; i++) {
@@ -178,6 +178,7 @@ public class Partie extends Observable{
 					}
 					
 					motsXlettres.write(motDuJeu);
+					motsXlettres.close();
 				}
 				input.close();
 			}
@@ -197,9 +198,9 @@ public class Partie extends Observable{
 			while(input.hasNextLine()) {
 				n++;
 				String line = input.nextLine();
-				
 				if(n == num) {
-					 return new Mot(line);
+					input.close();
+					return new Mot(line);
 				}
 			}
 			input.close();
@@ -207,6 +208,7 @@ public class Partie extends Observable{
 		catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 	

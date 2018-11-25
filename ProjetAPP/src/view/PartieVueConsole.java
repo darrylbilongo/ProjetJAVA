@@ -8,7 +8,7 @@ import model.Partie;
 
 public class PartieVueConsole extends PartieVue{
 	
-	PartieVueConsole(Partie model, PartieController controller) {
+	public PartieVueConsole(Partie model, PartieController controller) {
 		super(model, controller);
 		// TODO Auto-generated constructor stub
 	}
@@ -20,13 +20,13 @@ public class PartieVueConsole extends PartieVue{
 	
 	public void initConsole() {
 		System.out.println("Bonjour, \nBienvenu(e) à Motus:");
-		System.out.println("Vueillez Entrez un pseudo s'il vous plait: ");
+		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		sc = new Scanner(System.in);
 		pseudoJoueur = sc.next();
-		System.out.println("Vueillez Entrez votre nom s'il vous plait: ");
+		System.out.println("Veuillez Entrez votre nom s'il vous plait: ");
 		sc = new Scanner(System.in);
 		nomJoueur = sc.next();
-		System.out.println("Vueillez Entrez votre pseudo s'il vous plait: ");
+		System.out.println("Veuillez Entrez votre pseudo s'il vous plait: ");
 		sc = new Scanner(System.in);
 		prenomJoueur = sc.next();
 	}
