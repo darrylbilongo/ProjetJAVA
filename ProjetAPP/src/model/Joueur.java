@@ -78,10 +78,14 @@ public class Joueur {
 	 * @throws IOException 
 	 * 
 	 */
-	public Joueur() throws IOException {
-		System.out.println("Vueillez ecrire votre pseudo: ");
+	public Joueur(){
+		/*System.out.println("Vueillez ecrire votre pseudo: ");
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		pseudo = in.readLine();
+		try {
+			pseudo = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
 	}
 	
 	public boolean isErreur() {
@@ -206,7 +210,7 @@ public class Joueur {
 	@Override
 	public String toString() {
 		String tmp = "";
-		tmp = "Nom: " + nom + "\nPrenom: " + prenom + "\nPseudo: " + pseudo + "\nPoints: " + points;
+		tmp = "Nom: " + nom + "\nPrenom: " + prenom + "\nPseudo: " + pseudo + (points == 0? "." : "\nPoints: " + points + ".");
 		return tmp;
 	}
 

@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
  * NUMERO DU GROUPE: 17
  * @date 16/11/2018
  */
-public class Partie {
+public class Motus extends Observable{
 	private static int cpt = 0;
 	
 	/**
@@ -47,7 +48,7 @@ public class Partie {
 	 * Cet entier est un constante qui sera utilise durant toute la periode du jeu
 	 * comme nombre aleatoire entre 6 et 10. Cette nombre correspond au nombre de lettre ds mots
 	 * surlequel  les joueurs vont se baser pour jouer. 
-	 * Ce nombre est lier e l'objet Partie, pas e une instance de Partie.
+	 * Ce nombre est lier e l'objet Motus, pas e une instance de Motus.
 	 */
 	private final static int TAILLEMOT = (int)(Math.random() * (11 - 6) + 6);
 	
@@ -61,13 +62,11 @@ public class Partie {
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
-	public Partie() {
+	public Motus() {
 		nbJoueurs = 1;
-		try {
-			init();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		init();
+		setChanged();
+		notifyObservers();
 	}
 	
 	/**
@@ -75,7 +74,7 @@ public class Partie {
 	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
 	 * @throws IOException 
 	 */
-	public Partie(int nbJoueurs) throws IOException {
+	public Motus(int nbJoueurs){
 		this.nbJoueurs = nbJoueurs;
 		if(nbJoueurs == 2) {
 			etape = 1;
@@ -84,17 +83,29 @@ public class Partie {
 			participants = new Joueur[] {joueur1, joueur2};
 			essaisRestant = 10;
 			classerMot(TAILLEMOT);
+			setChanged();
+			notifyObservers();
 		}
 		else if(nbJoueurs == 1) {
 			init();
+			setChanged();
+			notifyObservers();
 		}
+	}
+	
+	public String toString() {
+		String result = "";
+		if(nbJoueurs == 1) {
+			result = "Pour la partie " + etape + ", Voici le résumé /n" + participants[0] ;
+		}
+		return result;
 	}
 	
 	/***
 	 * Cette methode se chargera d'initialiser la partie par defaut avec juste un seul joueur.
 	 * @throws IOException 
 	 */
-	private void init() throws IOException {
+	private void init(){
 		etape = 1;
 		Joueur joueur1 = new Joueur();
 		participants = new Joueur[] {joueur1};
@@ -114,6 +125,8 @@ public class Partie {
 						vainqueur = participants[j];
 				}
 				essaisRestant--;
+				setChanged();
+				notifyObservers();
 			}
 		}
 		else if(nbJoueurs == 1) {
@@ -122,8 +135,9 @@ public class Partie {
 				try {
 					essai = new Essai();
 					String s = essai.getMotATrouver().getValeur();
-					System.out.println(participants[0].getPoints());
 					essaisRestant--;
+					setChanged();
+					notifyObservers();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -147,13 +161,14 @@ public class Partie {
 			try {
 				Essai essai = new Essai();
 				essaisRestant--;
+				setChanged();
+				notifyObservers();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
-
 	public static void classerMot(int x){
 		try {
 			Scanner input = new Scanner(new File("liste_francais.txt"));
@@ -206,9 +221,8 @@ public class Partie {
 		return null;
 	}
 	
-
 	/**
-	 * Getters et Setters des differents attributs de Partie.
+	 * Getters et Setters des differents attributs de Motus.
 	 */
 	
 	public int getNbJoueurs() {
@@ -240,7 +254,7 @@ public class Partie {
 	}
 
 	public static void setEtape(int etape) {
-		Partie.etape = etape;
+		Motus.etape = etape;
 	}
 
 
@@ -249,7 +263,7 @@ public class Partie {
 	}
 
 	public static void setParticipants(Joueur[] participants) {
-		Partie.participants = participants;
+		Motus.participants = participants;
 	}
 
 	public static int getTaillemot() {
@@ -261,7 +275,7 @@ public class Partie {
 	}
 
 	public static void setCpt(int cpt) {
-		Partie.cpt = cpt;
+		Motus.cpt = cpt;
 	}
 	
 	
