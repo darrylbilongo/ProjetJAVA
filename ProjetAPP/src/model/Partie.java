@@ -10,7 +10,6 @@ import java.util.Observable;
 import java.util.Scanner;
 import java.io.IOException;
 
-
 /**
  * e partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
@@ -65,42 +64,47 @@ public class Partie extends Observable{
 	public Partie() {
 		nbJoueurs = 1;
 		try {
-			init();
+			init(nbJoueurs);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * Ce Constructeur se charge d'initialiser la partie en tenant du nombre de joueurs
+	 * Ce Constructeur se charge d'initialiser la partie en tenant compte du nombre de joueurs
 	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
 	 * @throws IOException 
 	 */
 	public Partie(int nbJoueurs) throws IOException {
 		this.nbJoueurs = nbJoueurs;
 		if(nbJoueurs == 2) {
-			etape = 1;
-			Joueur joueur1 = new Joueur();
-			Joueur joueur2 = new Joueur();
-			participants = new Joueur[] {joueur1, joueur2};
-			essaisRestant = 10;
-			classerMot(TAILLEMOT);
+			init(2);
 		}
 		else if(nbJoueurs == 1) {
-			init();
+			init(1);
 		}
 	}
 	
-	/***
-	 * Cette methode se chargera d'initialiser la partie par defaut avec juste un seul joueur.
-	 * @throws IOException 
+	/**
+	 * Cette méthode initialise la partie 
+	 * @param init le nombre de joeurs dans la partie à initialiser
+	 * @throws IOException
 	 */
-	private void init() throws IOException {
-		etape = 1;
-		Joueur joueur1 = new Joueur();
-		participants = new Joueur[] {joueur1};
-		essaisRestant = 10;
-		classerMot(TAILLEMOT);	
+	private void init(int init) throws IOException {
+		if(init == 1) {
+			etape = 1;
+			Joueur joueur1 = new Joueur();
+			participants = new Joueur[] {joueur1};
+			essaisRestant = 10;
+			classerMot(TAILLEMOT);	
+		}
+		else if(init == 2) {
+			etape = 1;
+			Joueur joueur1 = new Joueur();
+			participants = new Joueur[] {joueur1};
+			essaisRestant = 10;
+			classerMot(TAILLEMOT);	
+		}
 	}
 	
 	/**
@@ -143,7 +147,6 @@ public class Partie extends Observable{
 	 * e la finale oe le vainqueur joue seul pendant une periode de temps bien chronometrer.
 	 */
 	public void etapeDeux(){
-		
 		for(int i = 0; i <= 9; i++) {
 			try {
 				Essai essai = new Essai();
@@ -209,7 +212,7 @@ public class Partie extends Observable{
 	
 
 	/**
-	 * Getters et Setters des differents attributs de Partie.
+	 * Getters et Setters des différents attributs de Partie.
 	 */
 	
 	public int getNbJoueurs() {
