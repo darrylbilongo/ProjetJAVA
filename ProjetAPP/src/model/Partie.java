@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
  * NUMERO DU GROUPE: 17
  * @date 16/11/2018
  */
-public class Partie {
+public class Partie extends Observable{
 	private static int cpt = 0;
 	
 	/**
@@ -103,7 +104,7 @@ public class Partie {
 	}
 	
 	/**
-	 * Cette methode se charge de realiser la premiere methode.
+	 * Cette methode se charge de lancer la première étape de la partie.
 	 */
 	public void etapeUn() throws ArithmeticException {
 		if(nbJoueurs == 2) {

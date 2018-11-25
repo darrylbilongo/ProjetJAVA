@@ -21,22 +21,43 @@ public class Mot {
 		return mot.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
 	}
 	
+	/**
+	 * 
+	 * @param valeur
+	 */
 	public Mot(String valeur) {
 		this.valeur = formatMot(valeur);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getValeur() {
 		return valeur;
 	}
 
+	/**
+	 * 
+	 * @param valeur
+	 */
 	public void setValeur(String valeur) {
 		this.valeur = valeur;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int longueur() {
 		return valeur.length();
 	}
 	
+	/**
+	 * 
+	 * @param m
+	 * @return
+	 */
 	public boolean comparer(Mot m) {
 		if(m.valeur == this.valeur) {
 			return true;
