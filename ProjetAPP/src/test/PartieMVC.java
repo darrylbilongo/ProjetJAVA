@@ -19,7 +19,7 @@ public class PartieMVC {
 		
 		//Création des vues.
 		//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
-		PartieVue gui = new PartieVueGUI(model, ctrlGUI, 200, 200);
+		PartieVue gui = new PartieVueGUI(model, ctrlGUI);
 		PartieVue console = new PartieVueConsole(model, ctrlConsole);
 				
 		//On donne la référence à la vue pour chaque contrôleur

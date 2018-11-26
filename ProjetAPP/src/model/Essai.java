@@ -89,7 +89,7 @@ public class Essai extends Observable{
 	}
 	
 	void traiterMot(Mot mot) {
-		String s = mot.getValeur();
+		String s = mot.getValeur(); 
 		String m = motATrouver.getValeur();
 		String lettres[] = s.split("");
 		for(int i = 0; i < s.length(); i++) {

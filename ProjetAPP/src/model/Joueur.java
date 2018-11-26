@@ -12,24 +12,9 @@ import javax.swing.JOptionPane;
  */
 public class Joueur {	
 	/**
-	 *  Le nom du joueur
-	 */
-	private String nom;
-	
-	/**
-	 * Le prenom du joueur
-	 */
-	private String prenom;
-	
-	/**
 	 * Le pseudo du joueur
 	 */
 	private String pseudo;
-	
-	/**
-	 * Le sexe du joueur
-	 */
-	private String sexe; // "M" ou "F"
 	
 	/**
 	 * Si le joueur a la main
@@ -46,8 +31,6 @@ public class Joueur {
 	 */
 	private boolean erreur;
 	
-
-
 	/**
 	 * Construit un joueur avec un nom, prenom, pseudo et sexe.
 	 * @param nom le nom du joeur
@@ -55,40 +38,12 @@ public class Joueur {
 	 * @param pseudo le pseudo du joueur
 	 * @param sexe le sexe du joueur
 	 */
-	public Joueur(String nom, String prenom, String pseudo, String sexe) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.pseudo = pseudo;
-		this.sexe = sexe;
+	public Joueur() {
 		this.main = false;
 		this.points = 0;
 		this.erreur = false;
 	}
 	
-	/**
-	 * Constructeur principal de la classe qui defini le pseudo
-	 * du joeur au debut de la partie
-	 * @param pseudo
-	 */
-	public Joueur(String pseudo) {
-		this.pseudo = pseudo;
-	}
-	
-	/**
-	 * @throws IOException 
-	 * 
-	 */
-	public Joueur(){
-		/*System.out.println("Vueillez ecrire votre pseudo: ");
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			pseudo = in.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
-	}
-	
-	/* ???????? */
 	public boolean isErreur() {
 		return erreur;
 	}
@@ -96,41 +51,7 @@ public class Joueur {
 	public void setErreur(boolean erreur) {
 		this.erreur = erreur;
 	}
-	
-	/**
-	 * 
-	 * @return le nom du joueur
-	 */
-	public String getNom() {
-		return nom;
-	}
 
-
-	/**
-	 * Cette methode permet de definir le nom du joueur
-	 * @param nom le nouveau nom à attribuer au joueur
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	
-	/**
-	 * 
-	 * @return le nom du joeur
-	 */
-	public String getPrenom() {
-		return prenom;
-	}
-
-	
-	/**
-	 * Cette methode permet de definir le prenom du joueur
-	 * @param prenom
-	 */
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
 
 	/**
 	 * 
@@ -148,25 +69,6 @@ public class Joueur {
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
-
-
-	/**
-	 * 
-	 * @return le sexe du joueur
-	 */
-	public String getSexe() {
-		return sexe;
-	}
-
-
-	/**
-	 * 
-	 * @param sexe
-	 */
-	public void setSexe(String sexe) {
-		this.sexe = sexe;
-	}
-
 
 	/**
 	 * Cette methode verifie si le joueur a la main
