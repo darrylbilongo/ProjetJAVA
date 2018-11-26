@@ -90,7 +90,7 @@ public class Partie extends Observable{
 	 * @param init le nombre de joeurs dans la partie à initialiser
 	 * @throws IOException
 	 */
-	private void init(int init) throws IOException {
+	public void init(int init) throws IOException {
 		if(init == 1) {
 			etape = 1;
 			Joueur joueur1 = new Joueur();
@@ -212,6 +212,13 @@ public class Partie extends Observable{
 		return null;
 	}
 	
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		return "Partie [nbJoueurs=" + nbJoueurs + ", essaisRestant=" + essaisRestant + "]";
+	}
 
 	/**
 	 * Getters et Setters des différents attributs de Partie.

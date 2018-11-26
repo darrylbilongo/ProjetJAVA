@@ -40,7 +40,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	private JButton btnDisposer;
 
 	/**
-	 * Create the frame.
+	 * Constructeur de la frame
 	 */
 	public PartieVueGUI(Partie model, PartieController controller) {
 		super(model, controller);

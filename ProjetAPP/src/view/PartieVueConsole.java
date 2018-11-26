@@ -8,12 +8,16 @@ import model.Partie;
 
 public class PartieVueConsole extends PartieVue{
 	
+	PartieVue vue;
+	Partie model;
+	
+	private String pseudoJoueur;
+	
 	public PartieVueConsole(Partie model, PartieController controller) {
 		super(model, controller);
 		initConsole();
 		// TODO Auto-generated constructor stub
 	}
-	private String pseudoJoueur;
 	
 	public void initConsole() {
 		System.out.println("Bonjour, \nBienvenu(e) à Motus:");
@@ -21,15 +25,23 @@ public class PartieVueConsole extends PartieVue{
 		pseudoJoueur = new Scanner(System.in).next();
 	}
 	
+	public void lancerEtapeUn() {
+		model.etapeUn();
+		vue.affiche("Lancement de l'étape 1\n");
+	}
+	
+	public void lancerEtapeDeux() {
+		model.etapeDeux();
+		vue.affiche("Lancement de l'étape 2\n");
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(model);
 	}
 
 	@Override
 	public void affiche(String s) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(s);	
 	}
 }

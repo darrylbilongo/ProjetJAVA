@@ -113,7 +113,7 @@ public class Joueur {
 	@Override
 	public String toString() {
 		String tmp = "";
-		tmp = "Nom: " + nom + "\nPrenom: " + prenom + "\nPseudo: " + pseudo + (points == 0? "." : "\nPoints: " + points + ".");
+		tmp = "Pseudo: " + pseudo + (points == 0? "." : "\nPoints: " + points + ".");
 		return tmp;
 	}
 
