@@ -37,7 +37,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	private JPanel panel;
 	private JLabel lblEtape;
 	private JButton btnCommenons;
-	private JButton btnValider;
 	private JButton btnDisposer;
 
 	/**
@@ -47,7 +46,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		super(model, controller);
 		motusFrame = new JFrame("Motus");
 		motusFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		motusFrame.setBounds(100, 100, 450, 300);
+		motusFrame.setBounds(100, 100, 450, 255);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		motusFrame.setContentPane(contentPane);
@@ -123,7 +122,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		lblEtape = new JLabel("etape ");
+		lblEtape = new JLabel("Choisissez une option...");
 		GridBagConstraints gbc_lblEtape = new GridBagConstraints();
 		gbc_lblEtape.insets = new Insets(0, 0, 5, 0);
 		gbc_lblEtape.gridx = 3;
@@ -137,17 +136,11 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbc_btnCommenons.gridy = 1;
 		panel.add(btnCommenons, gbc_btnCommenons);
 		
-		btnValider = new JButton("valider");
-		GridBagConstraints gbc_btnValider = new GridBagConstraints();
-		gbc_btnValider.insets = new Insets(0, 0, 5, 0);
-		gbc_btnValider.gridx = 3;
-		gbc_btnValider.gridy = 2;
-		panel.add(btnValider, gbc_btnValider);
-		
-		btnDisposer = new JButton("disposer");
+		btnDisposer = new JButton("Quitter");
 		GridBagConstraints gbc_btnDisposer = new GridBagConstraints();
+		gbc_btnDisposer.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDisposer.gridx = 3;
-		gbc_btnDisposer.gridy = 3;
+		gbc_btnDisposer.gridy = 2;
 		panel.add(btnDisposer, gbc_btnDisposer);
 		
 		textContent = new JPanel();
