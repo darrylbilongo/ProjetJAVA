@@ -17,7 +17,7 @@ public class Essai extends Observable{
 	/**
 	 * 
 	 */
-	private Mot etatActuel;
+	private static Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
 	private static int nbEssai = 0;
@@ -34,16 +34,16 @@ public class Essai extends Observable{
 	
 	public Essai() throws IOException {
 		initEssai();
-		int numMot = (int)(Math.random() * (Motus.getCpt()) + 1);
-		while((motATrouver = Motus.choixMot(numMot)) == null && 
+		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
+		while((motATrouver = Partie.choixMot(numMot)) == null && 
 				motsDejaJoues.contains(motATrouver.getValeur()))
 		{
-			numMot = (int)(Math.random() * (Motus.getCpt()) + 1);
-			motATrouver = Motus.choixMot(numMot);
+			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
+			motATrouver = Partie.choixMot(numMot);
 		}
 		nbEssai++;
 		initMotATrouver();
-		System.out.println(motATrouver.getValeur());
+		//System.out.println(motATrouver.getValeur());
 		System.out.println("Le mot trouver est: \n" + etatActuel.getValeur());
 		for(int i = 0; i < 6; i++) {
 			Mot m = joueurActuel.proposerMot();
@@ -53,22 +53,23 @@ public class Essai extends Observable{
 			updateEtatActuel();
 			setChanged();
 			notifyObservers();
+			System.out.println(etatActuel.getValeur());
 		}
 		System.out.println(motATrouver.getValeur());
 	}
 	
 	public void initEssai() {
 		motATrouver = new Mot("");
-		tailleMot = Motus.getTaillemot();
+		tailleMot = Partie.getTaillemot();
 		lettresActuelles = new String[tailleMot];
 		motsDejaJoues = new ArrayList<String>();
 		motsDejaUtilises = new ArrayList<String>();
-		joueurActuel = Motus.getParticipants()[0];
+		joueurActuel = Partie.getParticipants()[0];
 	}
 	
 
 	private boolean estTrouve(Mot m) throws IOException {
-		Joueur joueur = Motus.getParticipants()[0];
+		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
 			joueur.setErreur(true);
 			return false;
@@ -120,7 +121,7 @@ public class Essai extends Observable{
 
 		
 	boolean verifierMot(Mot mot) throws FileNotFoundException {
-		Scanner input = new Scanner(new File("liste_francais.txt"));
+		/*Scanner input = new Scanner(new File("liste_francais.txt"));
 		String s = Mot.formatMot(mot.getValeur());
 		while(input.hasNextLine()) {
 			String line = Mot.formatMot(input.nextLine());
@@ -129,7 +130,10 @@ public class Essai extends Observable{
 				 return true;
 			}
 		}
-		input.close();
+		input.close();*/
+		if(mot.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
+			return true;
+		}
 		return false;
 	}
 	
@@ -157,7 +161,21 @@ public class Essai extends Observable{
 	}
 	
 	public Essai(int i) {
-		Joueur joueurs [] = Motus.getParticipants();
+		Joueur joueurs [] = Partie.getParticipants();
+	}
+	
+	
+
+	public String[] getLettresActuelles() {
+		return lettresActuelles;
+	}
+
+	public static ArrayList<String> getMotsDejaJoues() {
+		return motsDejaJoues;
+	}
+
+	public ArrayList<String> getMotsDejaUtilises() {
+		return motsDejaUtilises;
 	}
 
 	public Mot getMotATrouver() {

@@ -127,8 +127,6 @@ public class Partie extends Observable{
 				Essai essai;
 				try {
 					essai = new Essai();
-					String s = essai.getMotATrouver().getValeur();
-					System.out.println(participants[0].getPoints());
 					essaisRestant--;
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -178,8 +176,8 @@ public class Partie extends Observable{
 					}
 					
 					motsXlettres.write(motDuJeu);
-					motsXlettres.close();
 				}
+				motsXlettres.close();
 				input.close();
 			}
 			catch(IOException e){
