@@ -31,6 +31,11 @@ public class Joueur {
 	 */
 	private boolean erreur;
 	
+	
+	/**
+	 * 
+	 */
+	private String proposition;
 	/**
 	 * Construit un joueur avec un nom, prenom, pseudo et sexe.
 	 * @param nom le nom du joeur
@@ -77,7 +82,6 @@ public class Joueur {
 	public boolean isMain() {
 		return main;
 	}
-
 
 	/**
 	 * Cette methode permet de donner ou enlever la main à un joueur
@@ -130,12 +134,13 @@ public class Joueur {
 	 * Cette methode demande au joueur ayant la main
 	 * d'encoder une proposition pour le mot à deviner
 	 * @return Le mot encode par le joueur sur la console
-	 * @throws IOException 
 	 */
-	public Mot proposerMot() throws IOException {
-		Mot proposition = new Mot();
+	public Mot proposerMot(String s){
+		Mot proposition = new Mot(s);
 		return proposition;
 	}
+	
+	
 	
 	/**
 	 * Cette methode ajoute 50 points au joueur pour chaque bonne reponse

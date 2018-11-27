@@ -11,16 +11,7 @@ public class Mot {
 	 */
 	private String valeur; // valeur en String
 	
-	public Mot () throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		valeur = formatMot(in.readLine());
-	}
-	
-	public static String formatMot(String valeur) {
-		String  mot = Normalizer.normalize(valeur, Normalizer.Form.NFD);
-		return mot.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
-	}
-	
+
 	/**
 	 * 
 	 * @param valeur
@@ -28,6 +19,12 @@ public class Mot {
 	public Mot(String valeur) {
 		this.valeur = formatMot(valeur);
 	}
+	
+	public static String formatMot(String valeur) {
+		String  mot = Normalizer.normalize(valeur, Normalizer.Form.NFD);
+		return mot.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
+	}
+	
 	
 	/**
 	 * 

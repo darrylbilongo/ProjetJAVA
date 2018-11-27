@@ -109,9 +109,10 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de lancer la première étape de la partie.
+	 * @throws IOException 
 	 */
-	public void etapeUn() throws ArithmeticException {
-		if(nbJoueurs == 2) {
+	public void etapeUn() throws ArithmeticException, IOException {
+		/*if(nbJoueurs == 2) {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai = new Essai(2);
 				for(int j = 0; j <= participants.length; j++) {
@@ -122,15 +123,12 @@ public class Partie extends Observable{
 				essaisRestant--;
 			}
 		}
-		else if(nbJoueurs == 1) {
+		else */if(nbJoueurs == 1) {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai;
-				try {
-					essai = new Essai();
-					essaisRestant--;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				essai = new Essai();
+				essai.testProposition(participants[0].get);
+				essaisRestant--;
 			}
 		}
 		else {

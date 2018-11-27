@@ -20,7 +20,6 @@ public class Essai extends Observable{
 	private static Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
-	private static int nbEssai = 0;
 	
 	private String [] lettresActuelles;
 	
@@ -33,7 +32,11 @@ public class Essai extends Observable{
 	
 	
 	public Essai() throws IOException {
-		initEssai();
+		motATrouver = new Mot("");
+		lettresActuelles = new String[tailleMot];
+		motsDejaJoues = new ArrayList<String>();
+		motsDejaUtilises = new ArrayList<String>();
+		
 		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 		while((motATrouver = Partie.choixMot(numMot)) == null && 
 				motsDejaJoues.contains(motATrouver.getValeur()))
@@ -41,13 +44,14 @@ public class Essai extends Observable{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
 		}
-		nbEssai++;
-		initMotATrouver();
-		//System.out.println(motATrouver.getValeur());
-		System.out.println("Le mot trouver est: \n" + etatActuel.getValeur());
+		
+	}
+	
+	public void testProposition(String s) throws IOException {
+		initEtatActuel();
 		for(int i = 0; i < 6; i++) {
-			Mot m = joueurActuel.proposerMot();
-			if(estTrouve(m))
+			Mot m = joueurActuel.proposerMot(s);
+			if(traitementReponse(m))
 				break;
 			
 			updateEtatActuel();
@@ -55,20 +59,11 @@ public class Essai extends Observable{
 			notifyObservers();
 			System.out.println(etatActuel.getValeur());
 		}
-		System.out.println(motATrouver.getValeur());
 	}
 	
-	public void initEssai() {
-		motATrouver = new Mot("");
-		tailleMot = Partie.getTaillemot();
-		lettresActuelles = new String[tailleMot];
-		motsDejaJoues = new ArrayList<String>();
-		motsDejaUtilises = new ArrayList<String>();
-		joueurActuel = Partie.getParticipants()[0];
-	}
 	
 
-	private boolean estTrouve(Mot m) throws IOException {
+	private boolean traitementReponse(Mot m) throws IOException {
 		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
 			joueur.setErreur(true);
@@ -80,7 +75,7 @@ public class Essai extends Observable{
 			return true;
 		}
 		else if(m.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
-			if(verifierMot(m) && m.getValeur().length() == tailleMot) {
+			if(/*verifierMot(m) && */m.getValeur().length() == tailleMot) {
 				traiterMot(m);
 			}
 		}
@@ -121,7 +116,7 @@ public class Essai extends Observable{
 
 		
 	boolean verifierMot(Mot mot) throws FileNotFoundException {
-		/*Scanner input = new Scanner(new File("liste_francais.txt"));
+		Scanner input = new Scanner(new File("liste_francais.txt"));
 		String s = Mot.formatMot(mot.getValeur());
 		while(input.hasNextLine()) {
 			String line = Mot.formatMot(input.nextLine());
@@ -130,21 +125,11 @@ public class Essai extends Observable{
 				 return true;
 			}
 		}
-		input.close();*/
-		if(mot.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
-			return true;
-		}
+		input.close();
 		return false;
 	}
 	
-	public Mot chronometre(Joueur j) {
-		Timer chrono = new Timer();
-		Temps temps;
-		chrono.schedule((temps=new Temps()), 1000, 1000);
-		return temps.getMot();
-	}
-	
-	public void initMotATrouver() {
+	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
 		String etatInit = "";
 		for(int i = 0; i < tailleMot; i++) {
@@ -159,11 +144,6 @@ public class Essai extends Observable{
 		}
 		etatActuel = new Mot(etatInit);
 	}
-	
-	public Essai(int i) {
-		Joueur joueurs [] = Partie.getParticipants();
-	}
-	
 	
 
 	public String[] getLettresActuelles() {
@@ -210,14 +190,5 @@ public class Essai extends Observable{
 		this.tailleMot = tailleMot;
 	}
 
-	public static int getNbEssai() {
-		return nbEssai;
-	}
-
-	public static void setNbEssai(int nbEssai) {
-		Essai.nbEssai = nbEssai;
-	}
-	
-	
 	
 }
