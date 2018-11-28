@@ -21,7 +21,7 @@ public class PartieMVC {
 		//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
 		//PartieVue gui = new PartieVueGUI(model, ctrlGUI);
 		PartieVue console = new PartieVueConsole(model, ctrlConsole);
-				
+		 		
 		//On donne la référence à la vue pour chaque contrôleur
 		ctrlConsole.addView(console);
 		//ctrlGUI.addView(gui);
