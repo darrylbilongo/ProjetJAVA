@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
-import java.io.IOException;
 
 /**
  * e partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
@@ -109,9 +106,10 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de lancer la première étape de la partie.
+	 * @throws IOException 
 	 */
-	public void etapeUn() throws ArithmeticException {
-		if(nbJoueurs == 2) {
+	public void etapeUn() throws ArithmeticException, IOException {
+		/*if(nbJoueurs == 2) {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai = new Essai(2);
 				for(int j = 0; j <= participants.length; j++) {
@@ -122,17 +120,12 @@ public class Partie extends Observable{
 				essaisRestant--;
 			}
 		}
-		else if(nbJoueurs == 1) {
+		else */if(nbJoueurs == 1) {
 			for(int i = 0; i <= 10; i++) {
 				Essai essai;
-				try {
-					essai = new Essai();
-					String s = essai.getMotATrouver().getValeur();
-					System.out.println(participants[0].getPoints());
-					essaisRestant--;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				essai = new Essai();
+				testProposition(essai, participants[0].getProposition().getValeur());
+				essaisRestant--;
 			}
 		}
 		else {
@@ -141,6 +134,22 @@ public class Partie extends Observable{
 
 		essaisRestant = 10;
 	}
+	
+	
+	public void testProposition(Essai e, String s) throws IOException {
+		e.initEtatActuel();
+		for(int i = 0; i < 6; i++) {
+			Mot m = e.getJoueurActuel().proposerMot(s);
+			if(e.traitementReponse(m))
+				break;
+			
+			e.updateEtatActuel();
+			setChanged();
+			notifyObservers();
+			System.out.println(e.getEtatActuel().getValeur());
+		}
+	}
+	
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
@@ -178,8 +187,8 @@ public class Partie extends Observable{
 					}
 					
 					motsXlettres.write(motDuJeu);
-					motsXlettres.close();
 				}
+				motsXlettres.close();
 				input.close();
 			}
 			catch(IOException e){

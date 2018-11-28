@@ -20,7 +20,6 @@ public class Essai extends Observable{
 	private Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
-	private static int nbEssai = 0;
 	
 	private String [] lettresActuelles;
 	
@@ -33,42 +32,24 @@ public class Essai extends Observable{
 	
 	
 	public Essai() throws IOException {
-		initEssai();
-		int numMot = (int)(Math.random() * (Motus.getCpt()) + 1);
-		while((motATrouver = Motus.choixMot(numMot)) == null && 
-				motsDejaJoues.contains(motATrouver.getValeur()))
-		{
-			numMot = (int)(Math.random() * (Motus.getCpt()) + 1);
-			motATrouver = Motus.choixMot(numMot);
-		}
-		nbEssai++;
-		initMotATrouver();
-		System.out.println(motATrouver.getValeur());
-		System.out.println("Le mot trouver est: \n" + etatActuel.getValeur());
-		for(int i = 0; i < 6; i++) {
-			Mot m = joueurActuel.proposerMot();
-			if(estTrouve(m))
-				break;
-			
-			updateEtatActuel();
-			setChanged();
-			notifyObservers();
-		}
-		System.out.println(motATrouver.getValeur());
-	}
-	
-	public void initEssai() {
 		motATrouver = new Mot("");
-		tailleMot = Motus.getTaillemot();
 		lettresActuelles = new String[tailleMot];
 		motsDejaJoues = new ArrayList<String>();
 		motsDejaUtilises = new ArrayList<String>();
-		joueurActuel = Motus.getParticipants()[0];
+		
+		int numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
+		while((motATrouver = Partie.choixMot(numMot)) == null && 
+				motsDejaJoues.contains(motATrouver.getValeur()))
+		{
+			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
+			motATrouver = Partie.choixMot(numMot);
+		}
+		
 	}
 	
 
-	private boolean estTrouve(Mot m) throws IOException {
-		Joueur joueur = Motus.getParticipants()[0];
+	public boolean traitementReponse(Mot m) throws IOException {
+		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
 			joueur.setErreur(true);
 			return false;
@@ -79,7 +60,7 @@ public class Essai extends Observable{
 			return true;
 		}
 		else if(m.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
-			if(verifierMot(m) && m.getValeur().length() == tailleMot) {
+			if(/*verifierMot(m) && */m.getValeur().length() == tailleMot) {
 				traiterMot(m);
 			}
 		}
@@ -88,7 +69,7 @@ public class Essai extends Observable{
 		
 	}
 	
-	void traiterMot(Mot mot) {
+	public void traiterMot(Mot mot) {
 		String s = mot.getValeur(); 
 		String m = motATrouver.getValeur();
 		String lettres[] = s.split("");
@@ -110,7 +91,7 @@ public class Essai extends Observable{
 		}
 	}
 	
-	private void updateEtatActuel() {
+	public  void updateEtatActuel() {
 		String s = "";
 		for(int i = 0; i < lettresActuelles.length; i++) {
 			s += lettresActuelles[i];
@@ -119,7 +100,7 @@ public class Essai extends Observable{
 	}
 
 		
-	boolean verifierMot(Mot mot) throws FileNotFoundException {
+	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
 		String s = Mot.formatMot(mot.getValeur());
 		while(input.hasNextLine()) {
@@ -133,14 +114,7 @@ public class Essai extends Observable{
 		return false;
 	}
 	
-	public Mot chronometre(Joueur j) {
-		Timer chrono = new Timer();
-		Temps temps;
-		chrono.schedule((temps=new Temps()), 1000, 1000);
-		return temps.getMot();
-	}
-	
-	public void initMotATrouver() {
+	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
 		String etatInit = "";
 		for(int i = 0; i < tailleMot; i++) {
@@ -156,8 +130,33 @@ public class Essai extends Observable{
 		etatActuel = new Mot(etatInit);
 	}
 	
-	public Essai(int i) {
-		Joueur joueurs [] = Motus.getParticipants();
+	
+
+	public void setLettresActuelles(String[] lettresActuelles) {
+		this.lettresActuelles = lettresActuelles;
+	}
+
+
+	public static void setMotsDejaJoues(ArrayList<String> motsDejaJoues) {
+		Essai.motsDejaJoues = motsDejaJoues;
+	}
+
+
+	public void setMotsDejaUtilises(ArrayList<String> motsDejaUtilises) {
+		this.motsDejaUtilises = motsDejaUtilises;
+	}
+
+
+	public String[] getLettresActuelles() {
+		return lettresActuelles;
+	}
+
+	public static ArrayList<String> getMotsDejaJoues() {
+		return motsDejaJoues;
+	}
+
+	public ArrayList<String> getMotsDejaUtilises() {
+		return motsDejaUtilises;
 	}
 
 	public Mot getMotATrouver() {
@@ -192,14 +191,5 @@ public class Essai extends Observable{
 		this.tailleMot = tailleMot;
 	}
 
-	public static int getNbEssai() {
-		return nbEssai;
-	}
-
-	public static void setNbEssai(int nbEssai) {
-		Essai.nbEssai = nbEssai;
-	}
-	
-	
 	
 }
