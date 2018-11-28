@@ -18,7 +18,6 @@ public class Essai extends Observable{
 	 * 
 	 */
 	private Mot etatActuel;
-	private Joueur joueurActuel;
 	private int tailleMot;
 	
 	private String [] lettresActuelles;
@@ -174,13 +173,6 @@ public class Essai extends Observable{
 		this.etatActuel = etatActuel;
 	}
 
-	public Joueur getJoueurActuel() {
-		return joueurActuel;
-	}
-
-	public void setJoueurActuel(Joueur joueurActuel) {
-		this.joueurActuel = joueurActuel;
-	}
 
 	public int getTailleMot() {
 		return tailleMot;

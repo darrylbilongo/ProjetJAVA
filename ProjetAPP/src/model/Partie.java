@@ -129,11 +129,11 @@ public class Partie extends Observable{
 				essai = new Essai();
 				essai.initEtatActuel();
 				for(int j = 0; j < 6; j++) {
-					if(essai.traitementReponse(essai.getJoueurActuel().getProposition()))
+					if(essai.traitementReponse(participants[0].getProposition()))
 						return;
-						
-						essai.updateEtatActuel();
+
 						etatAct = essai.getEtatActuel();
+						essai.updateEtatActuel();
 						setChanged();
 						notifyObservers();
 					}
@@ -164,10 +164,6 @@ public class Partie extends Observable{
 	}
 	
 	
-	public void testProposition(Essai e, Mot mot) throws IOException {
-		
-		
-	}
 
 	public static void classerMot(int x){
 		try {
@@ -287,6 +283,15 @@ public class Partie extends Observable{
 	public static void setCpt(int cpt) {
 		Partie.cpt = cpt;
 	}
+
+	public Mot getEtatAct() {
+		return etatAct;
+	}
+
+	public void setEtatAct(Mot etatAct) {
+		this.etatAct = etatAct;
+	}
+	
 	
 	
 }

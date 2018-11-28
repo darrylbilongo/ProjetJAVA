@@ -18,7 +18,7 @@ public class PartieVueConsole extends PartieVue{
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
 		motus();
-		lancerEtapeUn();
+		model.etapeUn();
 	}
 	
 	public void motus() {
@@ -47,7 +47,7 @@ public class PartieVueConsole extends PartieVue{
 		else {
 			Mot propo = new Mot(new Scanner(System.in).next());
 			controller.setPropoJouer(propo);
-			System.out.println();
+			System.out.println(model.getEtatAct().getValeur());
 		}
 	}
 
