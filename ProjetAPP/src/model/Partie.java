@@ -124,7 +124,10 @@ public class Partie extends Observable{
 			for(int i = 0; i <= 10; i++) {
 				Essai essai;
 				essai = new Essai();
-				testProposition(essai, participants[0].getProposition().getValeur());
+				essai.initEtatActuel();
+				for(int j = 0; j < 6; j++) {
+					testProposition(essai, essai.getJoueurActuel().getProposition());
+				}
 				essaisRestant--;
 			}
 		}
@@ -134,22 +137,7 @@ public class Partie extends Observable{
 
 		essaisRestant = 10;
 	}
-	
-	
-	public void testProposition(Essai e, String s) throws IOException {
-		e.initEtatActuel();
-		for(int i = 0; i < 6; i++) {
-			Mot m = e.getJoueurActuel().proposerMot(s);
-			if(e.traitementReponse(m))
-				break;
-			
-			e.updateEtatActuel();
-			setChanged();
-			notifyObservers();
-			System.out.println(e.getEtatActuel().getValeur());
-		}
-	}
-	
+
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
@@ -166,6 +154,17 @@ public class Partie extends Observable{
 		}
 	}
 	
+	
+	public void testProposition(Essai e, Mot mot) throws IOException {
+		
+		if(e.traitementReponse(mot))
+				return;
+				
+		e.updateEtatActuel();
+		setChanged();
+		notifyObservers();
+		System.out.println(e.getEtatActuel().getValeur());
+	}
 
 	public static void classerMot(int x){
 		try {

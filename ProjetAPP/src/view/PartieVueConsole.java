@@ -23,14 +23,15 @@ public class PartieVueConsole extends PartieVue{
 	
 	public void initConsole() {
 		System.out.println("Bonjour, \nBienvenu(e) ра Motus:");
+		
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
+		controller.setPseudoJoueur(pseudoJoueur);
 	}
 	
 	public void lancerEtapeUn() {
 		affiche("le nombre de lettres: " + Partie.getTaillemot());
 		affiche("Lancement de l'etape 1\n");
-		model.etapeUn();
 	}
 	
 	public void lancerEtapeDeux() {

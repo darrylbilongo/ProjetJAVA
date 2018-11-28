@@ -7,7 +7,7 @@ import java.io.IOException;
 import model.Partie;
 import view.PartieVue;
 
-public class PartieController implements ActionListener{
+public class PartieController{
 	Partie model;
 	PartieVue vue;
 	
@@ -19,7 +19,6 @@ public class PartieController implements ActionListener{
 		try {
 			model.init(i);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -27,10 +26,10 @@ public class PartieController implements ActionListener{
 	public void addView(PartieVue vue) {
 		this.vue = vue;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setPseudoJoueur(String pseudo) {
+		model.getParticipants()[0].setPseudo(pseudo);
 	}
+	
+
 }
