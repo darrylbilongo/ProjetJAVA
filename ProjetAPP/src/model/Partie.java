@@ -122,6 +122,7 @@ public class Partie extends Observable{
 		}
 		else */if(nbJoueurs == 1) {
 			for(int i = 0; i <= 10; i++) {
+
 				Essai essai;
 				essai = new Essai();
 				testProposition(essai, participants[0].getProposition().getValeur());
@@ -149,7 +150,6 @@ public class Partie extends Observable{
 			System.out.println(e.getEtatActuel().getValeur());
 		}
 	}
-	
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
@@ -217,7 +217,6 @@ public class Partie extends Observable{
 		catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
 	

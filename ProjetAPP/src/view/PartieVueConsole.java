@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Scanner;
 
 import controller.PartieController;
+import model.Essai;
 import model.Partie;
 
 public class PartieVueConsole extends PartieVue{
@@ -16,28 +17,30 @@ public class PartieVueConsole extends PartieVue{
 	public PartieVueConsole(Partie model, PartieController controller) {
 		super(model, controller);
 		initConsole();
-		// TODO Auto-generated constructor stub
+		affiche("le nombre de lettres: " + Partie.getTaillemot());
+		model.etapeDeux();
 	}
 	
 	public void initConsole() {
-		System.out.println("Bonjour, \nBienvenu(e) à Motus:");
+		System.out.println("Bonjour, \nBienvenu(e) � Motus:");
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 	}
 	
 	public void lancerEtapeUn() {
+		affiche("le nombre de lettres: " + Partie.getTaillemot());
+		affiche("Lancement de l'etape 1\n");
 		model.etapeUn();
-		vue.affiche("Lancement de l'étape 1\n");
 	}
 	
 	public void lancerEtapeDeux() {
+		affiche("Lancement de l'etape 2\n");
 		model.etapeDeux();
-		vue.affiche("Lancement de l'étape 2\n");
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(model);
+		//System.out.println(model);
 	}
 
 	@Override
