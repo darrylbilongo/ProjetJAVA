@@ -54,6 +54,9 @@ public class Partie extends Observable{
 	 */
 	private static int etape;
 	
+	private Mot etatAct;
+	
+	
 	/**
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
@@ -126,8 +129,14 @@ public class Partie extends Observable{
 				essai = new Essai();
 				essai.initEtatActuel();
 				for(int j = 0; j < 6; j++) {
-					testProposition(essai, essai.getJoueurActuel().getProposition());
-				}
+					if(essai.traitementReponse(essai.getJoueurActuel().getProposition()))
+						return;
+						
+						essai.updateEtatActuel();
+						etatAct = essai.getEtatActuel();
+						setChanged();
+						notifyObservers();
+					}
 				essaisRestant--;
 			}
 		}
@@ -157,13 +166,7 @@ public class Partie extends Observable{
 	
 	public void testProposition(Essai e, Mot mot) throws IOException {
 		
-		if(e.traitementReponse(mot))
-				return;
-				
-		e.updateEtatActuel();
-		setChanged();
-		notifyObservers();
-		System.out.println(e.getEtatActuel().getValeur());
+		
 	}
 
 	public static void classerMot(int x){

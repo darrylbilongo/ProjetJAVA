@@ -1,9 +1,8 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import model.Mot;
 import model.Partie;
 import view.PartieVue;
 
@@ -29,6 +28,10 @@ public class PartieController{
 	
 	public void setPseudoJoueur(String pseudo) {
 		model.getParticipants()[0].setPseudo(pseudo);
+	}
+	
+	public void setPropoJouer(Mot p) {
+		model.getParticipants()[0].setProposition(p);
 	}
 	
 

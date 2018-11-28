@@ -1,10 +1,11 @@
 package view;
 
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Scanner;
 
 import controller.PartieController;
-import model.Essai;
+import model.Mot;
 import model.Partie;
 
 public class PartieVueConsole extends PartieVue{
@@ -14,24 +15,23 @@ public class PartieVueConsole extends PartieVue{
 	
 	private String pseudoJoueur;
 	
-	public PartieVueConsole(Partie model, PartieController controller) {
+	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
-		initConsole();
-		affiche("le nombre de lettres: " + Partie.getTaillemot());
-		model.etapeDeux();
+		motus();
+		lancerEtapeUn();
 	}
 	
-	public void initConsole() {
-		System.out.println("Bonjour, \nBienvenu(e) ра Motus:");
-		
+	public void motus() {
+		System.out.println("Bonjour, \nBienvenu(e) ра Motus:");	
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
 	}
 	
-	public void lancerEtapeUn() {
+	public void lancerEtapeUn() throws ArithmeticException, IOException {
 		affiche("le nombre de lettres: " + Partie.getTaillemot());
 		affiche("Lancement de l'etape 1\n");
+		model.etapeUn();
 	}
 	
 	public void lancerEtapeDeux() {
@@ -41,7 +41,14 @@ public class PartieVueConsole extends PartieVue{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		//System.out.println(model);
+		if(model.getEssaisRestant() == 0) {
+			affiche(model.getParticipants()[0].toString());
+		}
+		else {
+			Mot propo = new Mot(new Scanner(System.in).next());
+			controller.setPropoJouer(propo);
+			System.out.println();
+		}
 	}
 
 	@Override

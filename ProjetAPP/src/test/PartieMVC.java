@@ -1,5 +1,7 @@
 package test;
 
+import java.io.IOException;
+
 import controller.PartieController;
 import model.Partie;
 import view.PartieVue;
@@ -8,7 +10,7 @@ import view.PartieVueGUI;
 
 public class PartieMVC {
 	
-	public PartieMVC() {
+	public PartieMVC() throws ArithmeticException, IOException {
 		// Création du modèle
 		Partie model = new Partie();
 		
@@ -31,7 +33,13 @@ public class PartieMVC {
 			//Creation et affichage du GUI de l'application
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					new PartieMVC();
+					try {
+						new PartieMVC();
+					} catch (ArithmeticException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}

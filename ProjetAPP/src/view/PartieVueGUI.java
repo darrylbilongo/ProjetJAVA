@@ -18,14 +18,14 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.PartieController;
-import model.Motus;
+import model.Partie;
 import model.Partie;
 
 public class PartieVueGUI extends PartieVue implements ActionListener{
 
 	private JPanel contentPane;
-	private JFrame motusFrame;
-	private int nbLettres = Motus.getTaillemot();
+	private JFrame PartieFrame;
+	private int nbLettres = Partie.getTaillemot();
 	private JTextField pseudoJoueur;
 	private JLabel points;
 	private JTextField nbPoints;
@@ -44,12 +44,12 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	 */
 	public PartieVueGUI(Partie model, PartieController controller) {
 		super(model, controller);
-		motusFrame = new JFrame("Motus");
-		motusFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		motusFrame.setBounds(100, 100, 450, 255);
+		PartieFrame = new JFrame("Partie");
+		PartieFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		PartieFrame.setBounds(100, 100, 450, 255);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		motusFrame.setContentPane(contentPane);
+		PartieFrame.setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
@@ -154,7 +154,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		table = new JTable();
 		textContent.add(table.getTableHeader());
 		textContent.add(table);
-		motusFrame.setVisible(true);
+		PartieFrame.setVisible(true);
 
 	}
 
