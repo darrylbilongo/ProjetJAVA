@@ -35,7 +35,7 @@ public class Joueur {
 	/**
 	 * 
 	 */
-	private String proposition;
+	private Mot proposition;
 	/**
 	 * Construit un joueur avec un nom, prenom, pseudo et sexe.
 	 * @param nom le nom du joeur
@@ -148,4 +148,14 @@ public class Joueur {
 	public void pointsPlus() {
 		this.points += 50;
 	}
+
+	public Mot getProposition() {
+		return proposition;
+	}
+
+	public void setProposition(Mot proposition) {
+		this.proposition = proposition;
+	}
+	
+	
 }

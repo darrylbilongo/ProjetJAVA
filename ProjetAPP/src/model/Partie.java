@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
-import java.io.IOException;
 
 /**
  * e partir de cette classe on se charge d'ouvrir une partie, dans laquelle le joueur
@@ -127,7 +124,7 @@ public class Partie extends Observable{
 			for(int i = 0; i <= 10; i++) {
 				Essai essai;
 				essai = new Essai();
-				essai.testProposition(participants[0].get);
+				testProposition(essai, participants[0].getProposition().getValeur());
 				essaisRestant--;
 			}
 		}
@@ -137,6 +134,22 @@ public class Partie extends Observable{
 
 		essaisRestant = 10;
 	}
+	
+	
+	public void testProposition(Essai e, String s) throws IOException {
+		e.initEtatActuel();
+		for(int i = 0; i < 6; i++) {
+			Mot m = e.getJoueurActuel().proposerMot(s);
+			if(e.traitementReponse(m))
+				break;
+			
+			e.updateEtatActuel();
+			setChanged();
+			notifyObservers();
+			System.out.println(e.getEtatActuel().getValeur());
+		}
+	}
+	
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond

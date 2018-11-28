@@ -17,7 +17,7 @@ public class Essai extends Observable{
 	/**
 	 * 
 	 */
-	private static Mot etatActuel;
+	private Mot etatActuel;
 	private Joueur joueurActuel;
 	private int tailleMot;
 	
@@ -47,23 +47,8 @@ public class Essai extends Observable{
 		
 	}
 	
-	public void testProposition(String s) throws IOException {
-		initEtatActuel();
-		for(int i = 0; i < 6; i++) {
-			Mot m = joueurActuel.proposerMot(s);
-			if(traitementReponse(m))
-				break;
-			
-			updateEtatActuel();
-			setChanged();
-			notifyObservers();
-			System.out.println(etatActuel.getValeur());
-		}
-	}
-	
-	
 
-	private boolean traitementReponse(Mot m) throws IOException {
+	public boolean traitementReponse(Mot m) throws IOException {
 		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
 			joueur.setErreur(true);
@@ -84,7 +69,7 @@ public class Essai extends Observable{
 		
 	}
 	
-	void traiterMot(Mot mot) {
+	public void traiterMot(Mot mot) {
 		String s = mot.getValeur(); 
 		String m = motATrouver.getValeur();
 		String lettres[] = s.split("");
@@ -106,7 +91,7 @@ public class Essai extends Observable{
 		}
 	}
 	
-	private void updateEtatActuel() {
+	public  void updateEtatActuel() {
 		String s = "";
 		for(int i = 0; i < lettresActuelles.length; i++) {
 			s += lettresActuelles[i];
@@ -115,7 +100,7 @@ public class Essai extends Observable{
 	}
 
 		
-	boolean verifierMot(Mot mot) throws FileNotFoundException {
+	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
 		String s = Mot.formatMot(mot.getValeur());
 		while(input.hasNextLine()) {
@@ -145,6 +130,22 @@ public class Essai extends Observable{
 		etatActuel = new Mot(etatInit);
 	}
 	
+	
+
+	public void setLettresActuelles(String[] lettresActuelles) {
+		this.lettresActuelles = lettresActuelles;
+	}
+
+
+	public static void setMotsDejaJoues(ArrayList<String> motsDejaJoues) {
+		Essai.motsDejaJoues = motsDejaJoues;
+	}
+
+
+	public void setMotsDejaUtilises(ArrayList<String> motsDejaUtilises) {
+		this.motsDejaUtilises = motsDejaUtilises;
+	}
+
 
 	public String[] getLettresActuelles() {
 		return lettresActuelles;
