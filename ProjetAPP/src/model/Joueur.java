@@ -36,6 +36,7 @@ public class Joueur {
 	 * 
 	 */
 	private Mot proposition;
+	
 	/**
 	 * Construit un joueur avec un nom, prenom, pseudo et sexe.
 	 * @param nom le nom du joeur

@@ -43,6 +43,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	 * Constructeur de la frame
 	 */
 	public PartieVueGUI(Partie model, PartieController controller) {
+		
 		super(model, controller);
 		PartieFrame = new JFrame("Partie");
 		PartieFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

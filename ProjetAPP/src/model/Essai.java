@@ -44,7 +44,6 @@ public class Essai extends Observable{
 			numMot = (int)(Math.random() * (Partie.getCpt()) + 1);
 			motATrouver = Partie.choixMot(numMot);
 		}
-		
 	}
 	
 
