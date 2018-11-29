@@ -11,7 +11,7 @@ import view.PartieVueGUI;
 public class PartieMVC {
 	
 	public PartieMVC() throws ArithmeticException, IOException {
-		// Création du modèle
+		// Cr�ation du mod�le
 		Partie model = new Partie();
 		
 		//Création des contrôleurs : Un pour chaque vue

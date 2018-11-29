@@ -48,6 +48,7 @@ public class Joueur {
 		this.main = false;
 		this.points = 0;
 		this.erreur = false;
+		this.proposition = new Mot("");
 	}
 	
 	public boolean isErreur() {
@@ -118,7 +119,7 @@ public class Joueur {
 	@Override
 	public String toString() {
 		String tmp = "";
-		tmp = "Pseudo: " + pseudo + "\nPoints: " + points;
+		tmp = "Pseudo: " + pseudo + " Points: " + points;
 		return tmp;
 	}
 

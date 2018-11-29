@@ -15,11 +15,7 @@ public class PartieController{
 	}
 	
 	public void initJoueur(int i) {
-		try {
-			model.init(i);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		model.init(i);
 	}
 	
 	public void addView(PartieVue vue) {

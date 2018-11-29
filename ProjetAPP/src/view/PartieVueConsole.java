@@ -1,14 +1,16 @@
 package view;
 
+import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
 import controller.PartieController;
 import model.Mot;
 import model.Partie;
 
-public class PartieVueConsole extends PartieVue{
+public class PartieVueConsole extends PartieVue implements Observer{
 	
 	PartieVue vue;
 	Partie model;
@@ -18,7 +20,8 @@ public class PartieVueConsole extends PartieVue{
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
 		motus();
-		model.etapeUn();
+		lancerEtapeUn(model);
+		lancerEtapeDeux(model);
 	}
 	
 	public void motus() {
@@ -28,27 +31,28 @@ public class PartieVueConsole extends PartieVue{
 		controller.setPseudoJoueur(pseudoJoueur);
 	}
 	
-	public void lancerEtapeUn() throws ArithmeticException, IOException {
-		affiche("le nombre de lettres: " + Partie.getTaillemot());
-		affiche("Lancement de l'etape 1\n");
-		model.etapeUn();
+	public void lancerEtapeUn(Observable o) throws ArithmeticException, IOException {
+		Partie p = (Partie) o;
+		affiche("\nLancement de l'etape 1...\n");
+		p.etapeUn();
 	}
 	
-	public void lancerEtapeDeux() {
-		affiche("Lancement de l'etape 2\n");
-		model.etapeDeux();
+	public void lancerEtapeDeux(Observable o) throws IOException {
+		Partie p = (Partie) o;
+		affiche("\nLancement de l'etape 2...\n");
+		p.etapeDeux();
+		affiche(p.getParticipants()[0].toString());
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		if(model.getEssaisRestant() == 0) {
-			affiche(model.getParticipants()[0].toString());
-		}
-		else {
-			Mot propo = new Mot(new Scanner(System.in).next());
-			controller.setPropoJouer(propo);
-			System.out.println(model.getEtatAct().getValeur());
-		}
+		Partie p = (Partie) o;
+		System.out.println(p);
+		System.out.println("Entrez votre réponse...");
+		affiche(p.getMotATrouver().getValeur());
+		System.out.println(p.getEtatActuel().getValeur());
+		Mot propo = new Mot(new Scanner(System.in).next());
+		controller.setPropoJouer(propo);
 	}
 
 	@Override
