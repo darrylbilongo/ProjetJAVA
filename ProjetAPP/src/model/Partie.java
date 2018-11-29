@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
- * Dans la premiere partie(etapeUn), on aura droit à 10 essais et dans la partie deux(etapeDeux)
+ * Dans la premiere partie(etapeUn), on aura droit ï¿½ 10 essais et dans la partie deux(etapeDeux)
  * on aura 10 essais.
  * NUMERO DU GROUPE: 17
  * @author Manuelle Ndamtang & Bilongo Darryl
@@ -24,13 +24,13 @@ public class Partie extends Observable{
 	private Mot motATrouver;
 	
 	/**
-	 * Le mot qui servira de guide pour déviner les mots aux joueurs. 
+	 * Le mot qui servira de guide pour dï¿½viner les mots aux joueurs. 
 	 */
 	private Mot etatActuel;
 	
 	/**
-	 * Ce tableau de string est constitué des lettres sur laquelles l'application se base pour 
-	 * mettre à jour l'attribut <i>etatActuel</i>.
+	 * Ce tableau de string est constituï¿½ des lettres sur laquelles l'application se base pour 
+	 * mettre ï¿½ jour l'attribut <i>etatActuel</i>.
 	 */
 	private String [] lettresActuelles;
 	
@@ -40,7 +40,7 @@ public class Partie extends Observable{
 	private static ArrayList<String> motsDejaJoues;
 	
 	/**
-	 * Cette collection est chargée de garder en memoire les mots déjà utilisé durant la partie.
+	 * Cette collection est chargï¿½e de garder en memoire les mots dï¿½jï¿½ utilisï¿½ durant la partie.
 	 */
 	private ArrayList<String> motsDejaUtilises;
 	
@@ -85,8 +85,6 @@ public class Partie extends Observable{
 	 */
 	private static int etape;
 	
-	private Mot etatAct;
-	
 	
 	/**
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
@@ -112,7 +110,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette méthode initialise la partie .
+	 * Cette mï¿½thode initialise la partie .
 	 * @param init le nombre de joeurs dans la partie Ã  initialiser
 	 */
 	public void init(int init){
@@ -134,9 +132,9 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de lancer la premiÃ¨re etape de la partie.
-	 * @throws IOException cette exception est provoqué pas la méthode <b>traitementReponse</b>
-	 * @throws ArithmeticException cette exception tient compte les cas où les joueurs
-	 * inscrivent un caractère à la place d'un chiffre.
+	 * @throws IOException cette exception est provoquï¿½ pas la mï¿½thode <b>traitementReponse</b>
+	 * @throws ArithmeticException cette exception tient compte les cas oï¿½ les joueurs
+	 * inscrivent un caractï¿½re ï¿½ la place d'un chiffre.
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		/*if(nbJoueurs == 2) {
