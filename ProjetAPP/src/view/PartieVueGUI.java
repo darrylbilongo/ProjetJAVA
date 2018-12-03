@@ -61,7 +61,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		super(model, controller);
 		PartieFrame = new JFrame("Partie");
 		PartieFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		PartieFrame.setBounds(100, 100, 450, 255);
+		PartieFrame.setBounds(100, 100, 472, 299);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		PartieFrame.setContentPane(contentPane);

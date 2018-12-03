@@ -255,7 +255,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 *  Cette methode permet de mettre à jour l'etat actuel du mot à deviner dans la partie
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
@@ -286,7 +286,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 *  Cette méthode initialise l'état actuel de la p
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -345,8 +345,8 @@ public class Partie extends Observable{
 	
 	/**
 	 * 
-	 * @param num
-	 * @return
+	 * @param
+	 * @return 
 	 */
 	public static Mot choixMot(int num) {
 		try {
