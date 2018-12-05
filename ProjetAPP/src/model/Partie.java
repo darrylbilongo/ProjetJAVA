@@ -1,9 +1,17 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
@@ -85,21 +93,32 @@ public class Partie extends Observable{
 	 */
 	private static int etape;
 	
+	private Joueur joueurActuel;
+	
+	/**
+	 * 
+	 */
+	boolean serveur = true;
+	
+	
+	private BufferedReader in ;
+	private PrintWriter out;
+	private Socket socket;
 	
 	/**
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
-	public Partie() {
+	/*public Partie() {
 		nbJoueurs = 1;
 		init(nbJoueurs);
-	}
+	}*/
 	
 	/**
 	 * Ce Constructeur se charge d'initialiser la partie en tenant compte du nombre de joueurs
 	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
 	 */
-	public Partie(int nbJoueurs){
+	/*public Partie(int nbJoueurs){
 		this.nbJoueurs = nbJoueurs;
 		if(nbJoueurs == 2) {
 			init(2);
@@ -107,27 +126,59 @@ public class Partie extends Observable{
 		else if(nbJoueurs == 1) {
 			init(1);
 		}
-	}
+	}*/
+	
+	
 	
 	/**
-	 * Cette m�thode initialise la partie .
+	 * Cette methode initialise la partie .
 	 * @param init le nombre de joeurs dans la partie à initialiser
 	 */
 	public void init(int init){
 		if(init == 1) {
+			nbJoueurs = 1;
 			etape = 1;
 			Joueur joueur1 = new Joueur();
+			joueur1.setMain(true);
 			participants = new Joueur[] {joueur1};
+			joueurActuel = participants[0];
 			essaisRestant = 10;
 			classerMot(TAILLEMOT);	
 		}
 		else if(init == 2) {
+			nbJoueurs = 2;
 			etape = 1;
 			Joueur joueur1 = new Joueur();
-			participants = new Joueur[] {joueur1};
+			joueur1.setMain(true);
+			Joueur joueur2 = new Joueur();
+			joueur2.setMain(false);
+			participants = new Joueur[] {joueur1, joueur2};
+			joueurActuel = participants[0];
 			essaisRestant = 10;
 			classerMot(TAILLEMOT);	
 		}
+	}
+	
+	
+	
+	
+	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
+		if(serveur == true) {
+			ServerSocket s = new ServerSocket(port);
+			socket = s.accept();
+		}
+		else {
+			socket = new Socket(addr, port);
+		}
+		
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+	}
+	
+	public void closeConnection() throws IOException {
+		in.close();
+		out.close();
+		socket.close();
 	}
 	
 	/**
@@ -137,24 +188,32 @@ public class Partie extends Observable{
 	 * inscrivent un caract�re � la place d'un chiffre.
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
-		/*if(nbJoueurs == 2) {
+		if(nbJoueurs == 2) {
 			for(int i = 0; i <= 10; i++) {
-				Essai essai = new Essai(2);
+				getEssai();
+				initEtatActuel();
+				essaisRestant--;
+				int a = 5;
+				while (!traitementReponse(joueurActuel.getProposition()) && a != 0){
+				 	updateEtatActuel();
+					setChanged();
+					notifyObservers();
+					a--;
+				 }
 				for(int j = 0; j <= participants.length; j++) {
 					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
 						vainqueur = participants[j];
 					}
 				}
-				essaisRestant--;
 			}
 		}
-		else */if(nbJoueurs == 1) {
+		else if(nbJoueurs == 1) {
 			for(int i = 0; i < 10; i++) {
 				getEssai();
 				initEtatActuel();
 				essaisRestant--;
 				int j = 5;
-				while (!traitementReponse(participants[0].getProposition()) && j != 0){
+				while (!traitementReponse(joueurActuel.getProposition()) && j != 0){
 				 	updateEtatActuel();
 					setChanged();
 					notifyObservers();
@@ -179,7 +238,7 @@ public class Partie extends Observable{
 			initEtatActuel();
 			essaisRestant--;
 			int j = 5;
-			while (!traitementReponse(participants[0].getProposition()) && j != 0){
+			while (!traitementReponse(joueurActuel.getProposition()) && j != 0){
 			 	updateEtatActuel();
 				setChanged();
 				notifyObservers();
