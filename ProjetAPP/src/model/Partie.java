@@ -205,8 +205,7 @@ public class Partie extends Observable{
 					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
 						vainqueur = participants[j];
 					}
-				}
-				
+				}				
 			}
 		}
 		
