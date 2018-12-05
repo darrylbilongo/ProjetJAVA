@@ -194,6 +194,7 @@ public class Partie extends Observable{
 				initEtatActuel();
 				essaisRestant--;
 				int a = 5;
+				
 				while (!traitementReponse(joueurActuel.getProposition()) && a != 0){
 				 	updateEtatActuel();
 					setChanged();
