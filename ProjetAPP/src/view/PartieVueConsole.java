@@ -25,6 +25,13 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	}
 	
 	public void motus() {
+		System.out.println("Introduisez le nombre de joueurs: ");
+		String nb = new Scanner(System.in).next();
+		while(!(nb.equals("1") || nb.equals("2") )) {
+			System.out.println("Introduisez un nombre de joueurs correct entre 1 et 2:");
+			nb = new Scanner(System.in).next();
+		}
+		controller.setNbJoueurs(Integer.parseInt(nb));
 		System.out.println("Bonjour, \nBienvenu(e) ра Motus:");	
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();

@@ -206,6 +206,7 @@ public class Partie extends Observable{
 						vainqueur = participants[j];
 					}
 				}
+				
 			}
 		}
 		
