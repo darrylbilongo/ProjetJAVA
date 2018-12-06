@@ -91,7 +91,7 @@ public class Partie extends Observable{
 	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
-	private static int etape;
+	private int etape;
 	
 	private Joueur joueurActuel;
 	
@@ -476,13 +476,42 @@ public class Partie extends Observable{
 		this.essaisRestant = essaisRestant;
 	}
 	
-	public static int getEtape() {
+	public int getEtape() {
 		return etape;
 	}
 
-	public static void setEtape(int etape) {
-		Partie.etape = etape;
+	public void setEtape(int etape) {
+		this.etape = etape;
 	}
+
+
+	public String[] getLettresActuelles() {
+		return lettresActuelles;
+	}
+
+
+	public void setLettresActuelles(String[] lettresActuelles) {
+		this.lettresActuelles = lettresActuelles;
+	}
+
+
+
+	public Joueur getJoueurActuel() {
+		return joueurActuel;
+	}
+
+
+
+	public void setJoueurActuel(Joueur joueurActuel) {
+		this.joueurActuel = joueurActuel;
+	}
+
+
+	public void setEtatActuel(Mot etatActuel) {
+		this.etatActuel = etatActuel;
+	}
+
+
 
 
 	public static Joueur[] getParticipants() {
