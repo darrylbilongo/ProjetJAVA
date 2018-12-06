@@ -127,11 +127,6 @@ public class Partie extends Observable{
 			init(1);
 		}
 	}*/
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> refs/remotes/origin/master
 	
 	/**
 	 * Cette methode initialise la partie .

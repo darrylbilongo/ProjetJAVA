@@ -62,11 +62,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	public PartieVueGUI(Partie model, PartieController controller) {
 		
 		super(model, controller);
-<<<<<<< HEAD
-		PartieFrame = new JFrame("Partie");
-		PartieFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		PartieFrame.setBounds(100, 100, 472, 299);
-=======
 		frame = new JFrame("Partie");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\install\\OneDrive\\GOMAND\\EPHEC\\Cours\\2TI\\D\u00E9v. informatique avanc\u00E9 application_Th\u00E9orie\\TP\\TP_Java\\ProjetJAVA2018\\ProjetAPP\\motus-france-2-pourquoi-les-emissions-du-samedi-sont-elles-des-rediffusions.jpg"));
 		frame.setTitle("Motus");
@@ -74,7 +69,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		frame.setFont(new Font("Castellar", Font.PLAIN, 12));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 640, 362);
->>>>>>> refs/remotes/origin/master
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
