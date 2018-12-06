@@ -25,7 +25,18 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	}
 	
 	public void motus() {
+<<<<<<< HEAD
 		System.out.println("Bonjour, \nBienvenu(e) ï¿½ Motus:");	
+=======
+		System.out.println("Introduisez le nombre de joueurs: ");
+		String nb = new Scanner(System.in).next();
+		while(!(nb.equals("1") || nb.equals("2") )) {
+			System.out.println("Introduisez un nombre de joueurs correct entre 1 et 2:");
+			nb = new Scanner(System.in).next();
+		}
+		controller.setNbJoueurs(Integer.parseInt(nb));
+		System.out.println("Bonjour, \nBienvenu(e) à  Motus:");	
+>>>>>>> refs/remotes/origin/master
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
@@ -48,8 +59,13 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	public void update(Observable o, Object arg) {
 		Partie p = (Partie) o;
 		System.out.println(p);
+<<<<<<< HEAD
 		System.out.println("Entrez votre rï¿½ponse...");
 		affiche(p.getMotATrouver().getValeur());
+=======
+		System.out.println("Entrez votre réponse...");
+		//affiche(p.getMotATrouver().getValeur());
+>>>>>>> refs/remotes/origin/master
 		System.out.println(p.getEtatActuel().getValeur());
 		Mot propo = new Mot(new Scanner(System.in).next());
 		controller.setPropoJouer(propo);

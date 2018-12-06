@@ -30,5 +30,13 @@ public class PartieController{
 		model.getParticipants()[0].setProposition(p);
 	}
 	
+	public void setNbJoueurs(int n) {
+		model.setNbJoueurs(n);
+		model.init(n);
+	}
 
+	public int getNbLettres() {
+		return model.getTaillemot();
+	}
 }
+
