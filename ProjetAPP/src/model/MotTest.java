@@ -15,6 +15,11 @@ class MotTest {
 		
 		assertTrue(m1.getValeur().equals(m2.getValeur()));
 		assertTrue(m1.comparer(m2));
+		
+		// LONGEUR
+		
+		assertEquals(m1.longueur(),8);
+		assertEquals(m2.longueur(),8);
 	}
 
 }
