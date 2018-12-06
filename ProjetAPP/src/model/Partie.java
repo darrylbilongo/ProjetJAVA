@@ -266,13 +266,12 @@ public class Partie extends Observable{
 	
 	
 	public boolean traitementReponse(Mot m) throws IOException {
-		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
-			joueur.setErreur(true);
+			joueurActuel.setErreur(true);
 			return false;
 		}
 		else if(m.getValeur().equals(motATrouver.getValeur())) {
-			joueur.pointsPlus();
+			joueurActuel.pointsPlus();
 			lettresActuelles = motATrouver.getValeur().split("");
 			return true;
 		}
@@ -281,7 +280,7 @@ public class Partie extends Observable{
 				traiterMot(m);
 			}
 		}
-		joueur.setErreur(true);
+		joueurActuel.setErreur(true);
 		return false;
 		
 	}

@@ -56,7 +56,7 @@ public class Mot {
 	 * @return
 	 */
 	public boolean comparer(Mot m) {
-		if(m.valeur == this.valeur) {
+		if(m.valeur.equals(this.valeur)) {
 			return true;
 		}		
 		return false;
