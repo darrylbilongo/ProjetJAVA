@@ -35,5 +35,8 @@ public class PartieController{
 		model.init(n);
 	}
 
+	public int getNbLettres() {
+		return model.getTaillemot();
+	}
 }
 

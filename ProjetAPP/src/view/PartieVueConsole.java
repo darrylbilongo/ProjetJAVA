@@ -56,7 +56,7 @@ public class PartieVueConsole extends PartieVue implements Observer{
 		Partie p = (Partie) o;
 		System.out.println(p);
 		System.out.println("Entrez votre réponse...");
-		affiche(p.getMotATrouver().getValeur());
+		//affiche(p.getMotATrouver().getValeur());
 		System.out.println(p.getEtatActuel().getValeur());
 		Mot propo = new Mot(new Scanner(System.in).next());
 		controller.setPropoJouer(propo);
