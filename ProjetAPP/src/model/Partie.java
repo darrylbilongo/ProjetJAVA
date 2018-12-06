@@ -90,16 +90,16 @@ public class Partie extends Observable{
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
-	public Partie() {
+	/*public Partie() {
 		nbJoueurs = 1;
 		init(nbJoueurs);
-	}
+	}*/
 	
 	/**
 	 * Ce Constructeur se charge d'initialiser la partie en tenant compte du nombre de joueurs
 	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
 	 */
-	public Partie(int nbJoueurs){
+	/*public Partie(int nbJoueurs){
 		this.nbJoueurs = nbJoueurs;
 		if(nbJoueurs == 2) {
 			init(2);
@@ -107,7 +107,7 @@ public class Partie extends Observable{
 		else if(nbJoueurs == 1) {
 			init(1);
 		}
-	}
+	}*/
 	
 	/**
 	 * Cette m�thode initialise la partie .
@@ -196,8 +196,8 @@ public class Partie extends Observable{
 		etatActuel = new Mot(""); 
 		
 		int numMot = (int)(Math.random() * cpt + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && 
-				motsDejaJoues.contains(motATrouver.getValeur()))
+		while((motATrouver = Partie.choixMot(numMot)) == null /*&& 
+				motsDejaJoues.contains(motATrouver.getValeur())*/)
 		{
 			numMot = (int)(Math.random() * cpt + 1);
 			motATrouver = Partie.choixMot(numMot);

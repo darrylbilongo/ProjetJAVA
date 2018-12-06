@@ -29,7 +29,6 @@ class PartieTest {
 	}
 	
 	
-
 	void testTraitementReponse() {
 		//TODO
 	}

@@ -11,7 +11,7 @@ import view.PartieVueGUI;
 public class PartieMVC {
 	
 	public PartieMVC() throws ArithmeticException, IOException {
-		// Création du modèle
+		// Creation du modele
 		Partie model = new Partie();
 		
 		//CrÃ©ation des contrÃ´leurs : Un pour chaque vue

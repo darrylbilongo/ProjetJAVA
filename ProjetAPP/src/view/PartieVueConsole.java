@@ -21,11 +21,11 @@ public class PartieVueConsole extends PartieVue implements Observer{
 		super(model, controller);
 		motus();
 		lancerEtapeUn(model);
-		lancerEtapeDeux(model);
+		lancerEtapeDeux(model); 
 	}
 	
 	public void motus() {
-		System.out.println("Bonjour, \nBienvenu(e) à  Motus:");	
+		System.out.println("Bonjour, \nBienvenu(e) ï¿½ Motus:");	
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
@@ -48,7 +48,7 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	public void update(Observable o, Object arg) {
 		Partie p = (Partie) o;
 		System.out.println(p);
-		System.out.println("Entrez votre réponse...");
+		System.out.println("Entrez votre rï¿½ponse...");
 		affiche(p.getMotATrouver().getValeur());
 		System.out.println(p.getEtatActuel().getValeur());
 		Mot propo = new Mot(new Scanner(System.in).next());
