@@ -31,6 +31,6 @@ class JoueurTest {
 		Joueur j = new Joueur();
 		j.pointsPlus();
 		assertEquals(50, j.getPoints());	
-	}
+	} 
 
 }

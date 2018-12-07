@@ -1,7 +1,4 @@
 package model;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.Normalizer;
 
 public class Mot {
@@ -28,7 +25,7 @@ public class Mot {
 	
 	/**
 	 * 
-	 * @return
+	 * @return la valeur en String du mot
 	 */
 	public String getValeur() {
 		return valeur;
@@ -36,7 +33,7 @@ public class Mot {
 
 	/**
 	 * 
-	 * @param valeur
+	 * @param valeur la nouvelle valeur à attribuer au mot
 	 */
 	public void setValeur(String valeur) {
 		this.valeur = valeur;
@@ -56,7 +53,7 @@ public class Mot {
 	 * @return
 	 */
 	public boolean comparer(Mot m) {
-		if(m.valeur == this.valeur) {
+		if(m.valeur.equals(this.valeur)) {
 			return true;
 		}		
 		return false;

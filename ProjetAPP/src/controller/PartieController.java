@@ -16,7 +16,7 @@ public class PartieController{
 	}
 	
 	public void initJoueur(int i) {
-		model.init(i);
+		model.init(i); 
 	}
 	
 	public void addView(PartieVue vue) {

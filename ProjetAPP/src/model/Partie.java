@@ -91,8 +91,9 @@ public class Partie extends Observable{
 	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
-	private static int etape;
+	
 	private int elem;
+	private int etape;
 	private Joueur joueurActuel;
 	
 	/**
@@ -129,8 +130,6 @@ public class Partie extends Observable{
 			init(1);
 		}
 	}*/
-	
-	
 	
 	/**
 	 * Cette methode initialise la partie .
@@ -256,8 +255,8 @@ public class Partie extends Observable{
 		etatActuel = new Mot(""); 
 		
 		int numMot = (int)(Math.random() * cpt + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && 
-				motsDejaJoues.contains(motATrouver.getValeur()))
+		while((motATrouver = Partie.choixMot(numMot)) == null /*&& 
+				motsDejaJoues.contains(motATrouver.getValeur())*/)
 		{
 			numMot = (int)(Math.random() * cpt + 1);
 			motATrouver = Partie.choixMot(numMot);
@@ -266,13 +265,12 @@ public class Partie extends Observable{
 	
 	
 	public boolean traitementReponse(Mot m) throws IOException {
-		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
-			joueur.setErreur(true);
+			joueurActuel.setErreur(true);
 			return false;
 		}
 		else if(m.getValeur().equals(motATrouver.getValeur())) {
-			joueur.pointsPlus();
+			joueurActuel.pointsPlus();
 			lettresActuelles = motATrouver.getValeur().split("");
 			return true;
 		}
@@ -281,7 +279,7 @@ public class Partie extends Observable{
 				traiterMot(m);
 			}
 		}
-		joueur.setErreur(true);
+		joueurActuel.setErreur(true);
 		return false;
 		
 	}
@@ -315,7 +313,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 *  Cette methode permet de mettre à jour l'etat actuel du mot à deviner dans la partie
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
@@ -346,7 +344,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 *  Cette méthode initialise l'état actuel de la p
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -405,8 +403,8 @@ public class Partie extends Observable{
 	
 	/**
 	 * 
-	 * @param num
-	 * @return
+	 * @param
+	 * @return 
 	 */
 	public static Mot choixMot(int num) {
 		try {
@@ -476,13 +474,42 @@ public class Partie extends Observable{
 		this.essaisRestant = essaisRestant;
 	}
 	
-	public static int getEtape() {
+	public int getEtape() {
 		return etape;
 	}
 
-	public static void setEtape(int etape) {
-		Partie.etape = etape;
+	public void setEtape(int etape) {
+		this.etape = etape;
 	}
+
+
+	public String[] getLettresActuelles() {
+		return lettresActuelles;
+	}
+
+
+	public void setLettresActuelles(String[] lettresActuelles) {
+		this.lettresActuelles = lettresActuelles;
+	}
+
+
+
+	public Joueur getJoueurActuel() {
+		return joueurActuel;
+	}
+
+
+
+	public void setJoueurActuel(Joueur joueurActuel) {
+		this.joueurActuel = joueurActuel;
+	}
+
+
+	public void setEtatActuel(Mot etatActuel) {
+		this.etatActuel = etatActuel;
+	}
+
+
 
 
 	public static Joueur[] getParticipants() {

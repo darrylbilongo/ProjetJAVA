@@ -11,21 +11,21 @@ import view.PartieVueGUI;
 public class PartieMVC {
 	
 	public PartieMVC() throws ArithmeticException, IOException {
-		// Cr�ation du mod�le
+		// Creation du modele
 		Partie model = new Partie();
 		
 		//Création des contrôleurs : Un pour chaque vue
 		//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
 		PartieController ctrlGUI = new PartieController(model);
-		//PartieController ctrlConsole = new PartieController(model);
+		PartieController ctrlConsole = new PartieController(model);
 		 
 		//Création des vues.
 		//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
 		PartieVue gui = new PartieVueGUI(model, ctrlGUI);
-		//PartieVue console = new PartieVueConsole(model, ctrlConsole);
+		PartieVue console = new PartieVueConsole(model, ctrlConsole);
 		 		
 		//On donne la référence à la vue pour chaque contrôleur
-		//ctrlConsole.addView(console);
+		ctrlConsole.addView(console);
 		ctrlGUI.addView(gui);
 	}
 				
