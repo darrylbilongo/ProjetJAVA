@@ -56,6 +56,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	private JButton valider;
 	private JLabel lblChrono;
 	private JTextField textField;
+	
+	
+	private Object[][] data;
 
 	/**
 	 * Constructeur de la frame
@@ -369,7 +372,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	public void initTable() {
 		int n = controller.getNbLettres();
-		Object[][] data = new Object[6][n];
+		data = new Object[6][n];
 		
 		for(int i = 0; i < 6; i++) {
 			for(int j = 0; j < n; j++) {
@@ -389,25 +392,22 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
  	public void updateTable() {
 		String[] str = controller.getEtatActuel().split("");
 		int n = controller.getNbLettres();
-		Object[][] data = new Object[6][n];
 		
 		for(int i = 0; i < 6; i++) {
-			if(!data[i][0].equals("")) 
+			/*if(!data[i][0].equals("")) 
 				continue;
-			else {
+			else{*/
 				for(int j = 0; j < n; j++) {
 					if(i == controller.getElem()) {
-						if(!(str[j].equals("*") && str[j].equals("+"))) {
+						//if(!(str[j].equals("+"))) {
 							data[i][j] = str[j];
-						}
-						else
-							data[i][j] = "";
+						//}
 					}
 					else{
 						data[i][j] = "";
 					}
 				}
-			}
+			//}
 		}
 		
 		String[] s = new String[n];
@@ -456,8 +456,13 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	@Override
 	public void update(Observable o, Object arg) {
 		String s = fieldPropo.getText();
-		controller.setPropoJouer(new Mot(s));
-		updateTable();
+		if(s.length()==0) {
+			updateTable();
+		}
+		else {
+			controller.setPropoJouer(new Mot(s));
+			updateTable();
+		}
 	}
 
 	@Override
@@ -516,6 +521,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		case "Valider":
 			if(controller.getEssaiRest() == 0)
 				valider.setText("Prêt!");
+			controller.traitementPropo(fieldPropo.getText());
 			break;
 			
 		default:

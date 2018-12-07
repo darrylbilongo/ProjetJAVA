@@ -187,12 +187,12 @@ public class Partie extends Observable{
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
-			for(int i = 0; i <= 10; i++) {
+			//for(int i = 0; i <= 10; i++) {
 				getEssai();
 				initEtatActuel();
 				essaisRestant--;
 				elem = 0;
-				while (!traitementReponse(joueurActuel.getProposition()) && elem != 6){
+				if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 				 	updateEtatActuel();
 					setChanged();
 					notifyObservers();
@@ -204,22 +204,18 @@ public class Partie extends Observable{
 					}
 				}
 				
-			}
+			//}
 		}
 		
 		else if(nbJoueurs == 1) {
-			for(int i = 0; i < 10; i++) {
-				getEssai();
-				initEtatActuel();
-				essaisRestant--;
-				elem = 0;
-				while (!traitementReponse(joueurActuel.getProposition()) && elem != 6){
-				 	updateEtatActuel();
-					setChanged();
-					notifyObservers();
-					elem++;
-				 }
-			}
+			//for(int i = 0; i <= 10; i++) {
+			getEssai();
+			initEtatActuel();
+			essaisRestant--;
+			elem = 0;
+			/*
+			 }*/
+			//}
 		}
 		else {
 			throw new ArithmeticException();
@@ -227,6 +223,15 @@ public class Partie extends Observable{
 		essaisRestant = 10;
 	}
 
+	public void propoJoueur() throws IOException {
+		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
+		 	updateEtatActuel();
+			setChanged();
+			notifyObservers();
+			elem++;
+		}
+	}
+	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
 	 * à la finale où le vainqueur joue seul pour determiner l'issue de la partie.

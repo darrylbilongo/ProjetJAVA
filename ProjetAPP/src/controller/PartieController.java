@@ -82,5 +82,15 @@ public class PartieController{
 	public int getElem() {
 		return model.getElem();
 	}
+	
+	public void traitementPropo(String str) {
+		setPropoJouer(new Mot(str));
+		try {
+			model.propoJoueur();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 
