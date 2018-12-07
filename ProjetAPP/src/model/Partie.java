@@ -92,7 +92,7 @@ public class Partie extends Observable{
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
 	private static int etape;
-	
+	private int elem;
 	private Joueur joueurActuel;
 	
 	/**
@@ -109,10 +109,12 @@ public class Partie extends Observable{
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
-	/*public Partie() {
+	public Partie() {
 		nbJoueurs = 1;
-		init(nbJoueurs);
-	}*/
+		etape = 1;
+		essaisRestant = 10;
+		classerMot(TAILLEMOT);	
+	}
 	
 	/**
 	 * Ce Constructeur se charge d'initialiser la partie en tenant compte du nombre de joueurs
@@ -137,25 +139,22 @@ public class Partie extends Observable{
 	public void init(int init){
 		if(init == 1) {
 			nbJoueurs = 1;
-			etape = 1;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
 			participants = new Joueur[] {joueur1};
 			joueurActuel = participants[0];
-			essaisRestant = 10;
-			classerMot(TAILLEMOT);	
 		}
 		else if(init == 2) {
 			nbJoueurs = 2;
-			etape = 1;
+			//etape = 1;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
 			Joueur joueur2 = new Joueur();
 			joueur2.setMain(false);
 			participants = new Joueur[] {joueur1, joueur2};
 			joueurActuel = participants[0];
-			essaisRestant = 10;
-			classerMot(TAILLEMOT);	
+			/*essaisRestant = 10;
+			classerMot(TAILLEMOT);	*/
 		}
 	}
 	
@@ -193,13 +192,12 @@ public class Partie extends Observable{
 				getEssai();
 				initEtatActuel();
 				essaisRestant--;
-				int a = 5;
-				
-				while (!traitementReponse(joueurActuel.getProposition()) && a != 0){
+				elem = 0;
+				while (!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 				 	updateEtatActuel();
 					setChanged();
 					notifyObservers();
-					a--;
+					elem++;
 				 }
 				for(int j = 0; j <= participants.length; j++) {
 					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
@@ -215,12 +213,12 @@ public class Partie extends Observable{
 				getEssai();
 				initEtatActuel();
 				essaisRestant--;
-				int j = 5;
-				while (!traitementReponse(joueurActuel.getProposition()) && j != 0){
+				elem = 0;
+				while (!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 				 	updateEtatActuel();
 					setChanged();
 					notifyObservers();
-					j--;
+					elem++;
 				 }
 			}
 		}
@@ -240,12 +238,12 @@ public class Partie extends Observable{
 			getEssai();
 			initEtatActuel();
 			essaisRestant--;
-			int j = 5;
-			while (!traitementReponse(joueurActuel.getProposition()) && j != 0){
+			elem = 0;
+			while (!traitementReponse(joueurActuel.getProposition()) && elem != 0){
 			 	updateEtatActuel();
 				setChanged();
 				notifyObservers();
-				j--;
+				elem++;
 			 }
 		}
 	}
@@ -306,9 +304,9 @@ public class Partie extends Observable{
 					lettres[i] = "";
 				}
 				else {
-					if((lettresActuelles[i] != "+" && lettresActuelles[i] != "*")) {
+					/*if((lettresActuelles[i] != "+" && lettresActuelles[i] != "*")) {
 						continue;
-					}
+					}*/
 					lettresActuelles[i] = "+";
 					lettres[i] = "";
 				}
@@ -510,5 +508,15 @@ public class Partie extends Observable{
 	public void setMotATrouver(Mot motATrouver) {
 		this.motATrouver = motATrouver;
 	}
+
+	public int getElem() {
+		return elem;
+	}
+
+	public void setElem(int elem) {
+		this.elem = elem;
+	}
+	
+	
 	
 }

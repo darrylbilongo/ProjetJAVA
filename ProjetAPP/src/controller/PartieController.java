@@ -38,5 +38,47 @@ public class PartieController{
 	public int getNbLettres() {
 		return model.getTaillemot();
 	}
+	
+	public int getEssaiRest() {
+		return model.getEssaisRestant();
+	}
+	
+	public void etapeUn() {
+		try {
+			model.etapeUn();
+		} catch (ArithmeticException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void etapeDeux() {
+		try {
+			model.etapeDeux();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void initPartie(int i) {
+		model.init(i);
+	}
+	
+	public int getEtape() {
+		return model.getEtape();
+	}
+	
+	public void verifierPropo(String s) {
+		model.getParticipants()[0].setProposition(new Mot(s));
+	}
+	
+	public String getEtatActuel() {
+		return model.getEtatActuel().getValeur();
+	}
+	
+	public int getElem() {
+		return model.getElem();
+	}
 }
 
