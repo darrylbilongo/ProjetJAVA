@@ -392,16 +392,20 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		Object[][] data = new Object[6][n];
 		
 		for(int i = 0; i < 6; i++) {
-			for(int j = 0; j < n; j++) {
-				if(i == controller.getElem()) {
-					if(!(str[j].equals("*") && str[j].equals("+"))) {
-						data[i][j] = str[j];
+			if(!data[i][0].equals("")) 
+				continue;
+			else {
+				for(int j = 0; j < n; j++) {
+					if(i == controller.getElem()) {
+						if(!(str[j].equals("*") && str[j].equals("+"))) {
+							data[i][j] = str[j];
+						}
+						else
+							data[i][j] = "";
 					}
-					else
+					else{
 						data[i][j] = "";
-				}
-				else{
-					data[i][j] = "";
+					}
 				}
 			}
 		}
@@ -486,7 +490,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		switch (e.getActionCommand()) {
 		case "Commençons":
 			if(!(introNbJoueurs() && introPseudo())) {
-				affiche("Vueillez introduire des données correctes!");
+				affiche("Veuillez introduire des données correctes!");
 				break;
 			}
 			affiche("Etes-vous prêts?");

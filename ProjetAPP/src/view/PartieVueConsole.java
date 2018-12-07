@@ -20,8 +20,8 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
 		motus();
-		lancerEtapeUn(model);
-		lancerEtapeDeux(model); 
+		lancerEtapeUn();
+		lancerEtapeDeux(); 
 	}
 	
 	public void motus() {
@@ -32,32 +32,29 @@ public class PartieVueConsole extends PartieVue implements Observer{
 			nb = new Scanner(System.in).next();
 		}
 		controller.setNbJoueurs(Integer.parseInt(nb));
-		System.out.println("Bonjour, \nBienvenu(e) � Motus:");	
-		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
+		affiche("Bonjour, \nBienvenu(e) � Motus:");	
+		affiche("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
 	}
 	
-	public void lancerEtapeUn(Observable o) throws ArithmeticException, IOException {
-		Partie p = (Partie) o;
+	public void lancerEtapeUn() throws ArithmeticException, IOException {
 		affiche("\nLancement de l'etape 1...\n");
-		p.etapeUn();
+		controller.etapeUn();
 	}
 	
-	public void lancerEtapeDeux(Observable o) throws IOException {
-		Partie p = (Partie) o;
+	public void lancerEtapeDeux() throws IOException {
 		affiche("\nLancement de l'etape 2...\n");
-		p.etapeDeux();
-		affiche(p.getParticipants()[0].toString());
+		controller.etapeDeux();
+		affiche(controller.getParticipants()[0].toString());
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		Partie p = (Partie) o;
 		System.out.println(p);
-		System.out.println("Entrez votre r�ponse...");
-		//affiche(p.getMotATrouver().getValeur());
-		System.out.println(p.getEtatActuel().getValeur());
+		affiche("Entrez votre r�ponse...");
+		affiche(p.getEtatActuel().getValeur());
 		Mot propo = new Mot(new Scanner(System.in).next());
 		controller.setPropoJouer(propo);
 	}

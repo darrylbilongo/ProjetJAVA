@@ -3,6 +3,7 @@ package controller;
 
 import java.io.IOException;
 
+import model.Joueur;
 import model.Mot;
 import model.Partie;
 import view.PartieVue;
@@ -70,8 +71,8 @@ public class PartieController{
 		return model.getEtape();
 	}
 	
-	public void verifierPropo(String s) {
-		model.getParticipants()[0].setProposition(new Mot(s));
+	public Joueur[] getParticipants() {
+		return model.getParticipants();
 	}
 	
 	public String getEtatActuel() {
