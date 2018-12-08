@@ -133,7 +133,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode initialise la partie .
-	 * @param init le nombre de joeurs dans la partie Ã  initialiser
+	 * @param init le nombre de joeurs dans la partie a  initialiser
 	 */
 	public void init(int init){
 		if(init == 1) {
@@ -180,7 +180,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode se charge de lancer la premiÃ¨re etape de la partie.
+	 * Cette methode se charge de lancer la premia¨re etape de la partie.
 	 * @throws IOException cette exception est provoquï¿½ pas la mï¿½thode <b>traitementReponse</b>
 	 * @throws ArithmeticException cette exception tient compte les cas oï¿½ les joueurs
 	 * inscrivent un caractï¿½re ï¿½ la place d'un chiffre.
@@ -226,15 +226,15 @@ public class Partie extends Observable{
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 		 	updateEtatActuel();
+			elem++;
 			setChanged();
 			notifyObservers();
-			elem++;
 		}
 	}
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
-	 * Ã  la finale oÃ¹ le vainqueur joue seul pour determiner l'issue de la partie.
+	 * a  la finale oa¹ le vainqueur joue seul pour determiner l'issue de la partie.
 	 * @throws IOException 
 	 */
 	public void etapeDeux() throws IOException{
@@ -318,7 +318,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette methode permet de mettre Ã  jour l'etat actuel du mot Ã  deviner dans la partie
+	 *  Cette methode permet de mettre à  jour l'etat actuel du mot a  deviner dans la partie
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
@@ -328,6 +328,34 @@ public class Partie extends Observable{
 		etatActuel.setValeur(s);
 	}
 
+
+	
+	/**
+	 *  Cette methode initialise l'etat actuel de la p
+	 */
+	public void initEtatActuel() {
+		String lettreMot[] = motATrouver.getValeur().split("");
+		String etatInit = "";
+		for(int i = 0; i < TAILLEMOT; i++) {
+			if(i == 0 || i == 2) {
+				etatInit += lettreMot[i];
+				lettresActuelles[i] = lettreMot[i];
+			}
+			else {
+				etatInit += "*";
+				lettresActuelles[i] = "*";
+			}
+		}
+		etatActuel = new Mot(etatInit);
+	}
+	
+	/**
+	 * Méthode à executer lors d'une bonne reponse
+	 */
+	public void bonneReponse() {
+		this.etatActuel = new Mot(motATrouver.getValeur());
+	}
+	
 	/**
 	 * 	
 	 * @param mot
@@ -347,27 +375,6 @@ public class Partie extends Observable{
 		input.close();
 		return false;
 	}
-	
-	/**
-	 *  Cette mÃ©thode initialise l'Ã©tat actuel de la p
-	 */
-	public void initEtatActuel() {
-		String lettreMot[] = motATrouver.getValeur().split("");
-		String etatInit = "";
-		for(int i = 0; i < TAILLEMOT; i++) {
-			if(i == 0 || i == 2) {
-				etatInit += lettreMot[i];
-				lettresActuelles[i] = lettreMot[i];
-			}
-			else {
-				etatInit += "*";
-				lettresActuelles[i] = "*";
-			}
-		}
-		etatActuel = new Mot(etatInit);
-	}
-	
-	
 	
 	/**
 	 * 

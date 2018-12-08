@@ -28,7 +28,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 
 	private JPanel contentPane;
 	private JFrame frame;
-	//private int nbLettres = Partie.getTaillemot();
 	private JLabel nbJoueurs;
 	private JLabel essaiRest;
 	private JLabel nbLettres;
@@ -67,7 +66,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		super(model, controller);
 		initGUI();
-		
 	}
 	
 	
@@ -390,24 +388,19 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	}
 	
  	public void updateTable() {
+ 		String[] propo = fieldPropo.getText().split("");
 		String[] str = controller.getEtatActuel().split("");
 		int n = controller.getNbLettres();
 		
 		for(int i = 0; i < 6; i++) {
-			/*if(!data[i][0].equals("")) 
-				continue;
-			else{*/
-				for(int j = 0; j < n; j++) {
-					if(i == controller.getElem()) {
-						//if(!(str[j].equals("+"))) {
-							data[i][j] = str[j];
-						//}
-					}
-					else{
-						data[i][j] = "";
-					}
+			for(int j = 0; j < n; j++) {
+				if(i == (controller.getElem()-1)) {
+					data[i][j] = propo[j];
 				}
-			//}
+				if(i == controller.getElem()) {
+					data[i][j] = str[j];
+				}
+			}
 		}
 		
 		String[] s = new String[n];
@@ -455,14 +448,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		String s = fieldPropo.getText();
-		if(s.length()==0) {
-			updateTable();
-		}
-		else {
-			controller.setPropoJouer(new Mot(s));
-			updateTable();
-		}
+		updateTable();
+		fieldPropo.setText("");
 	}
 
 	@Override
@@ -516,12 +503,21 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				controller.etapeDeux();
 			updateTable();
 			valider.setText("Valider");
+			affiche("");
 			break;
 			
 		case "Valider":
 			if(controller.getEssaiRest() == 0)
 				valider.setText("Prêt!");
 			controller.traitementPropo(fieldPropo.getText());
+			if(controller.traitementReponse(fieldPropo.getText())) {
+				valider.setText("Prêt!");
+				affiche("Bravo! Vous avez donné la bonne réponse!");
+			}
+			else if(controller.getElem() == 5){
+				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
+				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+			}
 			break;
 			
 		default:

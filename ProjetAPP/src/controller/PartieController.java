@@ -92,5 +92,19 @@ public class PartieController{
 		}
 	}
 	
+	public boolean traitementReponse(String s) {
+		try {
+			return model.traitementReponse(new Mot(s));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Mot getMotATrouver() {
+		return model.getMotATrouver();
+	}
+	
+	
 }
 

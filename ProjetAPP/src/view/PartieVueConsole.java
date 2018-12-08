@@ -32,7 +32,7 @@ public class PartieVueConsole extends PartieVue implements Observer{
 			nb = new Scanner(System.in).next();
 		}
 		controller.setNbJoueurs(Integer.parseInt(nb));
-		affiche("Bonjour, \nBienvenu(e) ï¿½ Motus:");	
+		affiche("Bonjour, \nBienvenu(e) à Motus:");	
 		affiche("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
@@ -53,7 +53,7 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	public void update(Observable o, Object arg) {
 		Partie p = (Partie) o;
 		System.out.println(p);
-		affiche("Entrez votre rï¿½ponse...");
+		affiche("Entrez votre réponse...");
 		affiche(p.getMotATrouver().getValeur());
 		affiche(p.getEtatActuel().getValeur());
 		Mot propo = new Mot(new Scanner(System.in).next());
