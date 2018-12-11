@@ -121,6 +121,7 @@ public class Partie extends Observable{
 	}
 	
 	
+	
 	/**
 	 * Cette methode initialise la partie .
 	 * @param init le nombre de joeurs dans la partie a  initialiser
