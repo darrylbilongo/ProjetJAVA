@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -366,6 +367,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initMotus();
+		frame.setSize(1600, 500);
+		frame.setResizable(false);
 	}
 	
 	public void initTable() {
@@ -384,34 +387,44 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		}
 		
 		table = new JTable(data, s);
-		table.setBackground(new Color(0, 191, 255));
+		table.setFont(new Font("Century", Font.PLAIN, 20));
+		//table.setBackground(new Color(0, 191, 255));
+		table.setDefaultRenderer(Object.class, new jTableRender());
 	}
 	
- 	public void updateTable() {
- 		String[] propo = fieldPropo.getText().split("");
-		String[] str = controller.getEtatActuel().split("");
+ 	public void updateTable(boolean b) {
 		int n = controller.getNbLettres();
-		
-		for(int i = 0; i < 6; i++) {
-			for(int j = 0; j < n; j++) {
-				if(i == (controller.getElem()-1)) {
-					data[i][j] = propo[j];
-				}
-				if(i == controller.getElem()) {
-					data[i][j] = str[j];
+ 		String[] propo = Mot.formatMot(fieldPropo.getText()).split("");
+		if(b) {
+
+			String[] str = controller.getEtatActuel().split("");
+			
+			for(int i = 0; i < 6; i++) {
+				for(int j = 0; j < n; j++) {
+					if(i == (controller.getElem()-1)) {
+						data[i][j] = propo[j];
+					}
+					if(i == controller.getElem()) {
+						data[i][j] = str[j];
+					}
+					if(controller.getElem() == 0 && i != controller.getElem()) {
+						data[i][j] = "";
+					}
 				}
 			}
+			
+			String[] s = new String[n];
+			for(int i = 0; i < n; i++) {
+				s[i] = Integer.toString(i);
+			}
+			
+			table = new JTable(data, s);
+			table.setBackground(new Color(0, 191, 255));
+			//table.setDefaultRenderer(Object.class, new jTableRender());
 		}
-		
-		String[] s = new String[n];
-		for(int i = 0; i < n; i++) {
-			s[i] = Integer.toString(i);
-		}
-		
-		table = new JTable(data, s);
-		table.setBackground(new Color(0, 191, 255));
 	}
-
+ 	
+ 	
 	//initialise l'interface graphique avec les données possibles issus du model.
 	public void initMotus() {
 		fieldNbLettres.setText(String.valueOf(controller.getNbLettres()));
@@ -448,7 +461,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		updateTable();
+		updateTable(fieldPropo.getText().length() == controller.getNbLettres());
 		fieldPropo.setText("");
 	}
 
@@ -497,13 +510,14 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 			break;
 
 		case "Prêt!":
+			//initTable();
 			if(controller.getEtape() == 1)
 				controller.etapeUn();
 			else
 				controller.etapeDeux();
-			updateTable();
+			updateTable(true);
 			valider.setText("Valider");
-			affiche("");
+			affiche(controller.getMotATrouver().getValeur());
 			break;
 			
 		case "Valider":
@@ -512,12 +526,16 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 			controller.traitementPropo(fieldPropo.getText());
 			if(controller.traitementReponse(fieldPropo.getText())) {
 				valider.setText("Prêt!");
-				affiche("Bravo! Vous avez donné la bonne réponse!");
+				affiche("Bravo! Vous avez donné la bonne réponse!\n\n");
+				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+				updateTable(true);
+				fieldPropo.setText("");
 			}
-			else if(controller.getElem() == 5){
+			else if(controller.getElem() == 6){
 				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
 				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
 			}
+			
 			break;
 			
 		default:

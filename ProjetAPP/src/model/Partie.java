@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 
+import javax.swing.JLabel;
+import javax.swing.Timer;
+
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
@@ -117,19 +120,6 @@ public class Partie extends Observable{
 		classerMot(TAILLEMOT);	
 	}
 	
-	/**
-	 * Ce Constructeur se charge d'initialiser la partie en tenant compte du nombre de joueurs
-	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
-	 */
-	/*public Partie(int nbJoueurs){
-		this.nbJoueurs = nbJoueurs;
-		if(nbJoueurs == 2) {
-			init(2);
-		}
-		else if(nbJoueurs == 1) {
-			init(1);
-		}
-	}*/
 	
 	/**
 	 * Cette methode initialise la partie .
@@ -145,15 +135,12 @@ public class Partie extends Observable{
 		}
 		else if(init == 2) {
 			nbJoueurs = 2;
-			//etape = 1;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
 			Joueur joueur2 = new Joueur();
 			joueur2.setMain(false);
 			participants = new Joueur[] {joueur1, joueur2};
 			joueurActuel = participants[0];
-			/*essaisRestant = 10;
-			classerMot(TAILLEMOT);	*/
 		}
 	}
 	
@@ -187,35 +174,23 @@ public class Partie extends Observable{
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
-			//for(int i = 0; i <= 10; i++) {
-				getEssai();
-				initEtatActuel();
-				essaisRestant--;
-				elem = 0;
-				if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
-				 	updateEtatActuel();
-					setChanged();
-					notifyObservers();
-					elem++;
-				 }
-				for(int j = 0; j <= participants.length; j++) {
-					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
-						vainqueur = participants[j];
-					}
-				}
-				
-			//}
-		}
-		
-		else if(nbJoueurs == 1) {
-			//for(int i = 0; i <= 10; i++) {
 			getEssai();
 			initEtatActuel();
 			essaisRestant--;
 			elem = 0;
-			/*
-			 }*/
-			//}
+			for(int j = 0; j <= participants.length; j++) {
+				if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
+					vainqueur = participants[j];
+				}
+			}
+				
+		}
+		
+		else if(nbJoueurs == 1) {
+			getEssai();
+			initEtatActuel();
+			essaisRestant--;
+			elem = 0;
 		}
 		else {
 			throw new ArithmeticException();
@@ -252,6 +227,7 @@ public class Partie extends Observable{
 		}
 	}
 	
+	
 	public void getEssai() {
 		motATrouver = new Mot("");
 		lettresActuelles = new String[TAILLEMOT];
@@ -260,11 +236,18 @@ public class Partie extends Observable{
 		etatActuel = new Mot(""); 
 		
 		int numMot = (int)(Math.random() * cpt + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null /*&& 
-				motsDejaJoues.contains(motATrouver.getValeur())*/)
+		while((motATrouver = Partie.choixMot(numMot)) == null && 
+				motsDejaJoues.contains(motATrouver.getValeur()))
 		{
 			numMot = (int)(Math.random() * cpt + 1);
 			motATrouver = Partie.choixMot(numMot);
+		}
+		
+		if(nbJoueurs == 1)
+			participants[0].setErreur(false);
+		else{
+			participants[0].setErreur(false);
+			participants[0].setErreur(false);
 		}
 	}
 	
@@ -276,7 +259,7 @@ public class Partie extends Observable{
 		}
 		else if(m.getValeur().equals(motATrouver.getValeur())) {
 			joueurActuel.pointsPlus();
-			lettresActuelles = motATrouver.getValeur().split("");
+			bonneReponse();
 			return true;
 		}
 		else if(m.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
@@ -284,7 +267,9 @@ public class Partie extends Observable{
 				traiterMot(m);
 			}
 		}
-		joueurActuel.setErreur(true);
+		else {
+			joueurActuel.setErreur(true);
+		}
 		return false;
 		
 	}
@@ -307,12 +292,13 @@ public class Partie extends Observable{
 					lettres[i] = "";
 				}
 				else {
-					/*if((lettresActuelles[i] != "+" && lettresActuelles[i] != "*")) {
-						continue;
-					}*/
 					lettresActuelles[i] = "+";
 					lettres[i] = "";
 				}
+			}
+			else {
+				lettresActuelles[i] = "*";
+				lettres[i] = "";
 			}
 		}
 	}
@@ -354,6 +340,7 @@ public class Partie extends Observable{
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
+		lettresActuelles = motATrouver.getValeur().split("");
 	}
 	
 	/**

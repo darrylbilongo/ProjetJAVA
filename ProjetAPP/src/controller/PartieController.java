@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import model.Joueur;
@@ -94,6 +95,10 @@ public class PartieController{
 	
 	public boolean traitementReponse(String s) {
 		try {
+			/*if(s.split("")[0].equals(model.getMotATrouver().getValeur().split("")[0])) {
+				return model.traitementReponse(new Mot(s));
+			}
+			return false;*/
 			return model.traitementReponse(new Mot(s));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -103,6 +108,15 @@ public class PartieController{
 	
 	public Mot getMotATrouver() {
 		return model.getMotATrouver();
+	}
+	
+	public boolean testerMot(String str) {
+		try {
+			return model.verifierMot(new Mot(str));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	
