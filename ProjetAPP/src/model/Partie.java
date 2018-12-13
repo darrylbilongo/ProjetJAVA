@@ -158,7 +158,7 @@ public class Partie extends Observable{
 	}
 	
 	
-	
+	/* Couche Réseau */
 	
 	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
 		if(serveur == true) {
@@ -183,7 +183,7 @@ public class Partie extends Observable{
 	 * Cette methode se charge de lancer la première etape de la partie.
 	 * @throws IOException cette exception est provoqu� pas la m�thode <b>traitementReponse</b>
 	 * @throws ArithmeticException cette exception tient compte les cas o� les joueurs
-	 * inscrivent un caract�re � la place d'un chiffre.
+	 * inscrivent un caract�re � la place d'un chi<ffre.
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
