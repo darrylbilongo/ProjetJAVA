@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 
-import javax.swing.JLabel;
-import javax.swing.Timer;
+import org.junit.platform.commons.util.StringUtils;
 
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
@@ -76,6 +75,8 @@ public class Partie extends Observable{
 	 */
 	private static Joueur participants[];
 	
+	private String[] lettresGUI;
+	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
 	 * initialise comme nombre maximum d'essais au cours de la partie.
@@ -99,10 +100,6 @@ public class Partie extends Observable{
 	private int etape;
 	private Joueur joueurActuel;
 	
-	/**
-	 * 
-	 */
-	boolean serveur = true;
 	
 	
 	private BufferedReader in ;
@@ -149,7 +146,7 @@ public class Partie extends Observable{
 	
 	
 	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
-		if(serveur == true) {
+		if( == true) {
 			ServerSocket s = new ServerSocket(port);
 			socket = s.accept();
 		}
@@ -196,7 +193,6 @@ public class Partie extends Observable{
 		else {
 			throw new ArithmeticException();
 		}
-		essaisRestant = 10;
 	}
 
 	public void propoJoueur() throws IOException {
@@ -214,24 +210,17 @@ public class Partie extends Observable{
 	 * @throws IOException 
 	 */
 	public void etapeDeux() throws IOException{
-		for(int i = 0; i < 10; i++) {
-			getEssai();
-			initEtatActuel();
-			essaisRestant--;
-			elem = 0;
-			while (!traitementReponse(joueurActuel.getProposition()) && elem != 0){
-			 	updateEtatActuel();
-				setChanged();
-				notifyObservers();
-				elem++;
-			 }
-		}
+		getEssai();
+		initEtatActuel();
+		essaisRestant--;
+		elem = 0;
 	}
 	
 	
 	public void getEssai() {
 		motATrouver = new Mot("");
 		lettresActuelles = new String[TAILLEMOT];
+		lettresGUI = new String[TAILLEMOT];
 		motsDejaJoues = new ArrayList<String>();
 		motsDejaUtilises = new ArrayList<String>();
 		etatActuel = new Mot(""); 
@@ -285,23 +274,46 @@ public class Partie extends Observable{
 		String lettres[] = s.split("");
 		String lettresATrouver [] = m.split("");
 		for(int i = 0; i < lettres.length ; i++) {
-			
 			if(m.contains(lettres[i])) {
-				
+				int occ1 = countOccurences(lettres[i], lettresActuelles);
+				int occ2 = countOccurences(lettres[i], lettresATrouver);
 				if(lettres[i].equals(lettresATrouver[i])){
 					lettresActuelles[i] = lettres[i];
+					lettresGUI[i]=lettres[i];
 					lettres[i] = "";
 				}
-				else {
-					lettresActuelles[i] = "+";
+				else if(occ2 != occ1) {
+					if(lettresActuelles[i].equals("*")) {
+						lettresActuelles[i]= "+";
+					}
+					lettresGUI[i] = "+";
 					lettres[i] = "";
 				}
 			}
 			else {
-				lettresActuelles[i] = "*";
-				lettres[i] = "";
+				if((lettresActuelles[i].equals("+") || lettresActuelles[i].equals("*"))) {
+					lettresActuelles[i] = "*";
+					lettresGUI[i] = "*";
+					lettres[i] = "";
+				}
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @param a
+	 * @return le nombre d'occurences du string s dans le tableau a
+	 */
+	public int countOccurences(String s, String[] a) {
+		int count = 0;
+		for(int i =0; i < a.length; i ++) {
+			if(s.equals(a[i])) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	/**
@@ -436,6 +448,7 @@ public class Partie extends Observable{
 		s += "---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
+		s += "Etape en cours :" + etape;
 		s += "\nJoeur 1 : " + participants[0].toString();
 		if(nbJoueurs == 2) {
 			s += "Joueur 2: " + participants[1].toString(); 

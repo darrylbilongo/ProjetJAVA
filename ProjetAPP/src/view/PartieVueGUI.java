@@ -399,20 +399,34 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 
 			String[] str = controller.getEtatActuel().split("");
 			
-			for(int i = 0; i < 6; i++) {
-				for(int j = 0; j < n; j++) {
-					if(i == (controller.getElem()-1)) {
-						data[i][j] = propo[j];
+			if(controller.getElem() == 0) {
+				for(int i = 0 ; i < data[0].length ; i ++) {
+					data[0][i] = str[i];
+				}
+			}
+			else {
+				if(controller.traitementReponse(fieldPropo.getText())) {
+					for(int i = 0 ; i < controller.getNbLettres() ; i ++) {
+						data[controller.getElem()][i] = str[i];
 					}
-					if(i == controller.getElem()) {
-						data[i][j] = str[j];
-					}
-					if(controller.getElem() == 0 && i != controller.getElem()) {
-						data[i][j] = "";
+				}
+				else {
+					for(int i = 0; i < 6; i++) {
+						for(int j = 0; j < n; j++) {
+							if(i == (controller.getElem()-1)) {
+								data[i][j] = propo[j];
+							}
+							if(i == controller.getElem()) {
+								data[i][j] = str[j];
+							}
+							if(controller.getElem() == 0 && i != controller.getElem()) {
+								data[i][j] = "";
+							}
+						}	
 					}
 				}
 			}
-			
+
 			String[] s = new String[n];
 			for(int i = 0; i < n; i++) {
 				s[i] = Integer.toString(i);
@@ -536,8 +550,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
 			}
 			
-			break;
-			
+			break;		
 		default:
 			break;
 		}

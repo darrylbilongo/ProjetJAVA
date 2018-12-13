@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -95,10 +94,6 @@ public class PartieController{
 	
 	public boolean traitementReponse(String s) {
 		try {
-			/*if(s.split("")[0].equals(model.getMotATrouver().getValeur().split("")[0])) {
-				return model.traitementReponse(new Mot(s));
-			}
-			return false;*/
 			return model.traitementReponse(new Mot(s));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,6 +114,25 @@ public class PartieController{
 		}
 	}
 	
+	public Joueur getJoueurActuel() {
+		return model.getJoueurActuel();
+	}
+
+	public Partie getModel() {
+		return model;
+	}
+
+	public void setModel(Partie model) {
+		this.model = model;
+	}
+
+	public PartieVue getVue() {
+		return vue;
+	}
+
+	public void setVue(PartieVue vue) {
+		this.vue = vue;
+	}
 	
 }
 
