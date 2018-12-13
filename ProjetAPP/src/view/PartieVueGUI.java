@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,7 +29,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 
 	private JPanel contentPane;
 	private JFrame frame;
-	//private int nbLettres = Partie.getTaillemot();
 	private JLabel nbJoueurs;
 	private JLabel essaiRest;
 	private JLabel nbLettres;
@@ -56,6 +56,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	private JButton valider;
 	private JLabel lblChrono;
 	private JTextField textField;
+	
+	
+	private Object[][] data;
 
 	/**
 	 * Constructeur de la frame
@@ -64,7 +67,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		super(model, controller);
 		initGUI();
-		
 	}
 	
 	
@@ -365,11 +367,13 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initMotus();
+		frame.setSize(1600, 500);
+		frame.setResizable(false);
 	}
 	
 	public void initTable() {
 		int n = controller.getNbLettres();
-		Object[][] data = new Object[6][n];
+		data = new Object[6][n];
 		
 		for(int i = 0; i < 6; i++) {
 			for(int j = 0; j < n; j++) {
@@ -383,42 +387,58 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		}
 		
 		table = new JTable(data, s);
-		table.setBackground(new Color(0, 191, 255));
+		table.setFont(new Font("Century", Font.PLAIN, 20));
+		//table.setBackground(new Color(0, 191, 255));
+		table.setDefaultRenderer(Object.class, new jTableRender());
 	}
 	
- 	public void updateTable() {
-		String[] str = controller.getEtatActuel().split("");
+ 	public void updateTable(boolean b) {
 		int n = controller.getNbLettres();
-		Object[][] data = new Object[6][n];
-		
-		for(int i = 0; i < 6; i++) {
-			if(!data[i][0].equals("")) 
-				continue;
+ 		String[] propo = Mot.formatMot(fieldPropo.getText()).split("");
+		if(b) {
+
+			String[] str = controller.getEtatActuel().split("");
+			
+			if(controller.getElem() == 0) {
+				for(int i = 0 ; i < data[0].length ; i ++) {
+					data[0][i] = str[i];
+				}
+			}
 			else {
-				for(int j = 0; j < n; j++) {
-					if(i == controller.getElem()) {
-						if(!(str[j].equals("*") && str[j].equals("+"))) {
-							data[i][j] = str[j];
-						}
-						else
-							data[i][j] = "";
+				if(controller.traitementReponse(fieldPropo.getText())) {
+					for(int i = 0 ; i < controller.getNbLettres() ; i ++) {
+						data[controller.getElem()][i] = str[i];
 					}
-					else{
-						data[i][j] = "";
+				}
+				else {
+					for(int i = 0; i < 6; i++) {
+						for(int j = 0; j < n; j++) {
+							if(i == (controller.getElem()-1)) {
+								data[i][j] = propo[j];
+							}
+							if(i == controller.getElem()) {
+								data[i][j] = str[j];
+							}
+							if(controller.getElem() == 0 && i != controller.getElem()) {
+								data[i][j] = "";
+							}
+						}	
 					}
 				}
 			}
-		}
-		
-		String[] s = new String[n];
-		for(int i = 0; i < n; i++) {
-			s[i] = Integer.toString(i);
-		}
-		
-		table = new JTable(data, s);
-		table.setBackground(new Color(0, 191, 255));
-	}
 
+			String[] s = new String[n];
+			for(int i = 0; i < n; i++) {
+				s[i] = Integer.toString(i);
+			}
+			
+			table = new JTable(data, s);
+			table.setBackground(new Color(0, 191, 255));
+			//table.setDefaultRenderer(Object.class, new jTableRender());
+		}
+	}
+ 	
+ 	
 	//initialise l'interface graphique avec les données possibles issus du model.
 	public void initMotus() {
 		fieldNbLettres.setText(String.valueOf(controller.getNbLettres()));
@@ -455,9 +475,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		String s = fieldPropo.getText();
-		controller.setPropoJouer(new Mot(s));
-		updateTable();
+		updateTable(fieldPropo.getText().length() == controller.getNbLettres());
+		fieldPropo.setText("");
 	}
 
 	@Override
@@ -505,19 +524,33 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 			break;
 
 		case "Prêt!":
+			//initTable();
 			if(controller.getEtape() == 1)
 				controller.etapeUn();
 			else
 				controller.etapeDeux();
-			updateTable();
+			updateTable(true);
 			valider.setText("Valider");
+			affiche(controller.getMotATrouver().getValeur());
 			break;
 			
 		case "Valider":
 			if(controller.getEssaiRest() == 0)
 				valider.setText("Prêt!");
-			break;
+			controller.traitementPropo(fieldPropo.getText());
+			if(controller.traitementReponse(fieldPropo.getText())) {
+				valider.setText("Prêt!");
+				affiche("Bravo! Vous avez donné la bonne réponse!\n\n");
+				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+				updateTable(true);
+				fieldPropo.setText("");
+			}
+			else if(controller.getElem() == 6){
+				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
+				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+			}
 			
+			break;		
 		default:
 			break;
 		}

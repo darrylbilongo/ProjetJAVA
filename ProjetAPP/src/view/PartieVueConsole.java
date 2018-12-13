@@ -20,7 +20,9 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
 		motus();
-		lancerEtapeUn();
+		if(model.getEtape() == 1) {
+			lancerEtapeUn();
+		}
 		lancerEtapeDeux(); 
 	}
 	
@@ -32,7 +34,7 @@ public class PartieVueConsole extends PartieVue implements Observer{
 			nb = new Scanner(System.in).next();
 		}
 		controller.setNbJoueurs(Integer.parseInt(nb));
-		affiche("Bonjour, \nBienvenu(e) ï¿½ Motus:");	
+		affiche("Bonjour, \nBienvenu(e) à Motus:");	
 		affiche("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
@@ -40,20 +42,56 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	
 	public void lancerEtapeUn() throws ArithmeticException, IOException {
 		affiche("\nLancement de l'etape 1...\n");
-		controller.etapeUn();
+		for(int i = 0; i < 10; i++) {
+			controller.etapeUn();
+			int ess = 6;
+			while(ess != 0) {
+				affiche(controller.getModel().toString());
+				affiche("Votre proposition: ");
+				affiche(controller.getMotATrouver().getValeur());
+				affiche(controller.getEtatActuel());
+				String motJoueur = new Scanner(System.in).next();
+				controller.getJoueurActuel().setProposition(new Mot(motJoueur));
+				controller.traitementPropo(motJoueur);
+				if(controller.traitementReponse(motJoueur)){
+					affiche("Bravo! Vous avez donné la bonne réponse!\n");
+					affiche("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+					break;	
+				}
+				ess--;
+			}
+		}
 	}
 	
 	public void lancerEtapeDeux() throws IOException {
 		affiche("\nLancement de l'etape 2...\n");
-		controller.etapeDeux();
-		affiche(controller.getParticipants()[0].toString());
+		for(int i = 0; i < 10; i++) {
+			controller.etapeDeux();
+			int ess = 6;
+			while(ess != 0) {
+				affiche(controller.getModel().toString());
+				affiche("Votre proposition: ");
+				affiche(controller.getMotATrouver().getValeur());
+				affiche(controller.getEtatActuel());
+				String motJoueur = new Scanner(System.in).next();
+				controller.getJoueurActuel().setProposition(new Mot(motJoueur));
+				controller.traitementPropo(motJoueur);
+				if(controller.traitementReponse(motJoueur)){
+					affiche("Bravo! Vous avez donné la bonne réponse!\n");
+					affiche("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+					break;	
+				}
+				ess--;
+			}
+		}
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		Partie p = (Partie) o;
 		System.out.println(p);
-		affiche("Entrez votre rï¿½ponse...");
+		affiche("Entrez votre réponse...");
+		affiche(p.getMotATrouver().getValeur());
 		affiche(p.getEtatActuel().getValeur());
 		Mot propo = new Mot(new Scanner(System.in).next());
 		controller.setPropoJouer(propo);

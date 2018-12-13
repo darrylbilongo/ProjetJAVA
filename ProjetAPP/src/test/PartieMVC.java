@@ -14,19 +14,19 @@ public class PartieMVC {
 		// Creation du modele
 		Partie model = new Partie();
 		
-		//Creation des contrôleurs : Un pour chaque vue
-		//Chaque contrôleur doit avoir une reference vers le modèle pour pouvoir le commander
-		//PartieController ctrlGUI = new PartieController(model);
-		PartieController ctrlConsole = new PartieController(model);
+		//Creation des controleurs : Un pour chaque vue
+		//Chaque controleur doit avoir une reference vers le modele pour pouvoir le commander
+		PartieController ctrlGUI = new PartieController(model);
+		//PartieController ctrlConsole = new PartieController(model);
 		 
 		//Creation des vues.
-		//Chaque vue doit connaître son contrôleur et avoir une reference vers le modèle pour pouvoir l'observer
-		//PartieVue gui = new PartieVueGUI(model, ctrlGUI);
-		PartieVue console = new PartieVueConsole(model, ctrlConsole);
+		//Chaque vue doit connaitre son controleur et avoir une reference vers le modele pour pouvoir l'observer
+		PartieVue gui = new PartieVueGUI(model, ctrlGUI);
+		//PartieVue console = new PartieVueConsole(model, ctrlConsole);
 		 		
-		//On donne la reference à la vue pour chaque contrôleur
-		ctrlConsole.addView(console);
-		//ctrlGUI.addView(gui);
+		//On donne la reference à la vue pour chaque controleur
+		//ctrlConsole.addView(console);
+		ctrlGUI.addView(gui);
 	}
 				
 		public static void main(String args[]) {
