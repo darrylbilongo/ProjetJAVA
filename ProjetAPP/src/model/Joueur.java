@@ -31,6 +31,11 @@ public class Joueur {
 	 */
 	private boolean erreur;
 	
+	/**
+	 * 
+	 */
+	private boolean isServeur;
+	
 	
 	/**
 	 * 
@@ -158,6 +163,15 @@ public class Joueur {
 	public void setProposition(Mot proposition) {
 		this.proposition = proposition;
 	}
+
+	public boolean isServeur() {
+		return isServeur;
+	}
+
+	public void setServeur(boolean isServeur) {
+		this.isServeur = isServeur;
+	}
+	
 	
 	
 }

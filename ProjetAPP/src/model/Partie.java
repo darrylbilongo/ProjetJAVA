@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 
+import org.junit.platform.commons.util.StringUtils;
+
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
@@ -73,6 +75,8 @@ public class Partie extends Observable{
 	 */
 	private static Joueur participants[];
 	
+	private String[] lettresGUI;
+	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
 	 * initialise comme nombre maximum d'essais au cours de la partie.
@@ -91,14 +95,11 @@ public class Partie extends Observable{
 	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
-	private static int etape;
 	
+	private int elem;
+	private int etape;
 	private Joueur joueurActuel;
 	
-	/**
-	 * 
-	 */
-	boolean serveur = true;
 	
 	
 	private BufferedReader in ;
@@ -109,53 +110,35 @@ public class Partie extends Observable{
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
 	 * avec juste avec un joueur.
 	 */
-	/*public Partie() {
+	public Partie() {
 		nbJoueurs = 1;
-		init(nbJoueurs);
-	}*/
-	
-	/**
-	 * Ce Constructeur se charge d'initialiser la partie en tenant compte du nombre de joueurs
-	 * @param <i>nbJoueurs</i> entier charge de donner le nombre de joueur de la partie.
-	 */
-	/*public Partie(int nbJoueurs){
-		this.nbJoueurs = nbJoueurs;
-		if(nbJoueurs == 2) {
-			init(2);
-		}
-		else if(nbJoueurs == 1) {
-			init(1);
-		}
-	}*/
+		etape = 1;
+		essaisRestant = 10;
+		classerMot(TAILLEMOT);	
+	}
 	
 	
 	
 	/**
 	 * Cette methode initialise la partie .
-	 * @param init le nombre de joeurs dans la partie Ã  initialiser
+	 * @param init le nombre de joeurs dans la partie a  initialiser
 	 */
 	public void init(int init){
 		if(init == 1) {
 			nbJoueurs = 1;
-			etape = 1;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
 			participants = new Joueur[] {joueur1};
 			joueurActuel = participants[0];
-			essaisRestant = 10;
-			classerMot(TAILLEMOT);	
 		}
 		else if(init == 2) {
 			nbJoueurs = 2;
-			etape = 1;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
 			Joueur joueur2 = new Joueur();
 			joueur2.setMain(false);
 			participants = new Joueur[] {joueur1, joueur2};
 			joueurActuel = participants[0];
-			essaisRestant = 10;
-			classerMot(TAILLEMOT);	
 		}
 	}
 	
@@ -163,7 +146,7 @@ public class Partie extends Observable{
 	
 	
 	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
-		if(serveur == true) {
+		if(participants[0].isMain() == true) {
 			ServerSocket s = new ServerSocket(port);
 			socket = s.accept();
 		}
@@ -182,76 +165,60 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode se charge de lancer la premiÃ¨re etape de la partie.
+	 * Cette methode se charge de lancer la premia¨re etape de la partie.
 	 * @throws IOException cette exception est provoquï¿½ pas la mï¿½thode <b>traitementReponse</b>
 	 * @throws ArithmeticException cette exception tient compte les cas oï¿½ les joueurs
 	 * inscrivent un caractï¿½re ï¿½ la place d'un chiffre.
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
-			for(int i = 0; i <= 10; i++) {
-				getEssai();
-				initEtatActuel();
-				essaisRestant--;
-				int a = 5;
-				
-				while (!traitementReponse(joueurActuel.getProposition()) && a != 0){
-				 	updateEtatActuel();
-					setChanged();
-					notifyObservers();
-					a--;
-				 }
-				for(int j = 0; j <= participants.length; j++) {
-					if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
-						vainqueur = participants[j];
-					}
-				}				
+			getEssai();
+			initEtatActuel();
+			essaisRestant--;
+			elem = 0;
+			for(int j = 0; j <= participants.length; j++) {
+				if(participants[j].getPoints() == Math.max(participants[0].getPoints(), participants[1].getPoints())) {
+					vainqueur = participants[j];
+				}
 			}
 		}
-		
 		else if(nbJoueurs == 1) {
-			for(int i = 0; i < 10; i++) {
-				getEssai();
-				initEtatActuel();
-				essaisRestant--;
-				int j = 5;
-				while (!traitementReponse(joueurActuel.getProposition()) && j != 0){
-				 	updateEtatActuel();
-					setChanged();
-					notifyObservers();
-					j--;
-				 }
-			}
+			getEssai();
+			initEtatActuel();
+			essaisRestant--;
+			elem = 0;
 		}
 		else {
 			throw new ArithmeticException();
 		}
-		essaisRestant = 10;
 	}
 
+	public void propoJoueur() throws IOException {
+		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
+		 	updateEtatActuel();
+			elem++;
+			setChanged();
+			notifyObservers();
+		}
+	}
+	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
-	 * Ã  la finale oÃ¹ le vainqueur joue seul pour determiner l'issue de la partie.
+	 * a  la finale oa¹ le vainqueur joue seul pour determiner l'issue de la partie.
 	 * @throws IOException 
 	 */
 	public void etapeDeux() throws IOException{
-		for(int i = 0; i < 10; i++) {
-			getEssai();
-			initEtatActuel();
-			essaisRestant--;
-			int j = 5;
-			while (!traitementReponse(joueurActuel.getProposition()) && j != 0){
-			 	updateEtatActuel();
-				setChanged();
-				notifyObservers();
-				j--;
-			 }
-		}
+		getEssai();
+		initEtatActuel();
+		essaisRestant--;
+		elem = 0;
 	}
+	
 	
 	public void getEssai() {
 		motATrouver = new Mot("");
 		lettresActuelles = new String[TAILLEMOT];
+		lettresGUI = new String[TAILLEMOT];
 		motsDejaJoues = new ArrayList<String>();
 		motsDejaUtilises = new ArrayList<String>();
 		etatActuel = new Mot(""); 
@@ -263,18 +230,24 @@ public class Partie extends Observable{
 			numMot = (int)(Math.random() * cpt + 1);
 			motATrouver = Partie.choixMot(numMot);
 		}
+		
+		if(nbJoueurs == 1)
+			participants[0].setErreur(false);
+		else{
+			participants[0].setErreur(false);
+			participants[0].setErreur(false);
+		}
 	}
 	
 	
 	public boolean traitementReponse(Mot m) throws IOException {
-		Joueur joueur = Partie.getParticipants()[0];
 		if(m.getValeur().equals("")) {
-			joueur.setErreur(true);
+			joueurActuel.setErreur(true);
 			return false;
 		}
 		else if(m.getValeur().equals(motATrouver.getValeur())) {
-			joueur.pointsPlus();
-			lettresActuelles = motATrouver.getValeur().split("");
+			joueurActuel.pointsPlus();
+			bonneReponse();
 			return true;
 		}
 		else if(m.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
@@ -282,7 +255,9 @@ public class Partie extends Observable{
 				traiterMot(m);
 			}
 		}
-		joueur.setErreur(true);
+		else {
+			joueurActuel.setErreur(true);
+		}
 		return false;
 		
 	}
@@ -297,18 +272,26 @@ public class Partie extends Observable{
 		String lettres[] = s.split("");
 		String lettresATrouver [] = m.split("");
 		for(int i = 0; i < lettres.length ; i++) {
-			
 			if(m.contains(lettres[i])) {
-				
+				int occ1 = countOccurences(lettres[i], lettresActuelles);
+				int occ2 = countOccurences(lettres[i], lettresATrouver);
 				if(lettres[i].equals(lettresATrouver[i])){
 					lettresActuelles[i] = lettres[i];
+					lettresGUI[i]=lettres[i];
 					lettres[i] = "";
 				}
-				else {
-					if((lettresActuelles[i] != "+" && lettresActuelles[i] != "*")) {
-						continue;
+				else if(occ2 != occ1) {
+					if(lettresActuelles[i].equals("*")) {
+						lettresActuelles[i]= "+";
 					}
-					lettresActuelles[i] = "+";
+					lettresGUI[i] = "+";
+					lettres[i] = "";
+				}
+			}
+			else {
+				if((lettresActuelles[i].equals("+") || lettresActuelles[i].equals("*"))) {
+					lettresActuelles[i] = "*";
+					lettresGUI[i] = "*";
 					lettres[i] = "";
 				}
 			}
@@ -317,6 +300,22 @@ public class Partie extends Observable{
 	
 	/**
 	 * 
+	 * @param s
+	 * @param a
+	 * @return le nombre d'occurences du string s dans le tableau a
+	 */
+	public int countOccurences(String s, String[] a) {
+		int count = 0;
+		for(int i =0; i < a.length; i ++) {
+			if(s.equals(a[i])) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 *  Cette methode permet de mettre à  jour l'etat actuel du mot a  deviner dans la partie
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
@@ -326,6 +325,35 @@ public class Partie extends Observable{
 		etatActuel.setValeur(s);
 	}
 
+
+	
+	/**
+	 *  Cette methode initialise l'etat actuel de la p
+	 */
+	public void initEtatActuel() {
+		String lettreMot[] = motATrouver.getValeur().split("");
+		String etatInit = "";
+		for(int i = 0; i < TAILLEMOT; i++) {
+			if(i == 0 || i == 2) {
+				etatInit += lettreMot[i];
+				lettresActuelles[i] = lettreMot[i];
+			}
+			else {
+				etatInit += "*";
+				lettresActuelles[i] = "*";
+			}
+		}
+		etatActuel = new Mot(etatInit);
+	}
+	
+	/**
+	 * Méthode à executer lors d'une bonne reponse
+	 */
+	public void bonneReponse() {
+		this.etatActuel = new Mot(motATrouver.getValeur());
+		lettresActuelles = motATrouver.getValeur().split("");
+	}
+	
 	/**
 	 * 	
 	 * @param mot
@@ -345,27 +373,6 @@ public class Partie extends Observable{
 		input.close();
 		return false;
 	}
-	
-	/**
-	 * 
-	 */
-	public void initEtatActuel() {
-		String lettreMot[] = motATrouver.getValeur().split("");
-		String etatInit = "";
-		for(int i = 0; i < TAILLEMOT; i++) {
-			if(i == 0 || i == 2) {
-				etatInit += lettreMot[i];
-				lettresActuelles[i] = lettreMot[i];
-			}
-			else {
-				etatInit += "*";
-				lettresActuelles[i] = "*";
-			}
-		}
-		etatActuel = new Mot(etatInit);
-	}
-	
-	
 	
 	/**
 	 * 
@@ -406,8 +413,8 @@ public class Partie extends Observable{
 	
 	/**
 	 * 
-	 * @param num
-	 * @return
+	 * @param
+	 * @return 
 	 */
 	public static Mot choixMot(int num) {
 		try {
@@ -439,6 +446,7 @@ public class Partie extends Observable{
 		s += "---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
+		s += "Etape en cours :" + etape;
 		s += "\nJoeur 1 : " + participants[0].toString();
 		if(nbJoueurs == 2) {
 			s += "Joueur 2: " + participants[1].toString(); 
@@ -477,13 +485,42 @@ public class Partie extends Observable{
 		this.essaisRestant = essaisRestant;
 	}
 	
-	public static int getEtape() {
+	public int getEtape() {
 		return etape;
 	}
 
-	public static void setEtape(int etape) {
-		Partie.etape = etape;
+	public void setEtape(int etape) {
+		this.etape = etape;
 	}
+
+
+	public String[] getLettresActuelles() {
+		return lettresActuelles;
+	}
+
+
+	public void setLettresActuelles(String[] lettresActuelles) {
+		this.lettresActuelles = lettresActuelles;
+	}
+
+
+
+	public Joueur getJoueurActuel() {
+		return joueurActuel;
+	}
+
+
+
+	public void setJoueurActuel(Joueur joueurActuel) {
+		this.joueurActuel = joueurActuel;
+	}
+
+
+	public void setEtatActuel(Mot etatActuel) {
+		this.etatActuel = etatActuel;
+	}
+
+
 
 
 	public static Joueur[] getParticipants() {
@@ -509,5 +546,15 @@ public class Partie extends Observable{
 	public void setMotATrouver(Mot motATrouver) {
 		this.motATrouver = motATrouver;
 	}
+
+	public int getElem() {
+		return elem;
+	}
+
+	public void setElem(int elem) {
+		this.elem = elem;
+	}
+	
+	
 	
 }
