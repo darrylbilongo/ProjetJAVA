@@ -121,7 +121,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode initialise la partie .
-	 * @param init le nombre de joeurs dans la partie a  initialiser
+	 * @param init le nombre de joeurs dans la partie aï¿½ initialiser
 	 */
 	public void init(int init){
 		if(init == 1) {
@@ -146,7 +146,8 @@ public class Partie extends Observable{
 	/* Couche RÃ©seau */
 	
 	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
-		if( == true) {
+		boolean serveur = false;
+		if(serveur  == true) {
 			ServerSocket s = new ServerSocket(port);
 			socket = s.accept();
 		}
@@ -165,7 +166,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode se charge de lancer la premia¨re etape de la partie.
+	 * Cette methode se charge de lancer la premiaï¿½re etape de la partie.
 	 * @throws IOException cette exception est provoquï¿½ pas la mï¿½thode <b>traitementReponse</b>
 	 * @throws ArithmeticException cette exception tient compte les cas oï¿½ les joueurs
 	 * inscrivent un caractï¿½re ï¿½ la place d'un chi<ffre.
@@ -206,7 +207,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
-	 * a  la finale oa¹ le vainqueur joue seul pour determiner l'issue de la partie.
+	 * aï¿½ la finale oaï¿½ le vainqueur joue seul pour determiner l'issue de la partie.
 	 * @throws IOException 
 	 */
 	public void etapeDeux() throws IOException{
@@ -317,7 +318,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette methode permet de mettre à  jour l'etat actuel du mot a  deviner dans la partie
+	 *  Cette methode permet de mettre ï¿½ jour l'etat actuel du mot aï¿½ deviner dans la partie
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
@@ -349,7 +350,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Méthode à executer lors d'une bonne reponse
+	 * Mï¿½thode ï¿½ executer lors d'une bonne reponse
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
