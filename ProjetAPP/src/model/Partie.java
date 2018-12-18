@@ -298,7 +298,11 @@ public class Partie extends Observable{
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param m
+	 * @return 
+	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
 			return true;
@@ -362,7 +366,7 @@ public class Partie extends Observable{
 	/**
 	 *  Cette methode permet de mettre � jour l'etat actuel du mot a� deviner dans la partie
 	 */
-	public  void updateEtatActuel() {
+	public void updateEtatActuel() {
 		String s = "";
 		for(int i = 0; i < lettresActuelles.length; i++) {
 			s += lettresActuelles[i];
