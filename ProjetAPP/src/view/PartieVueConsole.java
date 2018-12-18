@@ -5,17 +5,21 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
+import java.util.Timer;
 
 import controller.PartieController;
 import model.Mot;
 import model.Partie;
 
-public class PartieVueConsole extends PartieVue implements Observer{
+public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	
 	PartieVue vue;
 	Partie model;
+	Timer timer;
 	
 	private String pseudoJoueur;
+	private Scanner sc;
+	Thread th ;
 	
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
@@ -40,48 +44,60 @@ public class PartieVueConsole extends PartieVue implements Observer{
 		controller.setPseudoJoueur(pseudoJoueur);
 	}
 	
+	public void initServeur(int n) {
+		if(n == 2) {
+			th = new Thread(this);
+		}
+	}
+	
 	public void lancerEtapeUn() throws ArithmeticException, IOException {
-		affiche("\nLancement de l'etape 1...\n");
+		affiche("\nLancement de l'etape 1...");
 		for(int i = 0; i < 10; i++) {
 			controller.etapeUn();
-			int ess = 6;
-			while(ess != 0) {
-				affiche(controller.getModel().toString());
+			boolean echec = false;
+			affiche(controller.getModel().toString());
+			while(controller.getElem()!= 6) {
 				affiche("Votre proposition: ");
 				affiche(controller.getMotATrouver().getValeur());
 				affiche(controller.getEtatActuel());
 				String motJoueur = new Scanner(System.in).next();
-				controller.getJoueurActuel().setProposition(new Mot(motJoueur));
 				controller.traitementPropo(motJoueur);
-				if(controller.traitementReponse(motJoueur)){
+				if(controller.getModel().estTrouve(motJoueur)){
 					affiche("Bravo! Vous avez donné la bonne réponse!\n");
 					affiche("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
 					break;	
 				}
-				ess--;
+				echec = true;
+			}
+			if(echec) {
+				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...\n"
+						+ "Le mot à trouver était bien : " + controller.getMotATrouver().getValeur());
 			}
 		}
 	}
 	
 	public void lancerEtapeDeux() throws IOException {
-		affiche("\nLancement de l'etape 2...\n");
+		affiche("\nLancement de l'etape 2...");
 		for(int i = 0; i < 10; i++) {
-			controller.etapeDeux();
-			int ess = 6;
-			while(ess != 0) {
+			controller.etapeUn();
+			boolean echec = false; 
+			while(controller.getElem()!= 6) {
 				affiche(controller.getModel().toString());
 				affiche("Votre proposition: ");
 				affiche(controller.getMotATrouver().getValeur());
 				affiche(controller.getEtatActuel());
 				String motJoueur = new Scanner(System.in).next();
-				controller.getJoueurActuel().setProposition(new Mot(motJoueur));
 				controller.traitementPropo(motJoueur);
-				if(controller.traitementReponse(motJoueur)){
+				if(controller.getModel().estTrouve(motJoueur)){
 					affiche("Bravo! Vous avez donné la bonne réponse!\n");
 					affiche("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
 					break;	
 				}
-				ess--;
+				echec = true;
+			}
+			if(echec) {
+				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...\n"
+						+ "Le mot à trouver était bien : " + controller.getMotATrouver().getValeur());
 			}
 		}
 	}
@@ -89,16 +105,40 @@ public class PartieVueConsole extends PartieVue implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		Partie p = (Partie) o;
-		System.out.println(p);
-		affiche("Entrez votre réponse...");
-		affiche(p.getMotATrouver().getValeur());
-		affiche(p.getEtatActuel().getValeur());
-		Mot propo = new Mot(new Scanner(System.in).next());
-		controller.setPropoJouer(propo);
+		affiche(p.toString());
 	}
 
 	@Override
 	public void affiche(String s) {
 		System.out.println(s);	
+	}
+
+	@Override
+	public void run() {
+		while(!Thread.interrupted()) {
+			String msg = "";
+			try {
+				msg = controller.getModel().waitForPropo();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println(msg);
+		}
+	}
+	
+	public void readInput() throws IOException{
+		while(true){
+			System.out.print(">");
+			String msg = sc.nextLine();
+			if(msg.equals("STOP")){
+				controller.getModel().sendPropo("STOP");
+				sc.close();
+				controller.getModel().closeConnection();
+				System.exit(0);
+			}
+			controller.getModel().sendPropo(msg);
+			
+		}
 	}
 }

@@ -46,7 +46,12 @@ class PartieTest {
 	void testTraiterMot() {
 		
 		Partie p = new Partie();
-		p.init(1);
+		try {
+			p.init(1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		p.setMotATrouver(new Mot("Traitement"));
 		Mot mot = new Mot("Traitement");
 		
@@ -64,7 +69,12 @@ class PartieTest {
 	@Test
 	void testGetEssai() {
 		Partie p = new Partie();
-		p.init(1);
+		try {
+			p.init(1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*p.getEssai();
 		assertEquals(p.getMotATrouver().getValeur(),"");
 		assertNotNull(p.getLettresActuelles());
@@ -78,7 +88,12 @@ class PartieTest {
 	@Test
 	void testUpdateEtatActuel() {
 		Partie p = new Partie();
-		p.init(1);
+		try {
+			p.init(1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		p.getEssai();
 		p.initEtatActuel();
 		int taille = p.getTaillemot();
@@ -87,10 +102,11 @@ class PartieTest {
 	}
 	
 	/**
+	 * @throws IOException 
 	 * 
 	 */
 	@Test
-	void testInitEtatActuel() {
+	void testInitEtatActuel() throws IOException {
 		Partie p = new Partie();
 		p.init(1);
 		//p.getEssai();

@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
+import java.util.Timer;
 
 import org.junit.platform.commons.util.StringUtils;
 
@@ -75,7 +76,7 @@ public class Partie extends Observable{
 	 */
 	private static Joueur participants[];
 	
-	private String[] lettresGUI;
+	private static String[] lettresGUI;
 	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
@@ -100,11 +101,10 @@ public class Partie extends Observable{
 	private int elem;
 	
 	private Joueur joueurActuel;
+
+	private Timer timer;
+	private int timeCount;
 	
-	
-	/**
-	 * variables relatives a la couche reseau
-	 */
 	private BufferedReader in ;
 	private PrintWriter out;
 	private Socket socket;
@@ -116,15 +116,21 @@ public class Partie extends Observable{
 	public Partie() {
 		nbJoueurs = 1;
 		etape = 1;
-		essaisRestant = 10;
+		essaisRestant = 9;
 		classerMot(TAILLEMOT);	
+		participants = new Joueur[2];
+		timeCount = 0;
+		timer = new Timer();
 	}
 	
 	/**
-	 * Cette methode initialise la partie .
+	 * Cette methode initialise la partie 
 	 * @param init le nombre de joeurs dans la partie a� initialiser
+	 * @param init le nombre de joeurs dans la partie a� initialiser
+	 * @throws IOException 
+	 * @throws UnknownHostException 
 	 */
-	public void init(int init){
+	public void init(int init) throws IOException{
 		if(init == 1) {
 			nbJoueurs = 1;
 			Joueur joueur1 = new Joueur();
@@ -136,10 +142,9 @@ public class Partie extends Observable{
 			nbJoueurs = 2;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
-			Joueur joueur2 = new Joueur();
-			joueur2.setMain(false);
-			participants = new Joueur[] {joueur1, joueur2};
+			participants[0] = joueur1;
 			joueurActuel = participants[0];
+			initSocket(12345, "localhost");
 		}
 	}
 	
@@ -201,6 +206,10 @@ public class Partie extends Observable{
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 		 	updateEtatActuel();
 			elem++;
+			if(essaisRestant == 0) {
+				essaisRestant = 9;
+				etape = 2;
+			}
 			setChanged();
 			notifyObservers();
 		}
@@ -247,6 +256,19 @@ public class Partie extends Observable{
 		}
 	}
 	
+	public void sendPropo(String msg) {
+		out.println(msg);
+		out.flush();
+	}
+	
+	public String waitForPropo() throws IOException {
+        String str = in.readLine();
+        if(!participants[0].isMain())
+        	str = "Vous avez perdu la main!";
+        setChanged();
+        notifyObservers();
+        return str;
+	}
 	
 	/**
 	 * Cette methode determine si le mot proposé est équivalent au mot à trouver
@@ -274,6 +296,14 @@ public class Partie extends Observable{
 		}
 		return false;
 		
+	}
+	
+	
+	public boolean estTrouve(String m){
+		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
+			return true;
+		} 
+		return false;
 	}
 	
 	/**
@@ -341,6 +371,11 @@ public class Partie extends Observable{
 	}
 
 
+
+	public void supprFichier() {
+		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
+		fichier.delete();
+	}
 	
 	/**
 	 *  Cette methode initialise l'etat actuel d'avancement du joueur vers le mot a trouver
@@ -352,10 +387,12 @@ public class Partie extends Observable{
 			if(i == 0 || i == 2) {
 				etatInit += lettreMot[i];
 				lettresActuelles[i] = lettreMot[i];
+				lettresGUI[i] = lettreMot[i];
 			}
 			else {
 				etatInit += "*";
 				lettresActuelles[i] = "*";
+				lettresGUI[i] = lettreMot[i];
 			}
 		}
 		etatActuel = new Mot(etatInit);
@@ -459,13 +496,13 @@ public class Partie extends Observable{
 	@Override
 	public String toString() {
 		String s = "";
-		s += "---------------------------------------------------------\n";
+		s += "\n\n---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
-		s += "Etape en cours :" + etape;
+		s += " Etape en cours :" + etape;
 		s += "\nJoeur 1 : " + participants[0].toString();
 		if(nbJoueurs == 2) {
-			s += "Joueur 2: " + participants[1].toString(); 
+			s += " Joueur 2: " + participants[1].toString(); 
 		}
 		s += "\nNombre de lettres : " + TAILLEMOT;
 		s += "\n---------------------------------------------------------\n";
@@ -530,6 +567,11 @@ public class Partie extends Observable{
 
 	public void setEtatActuel(Mot etatActuel) {
 		this.etatActuel = etatActuel;
+	}
+
+
+	public static String[] getLettresGUI() {
+		return lettresGUI;
 	}
 
 	public static Joueur[] getParticipants() {
