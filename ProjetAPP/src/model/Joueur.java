@@ -31,11 +31,6 @@ public class Joueur {
 	 */
 	private boolean erreur;
 	
-	/**
-	 * 
-	 */
-	private boolean isServeur;
-	
 	
 	/**
 	 * 
@@ -164,14 +159,5 @@ public class Joueur {
 		this.proposition = proposition;
 	}
 
-	public boolean isServeur() {
-		return isServeur;
-	}
-
-	public void setServeur(boolean isServeur) {
-		this.isServeur = isServeur;
-	}
-	
-	
 	
 }
