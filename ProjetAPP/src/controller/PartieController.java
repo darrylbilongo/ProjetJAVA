@@ -125,14 +125,5 @@ public class PartieController{
 	public void setModel(Partie model) {
 		this.model = model;
 	}
-
-	public PartieVue getVue() {
-		return vue;
-	}
-
-	public void setVue(PartieVue vue) {
-		this.vue = vue;
-	}
-	
 }
 

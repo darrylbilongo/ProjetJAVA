@@ -12,12 +12,7 @@ class PartieTest {
 	@Test
 	void testInit() {	
 		Partie p = new Partie();	
-		try {
-			p.init(1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		p.init(1);
 		assertEquals(p.getNbJoueurs(), 1);
 		assertEquals(p.getEtape(), 1);
 		assertTrue((p.getJoueurActuel().isMain()));
@@ -28,12 +23,7 @@ class PartieTest {
 	void testTraitementReponse() {
 		
 		Partie p = new Partie();
-		try {
-			p.init(1);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		p.init(1);
 		Mot mot = new Mot("Sauce");
 		
 		try {
@@ -48,14 +38,7 @@ class PartieTest {
 	void testTraiterMot() {
 		
 		Partie p = new Partie();
-		
-		try {
-			p.init(1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		p.init(1);
 		p.setMotATrouver(new Mot("Traitement"));
 		Mot mot = new Mot("Traitement");
 		
@@ -70,12 +53,7 @@ class PartieTest {
 	@Test
 	void testGetEssai() {
 		Partie p = new Partie();
-		try {
-			p.init(1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		p.init(1);
 		/*p.getEssai();
 		assertEquals(p.getMotATrouver().getValeur(),"");
 		assertNotNull(p.getLettresActuelles());
@@ -86,13 +64,7 @@ class PartieTest {
 	@Test
 	void testUpdateEtatActuel() {
 		Partie p = new Partie();
-		try {
-			p.init(1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+		p.init(1);
 		p.getEssai();
 		p.initEtatActuel();
 		int taille = p.getTaillemot();
@@ -103,13 +75,7 @@ class PartieTest {
 	@Test
 	void testInitEtatActuel() {
 		Partie p = new Partie();
-		try {
-			p.init(1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		p.init(1);
 		//p.getEssai();
 		p.initEtatActuel();
 		

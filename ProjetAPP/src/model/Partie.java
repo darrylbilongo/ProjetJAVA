@@ -146,8 +146,7 @@ public class Partie extends Observable{
 	/* Couche Réseau */
 	
 	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
-		boolean serveur = false;
-		if(serveur  == true) {
+		if(participants[0].isMain() == true) {
 			ServerSocket s = new ServerSocket(port);
 			socket = s.accept();
 		}
@@ -182,9 +181,7 @@ public class Partie extends Observable{
 					vainqueur = participants[j];
 				}
 			}
-				
 		}
-		
 		else if(nbJoueurs == 1) {
 			getEssai();
 			initEtatActuel();
@@ -506,13 +503,9 @@ public class Partie extends Observable{
 		this.lettresActuelles = lettresActuelles;
 	}
 
-
-
 	public Joueur getJoueurActuel() {
 		return joueurActuel;
 	}
-
-
 
 	public void setJoueurActuel(Joueur joueurActuel) {
 		this.joueurActuel = joueurActuel;
@@ -554,6 +547,7 @@ public class Partie extends Observable{
 	public void setElem(int elem) {
 		this.elem = elem;
 	}
+	
 	
 	
 	
