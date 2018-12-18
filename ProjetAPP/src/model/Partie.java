@@ -96,10 +96,12 @@ public class Partie extends Observable{
 	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
+	private int etape;
 	
 	private int elem;
-	private int etape;
+	
 	private Joueur joueurActuel;
+
 	private Timer timer;
 	private int timeCount;
 	
@@ -121,11 +123,10 @@ public class Partie extends Observable{
 		timer = new Timer();
 	}
 	
-	
-	
 	/**
-	 * Cette methode initialise la partie .
-	 * @param init le nombre de joeurs dans la partie a  initialiser
+	 * Cette methode initialise la partie 
+	 * @param init le nombre de joeurs dans la partie aï¿½ initialiser
+	 * @param init le nombre de joeurs dans la partie aï¿½ initialiser
 	 * @throws IOException 
 	 * @throws UnknownHostException 
 	 */
@@ -147,8 +148,7 @@ public class Partie extends Observable{
 		}
 	}
 	
-	
-	
+
 	/**
 	 * Cette methode se change d'initialiser les sockets. 
 	 * @param port: port du serveur
@@ -179,10 +179,10 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode se charge de lancer la premia¨re etape de la partie.
+	 * Cette methode se charge de lancer la premiaï¿½re etape de la partie.
 	 * @throws IOException cette exception est provoquï¿½ pas la mï¿½thode <b>traitementReponse</b>
 	 * @throws ArithmeticException cette exception tient compte les cas oï¿½ les joueurs
-	 * inscrivent un caractï¿½re ï¿½ la place d'un chiffre.
+	 * inscrivent un caractï¿½re ï¿½ la place d'un chi<ffre.
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
@@ -208,8 +208,13 @@ public class Partie extends Observable{
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Methode chargee de traiter la proposition Du joueur.
 	 * @throws IOException liee à <b> traitementReponse</b>
+=======
+	 * Cette mÃ©thode prends en 
+	 * @throws IOException
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
@@ -231,9 +236,10 @@ public class Partie extends Observable{
 		essaisRestant--;
 		elem = 0;
 	}
+
 	
 	/**
-	 * Cette methode se charge à trouver 
+	 * Cette mÃ©thode genere un essai pour un mot a deviner
 	 */
 	public void getEssai() {
 		motATrouver = new Mot("");
@@ -273,6 +279,12 @@ public class Partie extends Observable{
         return str;
 	}
 	
+	/**
+	 * Cette methode determine si le mot proposÃ© est Ã©quivalent au mot Ã  trouver
+	 * @param m le mot proposÃ© par le joueur
+	 * @return true si il a trouve la bonne reponse et false sinon
+	 * @throws IOException
+	 */
 	public boolean traitementReponse(Mot m) throws IOException {
 		if(m.getValeur().equals("")) {
 			joueurActuel.setErreur(true);
@@ -341,10 +353,18 @@ public class Partie extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Cette méthode compte le nombre d'occurences d'une lettre dans un tableau de chaînes de caractères.
 	 * @param s la lettre
 	 * @param a le tableau de chaînes caractères.
 	 * @return le nombre d'occurences du string s dans le tableau a.
+=======
+	 * Cette mÃ©thode compte le nombre d'occurences d'un string dans un tableu de
+	 * chaine de caractÃ¨re
+	 * @param s le string 
+	 * @param a le tableau de chaine de caractere
+	 * @return le nombre d'occurences du string s dans le tableau a
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public int countOccurences(String s, String[] a) {
 		int count = 0;
@@ -357,7 +377,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 *  Cette méthode permet de mettre à  jour l'etat actuel du mot à deviner dans la partie.
+=======
+	 *  Cette methode permet de mettre ï¿½ jour l'etat actuel du mot aï¿½ deviner dans la partie
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
@@ -378,7 +402,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 *  Cette méthode initialise l'attribut <b>etatActuel</b> qui met à jour l'évolution des différentes propositions du joueur
+=======
+	 *  Cette methode initialise l'etat actuel d'avancement du joueur vers le mot a trouver
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -399,7 +427,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Méthode à executer lorsque la reponse trouvée est bonne
+=======
+	 * Methode executer lors d'une bonne reponse
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
@@ -407,10 +439,16 @@ public class Partie extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * 	Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
 	 * @param mot: mot à vérifier 
 	 * @return
+=======
+	 * Cette mÃ©thode verifie si le mot existe dans la base de donnÃ©e des mots de l'application
+	 * @param mot
+	 * @return 
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 * @throws FileNotFoundException
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
@@ -491,7 +529,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 * Cette mÃ©thode fourni une representation de toutes les informations importantes du modele 
+	 * de la classe Partie
 	 */
 	@Override
 	public String toString() {
@@ -556,13 +595,9 @@ public class Partie extends Observable{
 		this.lettresActuelles = lettresActuelles;
 	}
 
-
-
 	public Joueur getJoueurActuel() {
 		return joueurActuel;
 	}
-
-
 
 	public void setJoueurActuel(Joueur joueurActuel) {
 		this.joueurActuel = joueurActuel;
@@ -574,13 +609,9 @@ public class Partie extends Observable{
 	}
 
 
-
-
 	public static String[] getLettresGUI() {
 		return lettresGUI;
 	}
-
-
 
 	public static Joueur[] getParticipants() {
 		return participants;
@@ -613,8 +644,5 @@ public class Partie extends Observable{
 	public void setElem(int elem) {
 		this.elem = elem;
 	}
-	
-	
-	
 	
 }
