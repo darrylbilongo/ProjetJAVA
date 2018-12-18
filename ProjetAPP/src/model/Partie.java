@@ -362,7 +362,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * M�thode � executer lors d'une bonne reponse
+	 * Methode executer lors d'une bonne reponse
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
