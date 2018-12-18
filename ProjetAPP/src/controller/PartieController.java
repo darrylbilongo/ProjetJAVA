@@ -129,7 +129,6 @@ public class PartieController{
 	public void setModel(Partie model) {
 		this.model = model;
 	}
-	
-	
+
 }
 

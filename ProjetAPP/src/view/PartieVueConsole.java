@@ -42,8 +42,6 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 		affiche("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur(pseudoJoueur);
-		
-		
 	}
 	
 	public void initServeur(int n) {

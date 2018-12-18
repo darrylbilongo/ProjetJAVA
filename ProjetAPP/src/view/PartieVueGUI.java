@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import controller.PartieController;
@@ -57,6 +58,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	private JLabel lblChrono;
 	private JTextField textField;
 	
+	private Timer timer; 
+	protected int timeCount;
 	
 	private Object[][] data;
 
@@ -388,7 +391,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		table = new JTable(data, s);
 		table.setFont(new Font("Century", Font.PLAIN, 20));
-		//table.setBackground(new Color(0, 191, 255));
 		table.setDefaultRenderer(Object.class, new jTableRender());
 	}
 	
@@ -447,6 +449,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldEssaiRest.setText(Integer.toString(controller.getEssaiRest()));
 		affiche("Bonjour, \nBienvenu(e) à  Motus!"
 							+ "\nVeuillez Entrez le nombre de joueurs et votre pseudo s'il vous plaît");
+
+		timeCount = 0;
 		
 	}
 	
@@ -526,18 +530,19 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				break;
 	
 			case "Prêt!":
-				//initTable();
 				if(controller.getEtape() == 1) {
 					controller.etapeUn();
 					affiche("Lancement de l'étape 1: \n");
 				}
 				else {
 					affiche("Lancement de l'étape 2: \n");
+					textArea.append(controller.getModel().toString());
 					controller.etapeDeux();
 				}
 				updateTable(true);
-				valider.setText("Valider");
 				affiche(controller.getMotATrouver().getValeur());
+				valider.setText("Valider");
+				timer = new Timer(1000, this);
 				break;
 				
 			case "Valider":
@@ -555,6 +560,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 					affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
 					textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
 					valider.setText("Prêt!");
+				}
+				if(controller.getModel().getEtape() == 2 && controller.getEssaiRest() == 0) {
+					affiche("Félicitation! " + controller.getModel().toString());
 				}
 				update(null, null);
 				break;	

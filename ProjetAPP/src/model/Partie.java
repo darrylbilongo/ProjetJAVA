@@ -100,7 +100,8 @@ public class Partie extends Observable{
 	private int elem;
 	private int etape;
 	private Joueur joueurActuel;
-	
+	private Timer timer;
+	private int timeCount;
 	
 	private BufferedReader in ;
 	private PrintWriter out;
@@ -113,9 +114,11 @@ public class Partie extends Observable{
 	public Partie() {
 		nbJoueurs = 1;
 		etape = 1;
-		essaisRestant = 10;
+		essaisRestant = 9;
 		classerMot(TAILLEMOT);	
 		participants = new Joueur[2];
+		timeCount = 0;
+		timer = new Timer();
 	}
 	
 	
@@ -199,6 +202,10 @@ public class Partie extends Observable{
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 		 	updateEtatActuel();
 			elem++;
+			if(essaisRestant == 0) {
+				essaisRestant = 9;
+				etape = 2;
+			}
 			setChanged();
 			notifyObservers();
 		}
@@ -349,6 +356,11 @@ public class Partie extends Observable{
 	}
 
 
+
+	public void supprFichier() {
+		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
+		fichier.delete();
+	}
 	
 	/**
 	 *  Cette methode initialise l'etat actuel de la p
@@ -468,13 +480,13 @@ public class Partie extends Observable{
 	@Override
 	public String toString() {
 		String s = "";
-		s += "\n\n\n---------------------------------------------------------\n";
+		s += "\n\n---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
 		s += " Etape en cours :" + etape;
-		s += "\nJoueur 1: " + participants[0].toString();
+		s += "\nJoeur 1 : " + participants[0].toString();
 		if(nbJoueurs == 2) {
-			s += "Joueur 2: " + participants[1].toString(); 
+			s += " Joueur 2: " + participants[1].toString(); 
 		}
 		s += "\nNombre de lettres : " + TAILLEMOT;
 		s += "\n---------------------------------------------------------\n";
@@ -585,5 +597,8 @@ public class Partie extends Observable{
 	public void setElem(int elem) {
 		this.elem = elem;
 	}
+	
+	
+	
 	
 }
