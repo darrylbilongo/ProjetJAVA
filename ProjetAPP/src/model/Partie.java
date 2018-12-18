@@ -523,9 +523,6 @@ public class Partie extends Observable{
 		this.etatActuel = etatActuel;
 	}
 
-
-
-
 	public static Joueur[] getParticipants() {
 		return participants;
 	}
