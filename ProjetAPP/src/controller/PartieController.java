@@ -15,11 +15,7 @@ public class PartieController{
 	public PartieController(Partie model) {
 		this.model = model;
 	}
-	
-	public void initJoueur(int i) {
-		model.init(i); 
-	}
-	
+		
 	public void addView(PartieVue vue) {
 		this.vue = vue;
 	}
@@ -34,7 +30,11 @@ public class PartieController{
 	
 	public void setNbJoueurs(int n) {
 		model.setNbJoueurs(n);
-		model.init(n);
+		try {
+			model.init(n);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getNbLettres() {
@@ -64,7 +64,11 @@ public class PartieController{
 	}
 	
 	public void initPartie(int i) {
-		model.init(i);
+		try {
+			model.init(i);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int getEtape() {

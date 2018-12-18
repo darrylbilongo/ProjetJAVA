@@ -475,7 +475,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		updateTable(fieldPropo.getText().length() == controller.getNbLettres());
+		updateTable(/*fieldPropo.getText().length() == controller.getNbLettres()*/true);
 		fieldPropo.setText("");
 	}
 
@@ -485,7 +485,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	}
 	
 	public void lancerEtapeUn() {
-		affiche("Lancement de l'étape un: \n");
 		controller.etapeUn();
 	}
 	
@@ -507,54 +506,60 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
-		case "Commençons":
-			if(!(introNbJoueurs() && introPseudo())) {
-				affiche("Veuillez introduire des données correctes!");
+			case "Commençons":
+				if(!(introNbJoueurs() && introPseudo())) {
+					affiche("Veuillez introduire des données correctes!");
+					break;
+				}
+				affiche("Etes-vous prêts?");
+				valider.setText("Prêt!");
+				pseudo1.setEditable(false);
+				fieldNbJoueurs.setEditable(false);
+				fieldPropo.setEditable(true);
+				int n = Integer.parseInt(fieldNbJoueurs.getText());
+				controller.initPartie(n);
+				if(n == 1)
+					cacherOnglets();
 				break;
-			}
-			affiche("Etes-vous prêts?");
-			valider.setText("Prêt!");
-			pseudo1.setEditable(false);
-			fieldNbJoueurs.setEditable(false);
-			fieldPropo.setEditable(true);
-			int n = Integer.parseInt(fieldNbJoueurs.getText());
-			controller.initPartie(n);
-			if(n == 1)
-				cacherOnglets();
-			break;
-
-		case "Prêt!":
-			//initTable();
-			if(controller.getEtape() == 1)
-				controller.etapeUn();
-			else
-				controller.etapeDeux();
-			updateTable(true);
-			valider.setText("Valider");
-			affiche(controller.getMotATrouver().getValeur());
-			break;
-			
-		case "Valider":
-			if(controller.getEssaiRest() == 0)
-				valider.setText("Prêt!");
-			controller.traitementPropo(fieldPropo.getText());
-			if(controller.traitementReponse(fieldPropo.getText())) {
-				valider.setText("Prêt!");
-				affiche("Bravo! Vous avez donné la bonne réponse!\n\n");
-				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+	
+			case "Prêt!":
+				//initTable();
+				if(controller.getEtape() == 1) {
+					controller.etapeUn();
+					affiche("Lancement de l'étape 1: \n");
+				}
+				else {
+					affiche("Lancement de l'étape 2: \n");
+					controller.etapeDeux();
+				}
 				updateTable(true);
-				fieldPropo.setText("");
-			}
-			else if(controller.getElem() == 6){
-				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
-				textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
-			}
-			
-			break;		
-		default:
-			break;
+				valider.setText("Valider");
+				affiche(controller.getMotATrouver().getValeur());
+				break;
+				
+			case "Valider":
+				controller.traitementPropo(fieldPropo.getText());
+				if(controller.getEssaiRest() == 0)
+					valider.setText("Prêt!");
+				if(controller.getModel().estTrouve(fieldPropo.getText())) {
+					valider.setText("Prêt!");
+					affiche("Bravo! Vous avez donné la bonne réponse!\n\n");
+					textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+					updateTable(true);
+					fieldPropo.setText("");
+				}
+				else if(controller.getElem() == 6){
+					affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
+					textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+					valider.setText("Prêt!");
+				}
+				
+				break;	
+				
+			default:
+				break;
 		}
-		
+			
 	}
 
 }

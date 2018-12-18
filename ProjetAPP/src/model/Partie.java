@@ -115,6 +115,7 @@ public class Partie extends Observable{
 		etape = 1;
 		essaisRestant = 10;
 		classerMot(TAILLEMOT);	
+		participants = new Joueur[2];
 	}
 	
 	
@@ -122,8 +123,10 @@ public class Partie extends Observable{
 	/**
 	 * Cette methode initialise la partie .
 	 * @param init le nombre de joeurs dans la partie a  initialiser
+	 * @throws IOException 
+	 * @throws UnknownHostException 
 	 */
-	public void init(int init){
+	public void init(int init) throws IOException{
 		if(init == 1) {
 			nbJoueurs = 1;
 			Joueur joueur1 = new Joueur();
@@ -135,10 +138,9 @@ public class Partie extends Observable{
 			nbJoueurs = 2;
 			Joueur joueur1 = new Joueur();
 			joueur1.setMain(true);
-			Joueur joueur2 = new Joueur();
-			joueur2.setMain(false);
-			participants = new Joueur[] {joueur1, joueur2};
+			participants[0] = joueur1;
 			joueurActuel = participants[0];
+			initSocket(12345, "localhost");
 		}
 	}
 	
@@ -260,6 +262,13 @@ public class Partie extends Observable{
 		}
 		return false;
 		
+	}
+	
+	public boolean estTrouve(String m){
+		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
+			return true;
+		} 
+		return false;
 	}
 	
 	/**
