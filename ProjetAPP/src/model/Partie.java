@@ -170,7 +170,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de fermer les sockets.
-	 * @throws IOException
+	 * @throws IOException cas où les iputs et output sont inexistantes
 	 */
 	public void closeConnection() throws IOException {
 		in.close();
@@ -208,13 +208,8 @@ public class Partie extends Observable{
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Methode chargee de traiter la proposition Du joueur.
 	 * @throws IOException liee à <b> traitementReponse</b>
-=======
-	 * Cette mÃ©thode prends en 
-	 * @throws IOException
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
@@ -270,6 +265,11 @@ public class Partie extends Observable{
 		out.flush();
 	}
 	
+	/**
+	 * Cette methode recoit les chaines de caracteres à travers le socket.
+	 * @return le String reçu.
+	 * @throws IOException s'il n'y rien envoyé.
+	 */
 	public String waitForPropo() throws IOException {
         String str = in.readLine();
         if(!participants[0].isMain())
@@ -307,7 +307,11 @@ public class Partie extends Observable{
 		
 	}
 	
-	
+	/**
+	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot à trouver.
+	 * @param m String à tester
+	 * @return
+	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
 			return true;
@@ -353,19 +357,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Cette méthode compte le nombre d'occurences d'une lettre dans un tableau de chaînes de caractères.
 	 * @param s la lettre
 	 * @param a le tableau de chaînes caractères.
 	 * @return le nombre d'occurences du string s dans le tableau a.
-=======
-	 * Cette mÃ©thode compte le nombre d'occurences d'un string dans un tableu de
-	 * chaine de caractÃ¨re
-	 * @param s le string 
-	 * @param a le tableau de chaine de caractere
-	 * @return le nombre d'occurences du string s dans le tableau a
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
-	 */
+	 **/
 	public int countOccurences(String s, String[] a) {
 		int count = 0;
 		for(int i =0; i < a.length; i ++) {
@@ -377,11 +373,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 *  Cette méthode permet de mettre à  jour l'etat actuel du mot à deviner dans la partie.
-=======
-	 *  Cette methode permet de mettre ï¿½ jour l'etat actuel du mot aï¿½ deviner dans la partie
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public  void updateEtatActuel() {
 		String s = "";
