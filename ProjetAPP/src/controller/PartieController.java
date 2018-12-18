@@ -19,15 +19,7 @@ public class PartieController{
 	public void addView(PartieVue vue) {
 		this.vue = vue;
 	}
-	
-	public void setPseudoJoueur(String pseudo) {
-		model.getParticipants()[0].setPseudo(pseudo);
-	}
-	
-	public void setPropoJouer(Mot p) {
-		model.getParticipants()[0].setProposition(p);
-	}
-	
+
 	public void setNbJoueurs(int n) {
 		model.setNbJoueurs(n);
 		try {
@@ -35,14 +27,6 @@ public class PartieController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public int getNbLettres() {
-		return model.getTaillemot();
-	}
-	
-	public int getEssaiRest() {
-		return model.getEssaisRestant();
 	}
 	
 	public void etapeUn() {
@@ -69,22 +53,6 @@ public class PartieController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public int getEtape() {
-		return model.getEtape();
-	}
-	
-	public Joueur[] getParticipants() {
-		return model.getParticipants();
-	}
-	
-	public String getEtatActuel() {
-		return model.getEtatActuel().getValeur();
-	}
-	
-	public int getElem() {
-		return model.getElem();
 	}
 	
 	public void traitementPropo(String str) {
@@ -118,6 +86,19 @@ public class PartieController{
 		}
 	}
 	
+	public void updatePartie(){
+		if(getEssaiRest() == 0 && model.getEtape() == 1) {
+			model.setEtape(2);
+			model.setEssaisRestant(10);
+		}
+	}
+	
+	public void supprimerFichiers() {
+		if(model.getEtape() == 2 && model.getEssaisRestant() == 0) {
+			model.supprFichier();
+		}
+	}
+	
 	public Joueur getJoueurActuel() {
 		return model.getJoueurActuel();
 	}
@@ -130,5 +111,37 @@ public class PartieController{
 		this.model = model;
 	}
 
+	
+	public void setPseudoJoueur(String pseudo) {
+		model.getParticipants()[0].setPseudo(pseudo);
+	}
+	
+	public void setPropoJouer(Mot p) {
+		model.getParticipants()[0].setProposition(p);
+	}
+
+	public int getNbLettres() {
+		return model.getTaillemot();
+	}
+	
+	public int getEssaiRest() {
+		return model.getEssaisRestant();
+	}
+
+	public int getEtape() {
+		return model.getEtape();
+	}
+	
+	public Joueur[] getParticipants() {
+		return model.getParticipants();
+	}
+	
+	public String getEtatActuel() {
+		return model.getEtatActuel().getValeur();
+	}
+	
+	public int getElem() {
+		return model.getElem();
+	}
 }
 

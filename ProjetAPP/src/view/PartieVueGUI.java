@@ -547,8 +547,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				
 			case "Valider":
 				controller.traitementPropo(fieldPropo.getText());
-				if(controller.getEssaiRest() == 0)
-					valider.setText("Prêt!");
+				controller.updatePartie();
 				if(controller.getModel().estTrouve(fieldPropo.getText())) {
 					valider.setText("Prêt!");
 					affiche("Bravo! Vous avez donné la bonne réponse!\n\n");
@@ -565,6 +564,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 					affiche("Félicitation! " + controller.getModel().toString());
 				}
 				update(null, null);
+				controller.supprimerFichiers();
 				break;	
 				
 			default:

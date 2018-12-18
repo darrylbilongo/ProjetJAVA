@@ -74,6 +74,7 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 						+ "Le mot à trouver était bien : " + controller.getMotATrouver().getValeur());
 			}
 		}
+		
 	}
 	
 	public void lancerEtapeDeux() throws IOException {
@@ -100,6 +101,7 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 						+ "Le mot à trouver était bien : " + controller.getMotATrouver().getValeur());
 			}
 		}
+		controller.supprimerFichiers();
 	}
 	
 	@Override
@@ -129,10 +131,10 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	
 	public void readInput() throws IOException{
 		while(true){
-			System.out.print(">");
+			System.out.print("Joueur2>");
 			String msg = sc.nextLine();
-			if(msg.equals("STOP")){
-				controller.getModel().sendPropo("STOP");
+			if(controller.getParticipants()[0].isMain()){
+				controller.getModel().sendPropo(msg);
 				sc.close();
 				controller.getModel().closeConnection();
 				System.exit(0);
