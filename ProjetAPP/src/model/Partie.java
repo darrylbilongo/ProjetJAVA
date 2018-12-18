@@ -95,13 +95,16 @@ public class Partie extends Observable{
 	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
 	 * Il peut prendre la valeur : 1 ou 2.
 	 */
+	private int etape;
 	
 	private int elem;
-	private int etape;
+	
 	private Joueur joueurActuel;
 	
 	
-	
+	/**
+	 * variables relatives a la couche reseau
+	 */
 	private BufferedReader in ;
 	private PrintWriter out;
 	private Socket socket;
@@ -116,8 +119,6 @@ public class Partie extends Observable{
 		essaisRestant = 10;
 		classerMot(TAILLEMOT);	
 	}
-	
-	
 	
 	/**
 	 * Cette methode initialise la partie .
@@ -144,7 +145,6 @@ public class Partie extends Observable{
 	
 	
 	/* Couche Réseau */
-	
 	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
 		if(participants[0].isMain() == true) {
 			ServerSocket s = new ServerSocket(port);
@@ -193,6 +193,10 @@ public class Partie extends Observable{
 		}
 	}
 
+	/**
+	 * Cette méthode prends en 
+	 * @throws IOException
+	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 		 	updateEtatActuel();
@@ -203,8 +207,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode ce charge de realiser la deuxieme etape qui correspond
-	 * a� la finale oa� le vainqueur joue seul pour determiner l'issue de la partie.
+	 * Cette methode ce charge de realiser la deuxieme etape qui corresponds
+	 * a l'epreuve finale ou le vainqueur joue seul pour determiner l'issue de la partie.
 	 * @throws IOException 
 	 */
 	public void etapeDeux() throws IOException{
@@ -215,6 +219,10 @@ public class Partie extends Observable{
 	}
 	
 	
+	/**
+	 * Cette méthode genere un essai pour un mot a deviner
+	 * 
+	 */
 	public void getEssai() {
 		motATrouver = new Mot("");
 		lettresActuelles = new String[TAILLEMOT];
@@ -240,6 +248,12 @@ public class Partie extends Observable{
 	}
 	
 	
+	/**
+	 * Cette methode determine si le mot proposé est équivalent au mot à trouver
+	 * @param m le mot proposé par le joueur
+	 * @return true si il a trouve la bonne reponse et false sinon
+	 * @throws IOException
+	 */
 	public boolean traitementReponse(Mot m) throws IOException {
 		if(m.getValeur().equals("")) {
 			joueurActuel.setErreur(true);
@@ -299,9 +313,10 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
-	 * @param s
-	 * @param a
+	 * Cette méthode compte le nombre d'occurences d'un string dans un tableu de
+	 * chaine de caractère
+	 * @param s le string 
+	 * @param a le tableau de chaine de caractere
 	 * @return le nombre d'occurences du string s dans le tableau a
 	 */
 	public int countOccurences(String s, String[] a) {
@@ -328,7 +343,7 @@ public class Partie extends Observable{
 
 	
 	/**
-	 *  Cette methode initialise l'etat actuel de la p
+	 *  Cette methode initialise l'etat actuel d'avancement du joueur vers le mot a trouver
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -355,9 +370,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 	
+	 * Cette méthode verifie si le mot existe dans la base de donnée des mots de l'application
 	 * @param mot
-	 * @return
+	 * @return 
 	 * @throws FileNotFoundException
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
@@ -438,7 +453,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 * Cette méthode fourni une representation de toutes les informations importantes du modele 
+	 * de la classe Partie
 	 */
 	@Override
 	public String toString() {
@@ -547,8 +563,5 @@ public class Partie extends Observable{
 	public void setElem(int elem) {
 		this.elem = elem;
 	}
-	
-	
-	
 	
 }

@@ -8,7 +8,10 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 class PartieTest {
-
+	
+	/**
+	 * 
+	 */
 	@Test
 	void testInit() {	
 		Partie p = new Partie();	
@@ -18,7 +21,9 @@ class PartieTest {
 		assertTrue((p.getJoueurActuel().isMain()));
 	}
 	
-	
+	/**
+	 * 
+	 */
 	@Test
 	void testTraitementReponse() {
 		
@@ -34,6 +39,9 @@ class PartieTest {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	void testTraiterMot() {
 		
@@ -50,6 +58,9 @@ class PartieTest {
 
 	}
 
+	/**
+	 * 
+	 */
 	@Test
 	void testGetEssai() {
 		Partie p = new Partie();
@@ -61,6 +72,9 @@ class PartieTest {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	void testUpdateEtatActuel() {
 		Partie p = new Partie();
@@ -72,6 +86,9 @@ class PartieTest {
 		assertEquals(taille, p.getEtatActuel().longueur());
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	void testInitEtatActuel() {
 		Partie p = new Partie();
