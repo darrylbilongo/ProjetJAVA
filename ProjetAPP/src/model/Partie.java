@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
+import java.util.Timer;
 
 import org.junit.platform.commons.util.StringUtils;
 
@@ -75,7 +76,7 @@ public class Partie extends Observable{
 	 */
 	private static Joueur participants[];
 	
-	private String[] lettresGUI;
+	private static String[] lettresGUI;
 	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
@@ -99,7 +100,6 @@ public class Partie extends Observable{
 	private int elem;
 	private int etape;
 	private Joueur joueurActuel;
-	
 	
 	
 	private BufferedReader in ;
@@ -241,6 +241,19 @@ public class Partie extends Observable{
 		}
 	}
 	
+	public void sendPropo(String msg) {
+		out.println(msg);
+		out.flush();
+	}
+	
+	public String waitForPropo() throws IOException {
+        String str = in.readLine();
+        if(!participants[0].isMain())
+        	str = "Vous avez perdu la main!";
+        setChanged();
+        notifyObservers();
+        return str;
+	}
 	
 	public boolean traitementReponse(Mot m) throws IOException {
 		if(m.getValeur().equals("")) {
@@ -263,6 +276,7 @@ public class Partie extends Observable{
 		return false;
 		
 	}
+	
 	
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -346,10 +360,12 @@ public class Partie extends Observable{
 			if(i == 0 || i == 2) {
 				etatInit += lettreMot[i];
 				lettresActuelles[i] = lettreMot[i];
+				lettresGUI[i] = lettreMot[i];
 			}
 			else {
 				etatInit += "*";
 				lettresActuelles[i] = "*";
+				lettresGUI[i] = lettreMot[i];
 			}
 		}
 		etatActuel = new Mot(etatInit);
@@ -452,11 +468,11 @@ public class Partie extends Observable{
 	@Override
 	public String toString() {
 		String s = "";
-		s += "---------------------------------------------------------\n";
+		s += "\n\n\n---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
-		s += "Etape en cours :" + etape;
-		s += "\nJoeur 1 : " + participants[0].toString();
+		s += " Etape en cours :" + etape;
+		s += "\nJoueur 1: " + participants[0].toString();
 		if(nbJoueurs == 2) {
 			s += "Joueur 2: " + participants[1].toString(); 
 		}
@@ -532,6 +548,12 @@ public class Partie extends Observable{
 
 
 
+	public static String[] getLettresGUI() {
+		return lettresGUI;
+	}
+
+
+
 	public static Joueur[] getParticipants() {
 		return participants;
 	}
@@ -563,8 +585,5 @@ public class Partie extends Observable{
 	public void setElem(int elem) {
 		this.elem = elem;
 	}
-	
-	
-	
 	
 }

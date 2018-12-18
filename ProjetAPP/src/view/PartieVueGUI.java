@@ -475,8 +475,11 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		updateTable(/*fieldPropo.getText().length() == controller.getNbLettres()*/true);
+		updateTable(fieldPropo.getText().length() == controller.getNbLettres());
 		fieldPropo.setText("");
+		fieldEssaiRest.setText(String.valueOf(controller.getEssaiRest()));
+		fieldPoints1.setText(String.valueOf(controller.getParticipants()[0].getPoints()));
+		
 	}
 
 	@Override
@@ -553,7 +556,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 					textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
 					valider.setText("Prêt!");
 				}
-				
+				update(null, null);
 				break;	
 				
 			default:
