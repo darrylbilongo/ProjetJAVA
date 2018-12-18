@@ -116,7 +116,7 @@ public class Partie extends Observable{
 	public Partie() {
 		nbJoueurs = 1;
 		etape = 1;
-		essaisRestant = 9;
+		essaisRestant = 10;
 		classerMot(TAILLEMOT);	
 		participants = new Joueur[2];
 		timeCount = 0;
@@ -148,9 +148,14 @@ public class Partie extends Observable{
 		}
 	}
 	
-	
-	/* Couche Réseau */
-	public void initSocket(int port, String addr) throws UnknownHostException, IOException {
+
+	/**
+	 * Cette methode se change d'initialiser les sockets. 
+	 * @param port: port du serveur
+	 * @param addr: adresse ip du serveur au cas o� le clients desire se connecter.
+	 * @throws IOException cas o� le port du serveur n'est pas ouvert ou le serveur correspondant � l'adresse ip n'existe pas.
+	 */
+	public void initSocket(int port, String addr) throws IOException {
 		if(participants[0].isMain() == true) {
 			ServerSocket s = new ServerSocket(port);
 			socket = s.accept();
@@ -163,6 +168,10 @@ public class Partie extends Observable{
 		out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 	}
 	
+	/**
+	 * Cette methode se charge de fermer les sockets.
+	 * @throws IOException cas o� les iputs et output sont inexistantes
+	 */
 	public void closeConnection() throws IOException {
 		in.close();
 		out.close();
@@ -199,25 +208,21 @@ public class Partie extends Observable{
 	}
 
 	/**
-	 * Cette méthode prends en 
-	 * @throws IOException
+	 * Methode chargee de traiter la proposition Du joueur.
+	 * @throws IOException liee � <b> traitementReponse</b>
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
 		 	updateEtatActuel();
 			elem++;
-			if(essaisRestant == 0) {
-				essaisRestant = 9;
-				etape = 2;
-			}
 			setChanged();
 			notifyObservers();
 		}
 	}
 	
 	/**
-	 * Cette methode ce charge de realiser la deuxieme etape qui corresponds
-	 * a l'epreuve finale ou le vainqueur joue seul pour determiner l'issue de la partie.
+	 * Cette methode se charge de realiser la deuxieme etape qui correspond
+	 * a� la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
 	 * @throws IOException 
 	 */
 	public void etapeDeux() throws IOException{
@@ -226,11 +231,10 @@ public class Partie extends Observable{
 		essaisRestant--;
 		elem = 0;
 	}
-	
+
 	
 	/**
 	 * Cette méthode genere un essai pour un mot a deviner
-	 * 
 	 */
 	public void getEssai() {
 		motATrouver = new Mot("");
@@ -261,6 +265,11 @@ public class Partie extends Observable{
 		out.flush();
 	}
 	
+	/**
+	 * Cette methode recoit les chaines de caracteres � travers le socket.
+	 * @return le String re�u.
+	 * @throws IOException s'il n'y rien envoy�.
+	 */
 	public String waitForPropo() throws IOException {
         String str = in.readLine();
         if(!participants[0].isMain())
@@ -299,9 +308,15 @@ public class Partie extends Observable{
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * 
 	 * @param m
 	 * @return 
+=======
+	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot � trouver.
+	 * @param m String � tester
+	 * @return
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -311,7 +326,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
+	 * Cette methode traite la proposition du joueur et met � jour le string <b>etatAtuel</b>, important 
+	 * pour que le joueur voit l'�volution du mot en fonction de ces proposition.
 	 * @param mot
 	 */
 	public void traiterMot(Mot mot) {
@@ -347,12 +363,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette méthode compte le nombre d'occurences d'un string dans un tableu de
-	 * chaine de caractère
-	 * @param s le string 
-	 * @param a le tableau de chaine de caractere
-	 * @return le nombre d'occurences du string s dans le tableau a
-	 */
+	 * Cette m�thode compte le nombre d'occurences d'une lettre dans un tableau de cha�nes de caract�res.
+	 * @param s la lettre
+	 * @param a le tableau de cha�nes caract�res.
+	 * @return le nombre d'occurences du string s dans le tableau a.
+	 **/
 	public int countOccurences(String s, String[] a) {
 		int count = 0;
 		for(int i =0; i < a.length; i ++) {
@@ -364,7 +379,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette methode permet de mettre � jour l'etat actuel du mot a� deviner dans la partie
+	 *  Cette m�thode permet de mettre � jour l'etat actuel du mot � deviner dans la partie.
 	 */
 	public void updateEtatActuel() {
 		String s = "";
@@ -376,13 +391,20 @@ public class Partie extends Observable{
 
 
 
+	/**
+	 * Cette m�thode supprime les fichiers initialement cr�er.
+	 */
 	public void supprFichier() {
 		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
 		fichier.delete();
 	}
 	
 	/**
+<<<<<<< HEAD
+	 *  Cette m�thode initialise l'attribut <b>etatActuel</b> qui met � jour l'�volution des diff�rentes propositions du joueur
+=======
 	 *  Cette methode initialise l'etat actuel d'avancement du joueur vers le mot a trouver
+>>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -431,8 +453,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
-	 * @param x
+	 * Cette methode s'occupe de c�eer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
+	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
 	public static void classerMot(int x){
 		try {
@@ -468,9 +490,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 
-	 * @param
-	 * @return 
+	 * Cette methode se charge de choisir un mot dans le fichier txt <b>mots<i>+</i>tailleMot<i>+</i>lettres.txt</b>.
+	 * @param numero de la ligne choisi au harsard
+	 * @return retourne le mot choisi.
 	 */
 	public static Mot choixMot(int num) {
 		try {
