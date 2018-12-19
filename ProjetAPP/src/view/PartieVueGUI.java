@@ -58,8 +58,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	private JLabel lblChrono;
 	private JTextField textField;
 	
-	private Timer timer; 
-	protected int timeCount;
+	private Timer timer = new Timer(1000, this); 
+	protected int timerCount = 0;
 	
 	private Object[][] data;
 
@@ -391,7 +391,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		table = new JTable(data, s);
 		table.setFont(new Font("Century", Font.PLAIN, 20));
-		table.setDefaultRenderer(Object.class, new jTableRender());
+		table.setDefaultRenderer(Object.class, new JTableRender());/*pour mettre certains fonts de couleurs sur certaines
+		cellules du tableau*/
 	}
 	
  	public void updateTable(boolean b) {
@@ -436,7 +437,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 			
 			table = new JTable(data, s);
 			table.setBackground(new Color(0, 191, 255));
-			//table.setDefaultRenderer(Object.class, new jTableRender());
+			//table.setDefaultRenderer(Object.class, new JTableRender());
 		}
 	}
  	
@@ -450,7 +451,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		affiche("Bonjour, \nBienvenu(e) à  Motus!"
 							+ "\nVeuillez Entrez le nombre de joueurs et votre pseudo s'il vous plaît");
 
-		timeCount = 0;
+		timerCount = 0;
+		timer = new Timer(1000, this);
 		
 	}
 	
@@ -512,7 +514,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
+		if(e.getActionCommand() != null) {
+			switch (e.getActionCommand()) {
 			case "Commençons":
 				if(!(introNbJoueurs() && introPseudo())) {
 					affiche("Veuillez introduire des données correctes!");
@@ -542,7 +545,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				updateTable(true);
 				affiche(controller.getMotATrouver().getValeur());
 				valider.setText("Valider");
-				timer = new Timer(1000, this);
+				
 				break;
 				
 			case "Valider":
@@ -571,6 +574,14 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				break;
 		}
 			
+		}
+		else if(timer.isRunning()){
+			timerCount++;
+			textField.setText(String.valueOf(timerCount));
+		}
 	}
+	
+
 
 }
+

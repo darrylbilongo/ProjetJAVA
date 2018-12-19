@@ -98,15 +98,26 @@ public class Partie extends Observable{
 	 */
 	private int etape;
 	
+	
 	private int elem;
 	
+	/**
+	 * Le joueur actuel.
+	 */
 	private Joueur joueurActuel;
 
 	private Timer timer;
 	private int timeCount;
 	
+	/**
+	 * Les inputs et les outputs du socket
+	 */
 	private BufferedReader in ;
 	private PrintWriter out;
+	
+	/**
+	 * Le socket
+	 */
 	private Socket socket;
 	
 	/**
@@ -127,8 +138,7 @@ public class Partie extends Observable{
 	 * Cette methode initialise la partie 
 	 * @param init le nombre de joeurs dans la partie aï¿½ initialiser
 	 * @param init le nombre de joeurs dans la partie aï¿½ initialiser
-	 * @throws IOException 
-	 * @throws UnknownHostException 
+	 * @throws IOException issu de <b> initSockect() </b>
 	 */
 	public void init(int init) throws IOException{
 		if(init == 1) {
@@ -208,8 +218,8 @@ public class Partie extends Observable{
 	}
 
 	/**
-	 * Methode chargee de traiter la proposition Du joueur.
-	 * @throws IOException liee à <b> traitementReponse</b>
+	 * La méthode chargee de traiter la proposition Du joueur.
+	 * @throws IOException liee à la methode<b> traitementReponse()</b>
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
@@ -223,9 +233,8 @@ public class Partie extends Observable{
 	/**
 	 * Cette methode se charge de realiser la deuxieme etape qui correspond
 	 * a  la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
-	 * @throws IOException 
 	 */
-	public void etapeDeux() throws IOException{
+	public void etapeDeux(){
 		getEssai();
 		initEtatActuel();
 		essaisRestant--;
@@ -260,8 +269,13 @@ public class Partie extends Observable{
 		}
 	}
 	
-	public void sendPropo(String msg) {
-		out.println(msg);
+	
+	/**
+	 * Cette methode envoie la proposition d'un joueur vers le poste de l'autre joueur à travers le socket.
+	 * @param propo La proposition du deuxieme joueur.
+	 */
+	public void sendPropo(String propo) {
+		out.println(propo);
 		out.flush();
 	}
 	
@@ -283,7 +297,7 @@ public class Partie extends Observable{
 	 * Cette methode determine si le mot proposÃ© est Ã©quivalent au mot Ã  trouver
 	 * @param m le mot proposÃ© par le joueur
 	 * @return true si il a trouve la bonne reponse et false sinon
-	 * @throws IOException
+	 * @throws IOException issu de la methode verifierMot()
 	 */
 	public boolean traitementReponse(Mot m) throws IOException {
 		if(m.getValeur().equals("")) {
@@ -310,7 +324,7 @@ public class Partie extends Observable{
 	/**
 	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot à trouver.
 	 * @param m String à tester
-	 * @return
+	 * @return true si le joueur à trouver le mot
 	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -322,7 +336,7 @@ public class Partie extends Observable{
 	/**
 	 * Cette methode traite la proposition du joueur et met à jour le string <b>etatAtuel</b>, important 
 	 * pour que le joueur voit l'évolution du mot en fonction de ces proposition.
-	 * @param mot
+	 * @param mot le mot du joueur 
 	 */
 	public void traiterMot(Mot mot) {
 		String s = mot.getValeur(); 
@@ -394,11 +408,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 *  Cette méthode initialise l'attribut <b>etatActuel</b> qui met à jour l'évolution des différentes propositions du joueur
-=======
-	 *  Cette methode initialise l'etat actuel d'avancement du joueur vers le mot a trouver
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -419,11 +429,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Méthode à executer lorsque la reponse trouvée est bonne
-=======
-	 * Methode executer lors d'une bonne reponse
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
@@ -431,17 +437,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * 	Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
 	 * @param mot: mot à vérifier 
-	 * @return
-=======
-	 * Cette mÃ©thode verifie si le mot existe dans la base de donnÃ©e des mots de l'application
-	 * @param mot
-	 * @return 
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
-	 * @throws FileNotFoundException
+	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
+	 * @throws FileNotFoundException cas où le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));

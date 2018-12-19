@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 abaissé
 abandon
 abattre
@@ -3621,4 +3619,3 @@ Zélande
 Zetland
 zézayer
 zozoter
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
