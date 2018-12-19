@@ -40,11 +40,7 @@ public class PartieController{
 	}
 	
 	public void etapeDeux() {
-		try {
-			model.etapeDeux();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		model.etapeDeux();
 	}
 	
 	public void initPartie(int i) {

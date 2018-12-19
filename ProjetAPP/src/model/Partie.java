@@ -31,7 +31,7 @@ public class Partie extends Observable{
 	 * Le mot que les joueurs doivent deviner.
 	 */
 	private Mot motATrouver;
-	
+	 
 	/**
 	 * Le mot qui servira de guide pour d�viner les mots aux joueurs. 
 	 */
