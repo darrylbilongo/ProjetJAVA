@@ -108,12 +108,16 @@ public class PartieController{
 	}
 
 	
-	public void setPseudoJoueur(String pseudo) {
+	public void setPseudoJoueur1(String pseudo) {
 		model.getParticipants()[0].setPseudo(pseudo);
 	}
 	
+	public void setPseudoJoueur2(String pseudo) {
+		model.getParticipants()[1].setPseudo(pseudo);
+	}
+	
 	public void setPropoJouer(Mot p) {
-		model.getParticipants()[0].setProposition(p);
+		model.getJoueurActuel().setProposition(p);
 	}
 
 	public int getNbLettres() {
