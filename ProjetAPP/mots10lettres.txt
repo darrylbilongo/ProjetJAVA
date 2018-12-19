@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 abandonnée
 abandonner
 abandonnés
@@ -2207,4 +2205,3 @@ vulnérable
 Washington
 xénophobie
 yougoslave
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git

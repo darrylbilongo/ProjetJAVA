@@ -46,7 +46,7 @@ public class Client implements Runnable{
 	private void envoyerProposition() {
 		while(true){
 			System.out.print("Partie en String");
-			String msg = sc.nextLine();
+			//String msg = sc.nextLine();
 			/*if(msg.equals("STOP")){
 				chat.sendMessage("STOP");
 				sc.close();

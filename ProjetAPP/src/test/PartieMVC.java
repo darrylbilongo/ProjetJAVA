@@ -5,7 +5,6 @@ import java.io.IOException;
 import controller.PartieController;
 import model.Partie;
 import view.PartieVue;
-import view.PartieVueConsole;
 import view.PartieVueGUI;
 
 public class PartieMVC {
