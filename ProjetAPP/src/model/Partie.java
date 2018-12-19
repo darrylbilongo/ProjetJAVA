@@ -11,13 +11,11 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.Timer;
 
-import org.junit.platform.commons.util.StringUtils;
 
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
@@ -162,8 +160,8 @@ public class Partie extends Observable{
 	/**
 	 * Cette methode se change d'initialiser les sockets. 
 	 * @param port: port du serveur
-	 * @param addr: adresse ip du serveur au cas où le clients desire se connecter.
-	 * @throws IOException cas où le port du serveur n'est pas ouvert ou le serveur correspondant à l'adresse ip n'existe pas.
+	 * @param addr: adresse ip du serveur au cas oï¿½ le clients desire se connecter.
+	 * @throws IOException cas oï¿½ le port du serveur n'est pas ouvert ou le serveur correspondant ï¿½ l'adresse ip n'existe pas.
 	 */
 	public void initSocket(int port, String addr) throws IOException {
 		if(participants[0].isMain() == true) {
@@ -180,7 +178,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de fermer les sockets.
-	 * @throws IOException cas où les iputs et output sont inexistantes
+	 * @throws IOException cas oï¿½ les iputs et output sont inexistantes
 	 */
 	public void closeConnection() throws IOException {
 		in.close();
@@ -218,8 +216,8 @@ public class Partie extends Observable{
 	}
 
 	/**
-	 * La méthode chargee de traiter la proposition Du joueur.
-	 * @throws IOException liee à la methode<b> traitementReponse()</b>
+	 * Methode chargee de traiter la proposition Du joueur.
+	 * @throws IOException liee ï¿½ <b> traitementReponse</b>
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
@@ -280,9 +278,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode recoit les chaines de caracteres à travers le socket.
-	 * @return le String reçu.
-	 * @throws IOException s'il n'y rien envoyé.
+	 * Cette methode recoit les chaines de caracteres ï¿½ travers le socket.
+	 * @return le String reï¿½u.
+	 * @throws IOException s'il n'y rien envoyï¿½.
 	 */
 	public String waitForPropo() throws IOException {
         String str = in.readLine();
@@ -371,9 +369,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette méthode compte le nombre d'occurences d'une lettre dans un tableau de chaînes de caractères.
+	 * Cette mï¿½thode compte le nombre d'occurences d'une lettre dans un tableau de chaï¿½nes de caractï¿½res.
 	 * @param s la lettre
-	 * @param a le tableau de chaînes caractères.
+	 * @param a le tableau de chaï¿½nes caractï¿½res.
 	 * @return le nombre d'occurences du string s dans le tableau a.
 	 **/
 	public int countOccurences(String s, String[] a) {
@@ -387,9 +385,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette méthode permet de mettre à  jour l'etat actuel du mot à deviner dans la partie.
+	 *  Cette mï¿½thode permet de mettre ï¿½ jour l'etat actuel du mot ï¿½ deviner dans la partie.
 	 */
-	public  void updateEtatActuel() {
+	public void updateEtatActuel() {
 		String s = "";
 		for(int i = 0; i < lettresActuelles.length; i++) {
 			s += lettresActuelles[i];
@@ -400,7 +398,7 @@ public class Partie extends Observable{
 
 
 	/**
-	 * Cette méthode supprime les fichiers initialement créer.
+	 * Cette mï¿½thode supprime les fichiers initialement crï¿½er.
 	 */
 	public void supprFichier() {
 		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
@@ -458,7 +456,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode s'occupe de céeer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
+	 * Cette methode s'occupe de cï¿½eer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
 	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
 	public static void classerMot(int x){
@@ -496,7 +494,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de choisir un mot dans le fichier txt <b>mots<i>+</i>tailleMot<i>+</i>lettres.txt</b>.
-	 * @param numéro de la ligne choisi au harsard
+	 * @param numero de la ligne choisi au harsard
 	 * @return retourne le mot choisi.
 	 */
 	public static Mot choixMot(int num) {

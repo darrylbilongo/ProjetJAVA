@@ -15,7 +15,12 @@ class PartieTest {
 	@Test
 	void testInit() {	
 		Partie p = new Partie();	
-		p.init(1);
+		try {
+			p.init(1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(p.getNbJoueurs(), 1);
 		assertEquals(p.getEtape(), 1);
 		assertTrue((p.getJoueurActuel().isMain()));
@@ -28,7 +33,12 @@ class PartieTest {
 	void testTraitementReponse() {
 		
 		Partie p = new Partie();
-		p.init(1);
+		try {
+			p.init(1);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Mot mot = new Mot("Sauce");
 		
 		try {
