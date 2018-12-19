@@ -160,8 +160,8 @@ public class Partie extends Observable{
 	/**
 	 * Cette methode se change d'initialiser les sockets. 
 	 * @param port: port du serveur
-	 * @param addr: adresse ip du serveur au cas o� le clients desire se connecter.
-	 * @throws IOException cas o� le port du serveur n'est pas ouvert ou le serveur correspondant � l'adresse ip n'existe pas.
+	 * @param addr: adresse ip du serveur au cas ou le clients desire se connecter.
+	 * @throws IOException cas ou le port du serveur n'est pas ouvert ou le serveur correspondant � l'adresse ip n'existe pas.
 	 */
 	public void initSocket(int port, String addr) throws IOException {
 		if(participants[0].isMain() == true) {
@@ -187,10 +187,10 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode se charge de lancer la premia�re etape de la partie.
-	 * @throws IOException cette exception est provoqu� pas la m�thode <b>traitementReponse</b>
-	 * @throws ArithmeticException cette exception tient compte les cas o� les joueurs
-	 * inscrivent un caract�re � la place d'un chi<ffre.
+	 * Cette methode se charge de lancer la premiere etape de la partie.
+	 * @throws IOException cette exception est provoque pas la methode <b>traitementReponse</b>
+	 * @throws ArithmeticException cette exception tient compte les cas ou les joueurs
+	 * inscrivent un caractere a la place d'un chiffre.
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
@@ -217,7 +217,7 @@ public class Partie extends Observable{
 
 	/**
 	 * Methode chargee de traiter la proposition Du joueur.
-	 * @throws IOException liee � <b> traitementReponse</b>
+	 * @throws IOException liee a <b> traitementReponse</b>
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
@@ -230,7 +230,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de realiser la deuxieme etape qui correspond
-	 * a� la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
+	 * a la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
 	 */
 	public void etapeDeux(){
 		getEssai();
@@ -278,9 +278,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode recoit les chaines de caracteres � travers le socket.
-	 * @return le String re�u.
-	 * @throws IOException s'il n'y rien envoy�.
+	 * Cette methode recoit les chaines de caracteres a travers le socket.
+	 * @return le String recu.
+	 * @throws IOException s'il n'y rien envoye.
 	 */
 	public String waitForPropo() throws IOException {
         String str = in.readLine();
@@ -332,8 +332,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode traite la proposition du joueur et met � jour le string <b>etatAtuel</b>, important 
-	 * pour que le joueur voit l'�volution du mot en fonction de ces proposition.
+	 * Cette methode traite la proposition du joueur et met a jour le string <b>etatAtuel</b>, important 
+	 * pour que le joueur voit l'evolution du mot en fonction de ces proposition.
 	 * @param mot le mot du joueur 
 	 */
 	public void traiterMot(Mot mot) {
@@ -435,11 +435,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 	Cette methode verifie si le mot � trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
+	 * 	Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
-	 * @param mot: mot � v�rifier 
+	 * @param mot: mot à vérifier 
 	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
-	 * @throws FileNotFoundException cas o� le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
+	 * @throws FileNotFoundException cas où le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
@@ -456,7 +456,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode s'occupe de c�eer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
+	 * Cette methode s'occupe de créer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
 	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
 	public static void classerMot(int x){
