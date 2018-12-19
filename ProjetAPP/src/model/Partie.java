@@ -230,7 +230,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de realiser la deuxieme etape qui correspond
-	 * a  la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
+	 * aï¿½ la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
 	 */
 	public void etapeDeux(){
 		getEssai();
@@ -269,7 +269,7 @@ public class Partie extends Observable{
 	
 	
 	/**
-	 * Cette methode envoie la proposition d'un joueur vers le poste de l'autre joueur à travers le socket.
+	 * Cette methode envoie la proposition d'un joueur vers le poste de l'autre joueur ï¿½ travers le socket.
 	 * @param propo La proposition du deuxieme joueur.
 	 */
 	public void sendPropo(String propo) {
@@ -320,9 +320,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot à trouver.
-	 * @param m String à tester
-	 * @return true si le joueur à trouver le mot
+	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot ï¿½ trouver.
+	 * @param m String ï¿½ tester
+	 * @return true si le joueur ï¿½ trouver le mot
 	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -332,8 +332,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode traite la proposition du joueur et met à jour le string <b>etatAtuel</b>, important 
-	 * pour que le joueur voit l'évolution du mot en fonction de ces proposition.
+	 * Cette methode traite la proposition du joueur et met ï¿½ jour le string <b>etatAtuel</b>, important 
+	 * pour que le joueur voit l'ï¿½volution du mot en fonction de ces proposition.
 	 * @param mot le mot du joueur 
 	 */
 	public void traiterMot(Mot mot) {
@@ -398,7 +398,7 @@ public class Partie extends Observable{
 
 
 	/**
-	 * Cette mï¿½thode supprime les fichiers initialement crï¿½er.
+	 * Cette methode supprime les fichiers initialement crï¿½er.
 	 */
 	public void supprFichier() {
 		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
@@ -406,7 +406,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette méthode initialise l'attribut <b>etatActuel</b> qui met à jour l'évolution des différentes propositions du joueur
+	 *  Cette methode initialise l'attribut <b>etatActuel</b> qui met a jour l'evolution des differentes propositions du joueur
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -427,7 +427,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Méthode à executer lorsque la reponse trouvée est bonne
+	 * Mï¿½thode ï¿½ executer lorsque la reponse trouvï¿½e est bonne
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
@@ -435,11 +435,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 	Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
+	 * 	Cette methode verifie si le mot ï¿½ trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
-	 * @param mot: mot à vérifier 
+	 * @param mot: mot ï¿½ vï¿½rifier 
 	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
-	 * @throws FileNotFoundException cas où le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
+	 * @throws FileNotFoundException cas oï¿½ le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
@@ -494,7 +494,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de choisir un mot dans le fichier txt <b>mots<i>+</i>tailleMot<i>+</i>lettres.txt</b>.
-	 * @param numero de la ligne choisi au harsard
+	 * @param n de la ligne choisi au harsard
 	 * @return retourne le mot choisi.
 	 */
 	public static Mot choixMot(int num) {

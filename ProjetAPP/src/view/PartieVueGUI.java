@@ -442,14 +442,14 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	}
  	
  	
-	//initialise l'interface graphique avec les données possibles issus du model.
+	//initialise l'interface graphique avec les donnï¿½es possibles issus du model.
 	public void initMotus() {
 		fieldNbLettres.setText(String.valueOf(controller.getNbLettres()));
 		fieldPoints1.setText("0");
 		fieldPoints2.setText("0");
 		fieldEssaiRest.setText(Integer.toString(controller.getEssaiRest()));
-		affiche("Bonjour, \nBienvenu(e) à  Motus!"
-							+ "\nVeuillez Entrez le nombre de joueurs et votre pseudo s'il vous plaît");
+		affiche("Bonjour, \nBienvenu(e) ï¿½ Motus!"
+							+ "\nVeuillez Entrez le nombre de joueurs et votre pseudo s'il vous plaï¿½t");
 
 		timerCount = 0;
 		timer = new Timer(1000, this);
@@ -498,7 +498,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	}
 	
 	public void lancerEtapeDeux() {
-		affiche("Lancement de l'étape deux: \n");
+		affiche("Lancement de l'ï¿½tape deux: \n");
 		controller.etapeDeux();
 	}
 	
@@ -516,13 +516,13 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() != null) {
 			switch (e.getActionCommand()) {
-			case "Commençons":
+			case "Commenï¿½ons":
 				if(!(introNbJoueurs() && introPseudo())) {
-					affiche("Veuillez introduire des données correctes!");
+					affiche("Veuillez introduire des donnï¿½es correctes!");
 					break;
 				}
-				affiche("Etes-vous prêts?");
-				valider.setText("Prêt!");
+				affiche("Etes-vous prï¿½ts?");
+				valider.setText("Prï¿½t!");
 				pseudo1.setEditable(false);
 				fieldNbJoueurs.setEditable(false);
 				fieldPropo.setEditable(true);
@@ -532,13 +532,13 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 					cacherOnglets();
 				break;
 	
-			case "Prêt!":
+			case "Prï¿½t!":
 				if(controller.getEtape() == 1) {
 					controller.etapeUn();
-					affiche("Lancement de l'étape 1: \n");
+					affiche("Lancement de l'ï¿½tape 1: \n");
 				}
 				else {
-					affiche("Lancement de l'étape 2: \n");
+					affiche("Lancement de l'ï¿½tape 2: \n");
 					textArea.append(controller.getModel().toString());
 					controller.etapeDeux();
 				}
@@ -552,19 +552,19 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				controller.traitementPropo(fieldPropo.getText());
 				controller.updatePartie();
 				if(controller.getModel().estTrouve(fieldPropo.getText())) {
-					valider.setText("Prêt!");
-					affiche("Bravo! Vous avez donné la bonne réponse!\n\n");
-					textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
+					valider.setText("Prï¿½t!");
+					affiche("Bravo! Vous avez donnï¿½ la bonne rï¿½ponse!\n\n");
+					textArea.append("Le mot ï¿½ trouver ï¿½tait bien : \n" + controller.getMotATrouver().getValeur());
 					updateTable(true);
 					fieldPropo.setText("");
 				}
 				else if(controller.getElem() == 6){
-					affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...");
-					textArea.append("Le mot à trouver était bien : \n" + controller.getMotATrouver().getValeur());
-					valider.setText("Prêt!");
+					affiche("Dommage...\nVous avez epuise votre nombre de tentatives permises...");
+					textArea.append("Le mot a trouver ï¿½tait bien : \n" + controller.getMotATrouver().getValeur());
+					valider.setText("Prï¿½t!");
 				}
 				if(controller.getModel().getEtape() == 2 && controller.getEssaiRest() == 0) {
-					affiche("Félicitation! " + controller.getModel().toString());
+					affiche("Fï¿½licitation! " + controller.getModel().toString());
 				}
 				update(null, null);
 				controller.supprimerFichiers();
