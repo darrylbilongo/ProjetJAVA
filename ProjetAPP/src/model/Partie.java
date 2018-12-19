@@ -308,15 +308,12 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * 
 	 * @param m
 	 * @return 
-=======
 	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot � trouver.
 	 * @param m String � tester
 	 * @return
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -400,11 +397,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 *  Cette m�thode initialise l'attribut <b>etatActuel</b> qui met � jour l'�volution des diff�rentes propositions du joueur
-=======
 	 *  Cette methode initialise l'etat actuel d'avancement du joueur vers le mot a trouver
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -491,7 +485,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de choisir un mot dans le fichier txt <b>mots<i>+</i>tailleMot<i>+</i>lettres.txt</b>.
-	 * @param numero de la ligne choisi au harsard
+	 * @param n de la ligne choisi au harsard
 	 * @return retourne le mot choisi.
 	 */
 	public static Mot choixMot(int num) {
