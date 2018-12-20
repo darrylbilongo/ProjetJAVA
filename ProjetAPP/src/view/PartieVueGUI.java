@@ -379,7 +379,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		valider = new JButton("Commen\u00E7ons");
+		valider = new JButton("Commençons");
 		valider.setFont(new Font("Dialog", Font.PLAIN, 15));
 		valider.setForeground(Color.BLACK);
 		valider.setBackground(new Color(255, 69, 0));

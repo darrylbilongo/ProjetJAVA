@@ -228,17 +228,6 @@ public class Partie extends Observable{
 		}
 	}
 	
-	
-	/**
-	 * Cette methode envoie la proposition d'un joueur vers le poste de l'autre joueur à travers le socket.
-	 * @param propo La proposition du deuxieme joueur.
-	 */
-	/*public void sendPropo(String propo) {
-		out.println(propo);
-		out.flush();
-	}
-*/
-	
 	/**
 	 * Cette methode determine si le mot proposé est équivalent au mot Ã  trouver
 	 * @param m le mot proposé par le joueur
@@ -547,19 +536,9 @@ public class Partie extends Observable{
 		return lettresActuelles;
 	}
 
-
-	public void setLettresActuelles(String[] lettresActuelles) {
-		this.lettresActuelles = lettresActuelles;
-	}
-
 	public Joueur getJoueurActuel() {
 		return joueurActuel;
 	}
-
-	public void setJoueurActuel(Joueur joueurActuel) {
-		this.joueurActuel = joueurActuel;
-	}
-
 
 	public void setEtatActuel(Mot etatActuel) {
 		this.etatActuel = etatActuel;
