@@ -25,8 +25,6 @@ public class Client implements Runnable{
 		sc = new Scanner(System.in);
 		System.out.println("Bonjour, \nBienvenu(e) à Motus:");	
 		System.out.println("Veuillez Entrez un pseudo s'il vous plait: ");
-		String pseudoJoueur = sc.next();
-		sendProposition(pseudoJoueur);
 		thread = new Thread(this);
 		thread.start();
 		readInput();
@@ -51,13 +49,7 @@ public class Client implements Runnable{
 	
 	public String waitForPropo() throws IOException {
 		String str = in.readLine();
-        if(str.contains("Pseudo")) {
-        	String s [] = str.split("");
-        	server = s[1];
-        	str = "";
-        }
-        return server + "> " + str;
-	
+		return  str;	
 	}
 	
 	public static void main(String[] args) {
@@ -72,6 +64,7 @@ public class Client implements Runnable{
 
 	public void readInput() throws IOException{
 		while(true){
+			System.out.print("> ");
 			String propo = sc.nextLine();
 			sendProposition(propo);
 		}
@@ -80,14 +73,24 @@ public class Client implements Runnable{
 	@Override
 	public void run() {
 		while(!Thread.interrupted()) {
-			String propo = "";
+			String str = "";
 			try {
-				propo = waitForPropo();
+				str = waitForPropo();
+				if(str.length() <= 10) {
+					String s = "Votre Proposition: ";
+					s += str;
+					System.out.println(s);
+				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println(propo);
+			if(str.equals("")) {
+				System.out.println("");
+			}
+			else {
+				System.out.println(str);
+			}
 		}
 	}
 	

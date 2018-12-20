@@ -6,6 +6,7 @@ import controller.PartieController;
 import model.Partie;
 import view.PartieVue;
 import view.PartieVueConsole;
+import view.PartieVueGUI;
 
 public class PartieMVC {
 	
@@ -15,17 +16,17 @@ public class PartieMVC {
 		
 		//Creation des controleurs : Un pour chaque vue
 		//Chaque controleur doit avoir une reference vers le modele pour pouvoir le commander
-		//PartieController ctrlGUI = new PartieController(model);
-		PartieController ctrlConsole = new PartieController(model);
+		PartieController ctrlGUI = new PartieController(model);
+		//PartieController ctrlConsole = new PartieController(model);
 		 
 		//Creation des vues.
 		//Chaque vue doit connaitre son controleur et avoir une reference vers le modele pour pouvoir l'observer
-		//PartieVue gui = new PartieVueGUI(model, ctrlGUI);
-		PartieVue console = new PartieVueConsole(model, ctrlConsole);
+		PartieVue gui = new PartieVueGUI(model, ctrlGUI);
+		//PartieVue console = new PartieVueConsole(model, ctrlConsole);
 		 		
 		//On donne la reference à la vue pour chaque controleur
-		ctrlConsole.addView(console);
-		//ctrlGUI.addView(gui);
+		//ctrlConsole.addView(console);
+		ctrlGUI.addView(gui);
 	}
 				
 		public static void main(String args[]) {

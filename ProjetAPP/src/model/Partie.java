@@ -229,7 +229,7 @@ public class Partie extends Observable{
 	}
 	
 	
-	
+
 	/**
 	 * Cette methode determine si le mot propos� est �quivalent au mot à trouver
 	 * @param m le mot propos� par le joueur
@@ -250,6 +250,9 @@ public class Partie extends Observable{
 		else if(m.getValeur().charAt(0) == motATrouver.getValeur().charAt(0)) {
 			if(/*verifierMot(m) && */m.getValeur().length() == TAILLEMOT) {
 				traiterMot(m);
+			}
+			else {
+				transfererMain();
 			}
 		}
 		else {
@@ -390,7 +393,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * 	Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
+	 * Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
 	 * @param mot: mot à vérifier 
 	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
@@ -483,8 +486,8 @@ public class Partie extends Observable{
 		s += "\n\n---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
-		s += " Etape en cours :" + etape;
-		s += "\nJoeur 1 : " + participants[0].toString();
+		s += " Etape en cours : " + etape;
+		s += "\nJoueur 1 : " + participants[0].toString();
 		if(nbJoueurs == 2) {
 			s += " Joueur 2: " + participants[1].toString(); 
 		}
