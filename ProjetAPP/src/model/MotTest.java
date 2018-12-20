@@ -16,6 +16,11 @@ class MotTest {
 		assertTrue(m1.getValeur().equals(m2.getValeur()));
 		assertTrue(m1.comparer(m2));
 		
+		assertEquals(Mot.formatMot("Souiller"), "SOUILLER");
+		assertEquals(Mot.formatMot("garçon"), "GARCON");
+		assertEquals(Mot.formatMot("élévage"), "ELEVAGE");
+		
+		
 		// LONGEUR
 		
 		assertEquals(m1.longueur(),8);

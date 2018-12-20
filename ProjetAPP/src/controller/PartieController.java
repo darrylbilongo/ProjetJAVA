@@ -86,6 +86,7 @@ public class PartieController{
 		if(getEssaiRest() == 0 && model.getEtape() == 1) {
 			model.setEtape(2);
 			model.setEssaisRestant(10);
+			model.getJoueurActuel().setPoints(0);
 		}
 	}
 	

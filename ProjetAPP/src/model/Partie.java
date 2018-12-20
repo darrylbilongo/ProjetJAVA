@@ -496,8 +496,8 @@ public class Partie extends Observable{
 		s += "\n\n---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
-		s += " Etape en cours :" + etape;
-		s += "\nJoeur 1 : " + participants[0].toString();
+		s += " Etape en cours : " + etape;
+		s += "\nJoueur 1 : " + participants[0].toString();
 		if(nbJoueurs == 2) {
 			s += " Joueur 2: " + participants[1].toString(); 
 		}

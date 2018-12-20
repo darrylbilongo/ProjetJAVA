@@ -75,7 +75,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	
 	public void initGUI() {
 		frame = new JFrame("Partie");
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\manue\\OneDrive\\GOMAND\\EPHEC\\Cours\\2TI\\D\u00E9v. informatique avanc\u00E9 application_Th\u00E9orie\\TP\\TP_Java\\ProjetJAVA2018\\ProjetAPP\\motus-france-2-pourquoi-les-emissions-du-samedi-sont-elles-des-rediffusions.jpg"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\manue\\Documents\\GitHub\\ProjetJAVA2018\\ProjetAPP\\motus-france-2-pourquoi-les-emissions-du-samedi-sont-elles-des-rediffusions.jpg"));
 		frame.setTitle("Motus");
 		frame.setForeground(new Color(224, 255, 255));
 		frame.setFont(new Font("Castellar", Font.PLAIN, 12));
@@ -393,6 +393,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		table.setFont(new Font("Century", Font.PLAIN, 20));
 		table.setDefaultRenderer(Object.class, new JTableRender());/*pour mettre certains fonts de couleurs sur certaines
 		cellules du tableau*/
+		//frame.repaint();
 	}
 	
  	public void updateTable(boolean b) {
@@ -518,7 +519,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 			switch (e.getActionCommand()) {
 			case "Commençons":
 				if(!(introNbJoueurs() && introPseudo())) {
-					affiche("Veuillez introduire des donnï¿½es correctes!");
+					affiche("Veuillez introduire des données correctes!");
 					break;
 				}
 				affiche("Etes-vous prêts?");
@@ -528,22 +529,28 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				fieldPropo.setEditable(true);
 				int n = Integer.parseInt(fieldNbJoueurs.getText());
 				controller.initPartie(n);
+				controller.setPseudoJoueur1(pseudo1.getText());
 				if(n == 1)
 					cacherOnglets();
 				break;
 	
 			case "Prêt!":
+				for(int i = 0; i < 6; i++) {
+					for(int j = 0; j < data[i].length; j++) {
+						data[i][j] = "";
+					}
+				}
 				if(controller.getEtape() == 1) {
 					controller.etapeUn();
 					affiche("Lancement de l'étape 1: \n");
 				}
 				else {
-					affiche("Lancement de l'étape 2: \n");
+					affiche("\nBravo vous y êtes presque!!!\nLancement de l'étape 2: \n");
 					textArea.append(controller.getModel().toString());
 					controller.etapeDeux();
 				}
 				updateTable(true);
-				affiche(controller.getMotATrouver().getValeur());
+				textArea.append("Le mot à trouver est :\n" + controller.getMotATrouver().getValeur());
 				valider.setText("Valider");
 				
 				break;
