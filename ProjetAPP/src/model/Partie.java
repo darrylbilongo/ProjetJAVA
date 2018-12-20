@@ -145,44 +145,13 @@ public class Partie extends Observable{
 			participants = new Joueur[] {joueur1, joueur2};
 			joueurActuel = participants[0];
 		}
-	}
-	
-
-<<<<<<< HEAD
-	/**
-	 * Cette methode se change d'initialiser les sockets. 
-	 * @param port: port du serveur
-	 * @param addr: adresse ip du serveur au cas ou le clients desire se connecter.
-	 * @throws IOException cas ou le port du serveur n'est pas ouvert ou le serveur correspondant ï¿½ l'adresse ip n'existe pas.
-	 */
-	public void initSocket(int port, String addr) throws IOException {
-		if(participants[0].isMain() == true) {
-			ServerSocket s = new ServerSocket(port);
-			socket = s.accept();
-		}
-		else {
-			socket = new Socket(addr, port);
-		}
-		
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-	}
-=======
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
-	
+	}	
 	
 	/**
-<<<<<<< HEAD
 	 * Cette methode se charge de lancer la premiere etape de la partie.
 	 * @throws IOException cette exception est provoque pas la methode <b>traitementReponse</b>
 	 * @throws ArithmeticException cette exception tient compte les cas ou les joueurs
 	 * inscrivent un caractere a la place d'un chiffre.
-=======
-	 * Cette methode se charge de lancer la première etape de la partie.
-	 * @throws IOException cette exception est provoquée pas la méthode <b>traitementReponse</b>
-	 * @throws ArithmeticException cette exception tient compte les cas où les joueurs
-	 * inscrivent un caractère à la place d'un chiffre.
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void etapeUn() throws ArithmeticException, IOException {
 		if(nbJoueurs == 2) {
@@ -276,24 +245,7 @@ public class Partie extends Observable{
 		out.println(propo);
 		out.flush();
 	}
-	
-<<<<<<< HEAD
-	/**
-	 * Cette methode recoit les chaines de caracteres a travers le socket.
-	 * @return le String recu.
-	 * @throws IOException s'il n'y rien envoye.
-	 */
-	public String waitForPropo() throws IOException {
-        String str = in.readLine();
-        if(!participants[0].isMain())
-        	str = "Vous avez perdu la main!";
-        setChanged();
-        notifyObservers();
-        return str;
-	}
-=======
-	
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
+*/
 	
 	/**
 	 * Cette methode determine si le mot proposé est équivalent au mot Ã  trouver

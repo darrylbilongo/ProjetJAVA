@@ -25,10 +25,10 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	Timer timer;
 	
 	private String pseudoJoueur;
-	private Scanner sc;
 	private Thread th ;
 	private int nbjoueurs;
 	private String client;
+	private Scanner sc;
 	
 	/**
 	 * Les inputs et les outputs du socket
@@ -44,10 +44,25 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
 		motus();
-		if(model.getEtape() == 1) {
-			lancerEtapeUn();
+		if(nbjoueurs == 1) {
+			if(model.getEtape() == 1) {
+				lancerEtapeUn();
+			}
+			lancerEtapeDeux(); 
 		}
-		lancerEtapeDeux(); 
+		else {
+			affiche("Connectez le deuxième joueur...");
+			try {
+				sc = new Scanner(System.in);
+				initSocket(12345);
+				th = new Thread(this);
+				th.start();
+				readInput();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	public void motus() {
@@ -59,26 +74,10 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 		}
 		nbjoueurs = Integer.parseInt(nb);
 		controller.setNbJoueurs(nbjoueurs);
-
 		affiche("Bonjour, \nBienvenu(e) à Motus:");	
 		affiche("Veuillez Entrez un pseudo s'il vous plait: ");
 		pseudoJoueur = new Scanner(System.in).next();
 		controller.setPseudoJoueur1(pseudoJoueur);
-		
-		if(nbjoueurs == 2) {
-			try {
-				initSocket(12345);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			th = new Thread(this);
-			th.start();
-			try {
-				readInput();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	/**
@@ -112,13 +111,7 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	public String waitForPropo() throws IOException {
      if(nbjoueurs == 2) {
     	   String str = in.readLine();
-           if(str.contains("Pseudo")) {
-           	String s [] = str.split("");
-           	controller.setPseudoJoueur2(s[1]);
-           	client = s[1];
-           	return "";
-           }
-           return client + "> " + str;
+    	   return str;
      }
      return null;
 	}
@@ -198,21 +191,37 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	@Override
 	public void run() {
 		while(!Thread.interrupted()) {
-			String msg = "";
+			String str = "";
 			try {
-				msg = waitForPropo();
+				str = waitForPropo();
+				if(str.contains("pseudo")) {
+				     String s [] = str.split("");
+				     controller.setPseudoJoueur2(s[1]);
+				     client = s[1];
+				     str = "";
+		        }
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println(msg);
+			if(str.equals("")) {
+				System.out.println("");
+			}
+			else {
+				System.out.println("Joueur2> " + str );
+			}
 		}
 	}
 	
-	public void readInput() throws IOException{
+	public void readInput(){
 		while(true){
-			System.out.print("Joueur2>");
-			String propo = sc.nextLine();
+			System.out.print("> ");
+			String propo = sc.next();
+			/*if(propo.contains("pseudo")) {
+				String s[] = propo.split("");
+				controller.setPseudoJoueur1(s[1]);
+			    pseudoJoueur = s[1];
+			}*/
 			sendPropo(propo);
 		}
 	}
