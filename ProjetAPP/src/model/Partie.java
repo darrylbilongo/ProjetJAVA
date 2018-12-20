@@ -282,13 +282,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Cette methode traite la proposition du joueur et met a jour le string <b>etatAtuel</b>, important 
 	 * pour que le joueur voit l'evolution du mot en fonction de ces proposition.
-=======
-	 * Cette methode traite la proposition du joueur et met à jour le string <b>etatAtuel</b>, important 
-	 * pour que le joueur voit l'évolution du mot en fonction de ces proposition.
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 * @param mot le mot du joueur 
 	 */
 	public void traiterMot(Mot mot) {
@@ -404,23 +399,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * 	Cette methode verifie si le mot Ã  trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
-=======
-	 * 	Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
+	 * Cette methode verifie si le mot Ã  trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
-<<<<<<< HEAD
-	 * @param mot: mot Ã  vÃ©rifier 
-=======
 	 * @param mot: mot à vérifier 
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
-<<<<<<< HEAD
-	 * @throws FileNotFoundException cas oÃ¹ le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
-=======
-	 * @throws FileNotFoundException cas où le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
+	 * @throws FileNotFoundException cas oÃ¹ le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.t
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
@@ -437,11 +420,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Cette methode s'occupe de crÃ©er les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
-=======
-	 * Cette methode s'occupe de creer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
+	 * Cette methode s'occupe de créer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
 	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
 	public static void classerMot(int x){
