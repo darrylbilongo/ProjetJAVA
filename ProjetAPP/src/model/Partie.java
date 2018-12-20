@@ -260,6 +260,9 @@ public class Partie extends Observable{
 			if(/*verifierMot(m) && */m.getValeur().length() == TAILLEMOT) {
 				traiterMot(m);
 			}
+			else {
+				transfererMain();
+			}
 		}
 		else {
 			joueurActuel.setErreur(true);

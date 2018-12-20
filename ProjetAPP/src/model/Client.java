@@ -76,11 +76,11 @@ public class Client implements Runnable{
 			String str = "";
 			try {
 				str = waitForPropo();
-				if(str.contains("pseudo")) {
-				    String s [] = str.split("");
-				    server = s[1];
-				    str = "";
-			     }		 
+				if(str.length() <= 10) {
+					String s = "Votre Proposition: ";
+					s += str;
+					System.out.println(s);
+				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -89,7 +89,7 @@ public class Client implements Runnable{
 				System.out.println("");
 			}
 			else {
-				System.out.println("\nJoueur1> " + str );
+				System.out.println(str);
 			}
 		}
 	}

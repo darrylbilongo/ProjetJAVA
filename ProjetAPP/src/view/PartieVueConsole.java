@@ -27,7 +27,7 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	private String pseudoJoueur;
 	private Thread th ;
 	private int nbjoueurs;
-	private String client;
+	private String propoClient;
 	private Scanner sc;
 	
 	/**
@@ -197,18 +197,22 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 				if(str.contains("pseudo")) {
 				     String s [] = str.split("");
 				     controller.setPseudoJoueur2(s[1]);
-				     client = s[1];
 				     str = "";
 		        }
+				String tmp = "";
+				if(controller.getParticipants()[1].isErreur()) {
+					tmp += "La proposition du Joueur 2: \n";
+					tmp += controller.getEtatActuel() + "\n";
+					tmp += str;
+					propoClient = str;
+					System.out.println("Joueur2> " + str );
+				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 			if(str.equals("")) {
 				System.out.println("");
-			}
-			else {
-				System.out.println("Joueur2> " + str );
 			}
 		}
 	}
@@ -250,10 +254,11 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 					str += "La proposition du Joueur 1: \n";
 					str += controller.getEtatActuel() + "\n";
 					str += propo;
-					sendPropo(str);
+					sendPropo("\nJoueur1> " + str);
 				}
 				else {
-					
+					sendPropo(controller.getEtatActuel());
+					controller.traitementPropo(propoClient);
 				}
 			}
 		}
