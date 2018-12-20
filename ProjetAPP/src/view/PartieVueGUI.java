@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 import controller.PartieController;
 import model.Mot;
 import model.Partie;
+import javax.swing.border.LineBorder;
 
 public class PartieVueGUI extends PartieVue implements ActionListener{
 
@@ -82,7 +83,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 640, 362);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.CYAN);
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -93,6 +94,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.setLayout(gbl_contentPane);
 		
 		nbJoueurs = new JLabel("Nombre de joueurs:");
+		nbJoueurs.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_nbJoueurs = new GridBagConstraints();
 		gbc_nbJoueurs.anchor = GridBagConstraints.EAST;
 		gbc_nbJoueurs.insets = new Insets(0, 0, 5, 5);
@@ -101,6 +103,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(nbJoueurs, gbc_nbJoueurs);
 		
 		fieldNbJoueurs = new JTextField();
+		fieldNbJoueurs.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldNbJoueurs.setBackground(Color.WHITE);
 		GridBagConstraints gbc_fieldNbJoueurs = new GridBagConstraints();
 		gbc_fieldNbJoueurs.gridwidth = 4;
@@ -112,6 +115,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldNbJoueurs.setColumns(10);
 		
 		essaiRest = new JLabel("Essais restants: ");
+		essaiRest.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_essaiRest = new GridBagConstraints();
 		gbc_essaiRest.anchor = GridBagConstraints.EAST;
 		gbc_essaiRest.insets = new Insets(0, 0, 5, 5);
@@ -120,6 +124,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(essaiRest, gbc_essaiRest);
 		
 		fieldEssaiRest = new JTextField();
+		fieldEssaiRest.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldEssaiRest.setBackground(Color.WHITE);
 		fieldEssaiRest.setEditable(false);
 		GridBagConstraints gbc_fieldEssaiRest = new GridBagConstraints();
@@ -132,6 +137,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldEssaiRest.setColumns(10);
 		
 		nbLettres = new JLabel("Nombre de lettres:");
+		nbLettres.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_nbLettres = new GridBagConstraints();
 		gbc_nbLettres.insets = new Insets(0, 0, 5, 5);
 		gbc_nbLettres.gridx = 1;
@@ -139,6 +145,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(nbLettres, gbc_nbLettres);
 		
 		fieldNbLettres = new JTextField();
+		fieldNbLettres.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldNbLettres.setBackground(Color.WHITE);
 		fieldNbLettres.setEditable(false);
 		GridBagConstraints gbc_fieldNbLettres = new GridBagConstraints();
@@ -151,6 +158,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldNbLettres.setColumns(10);
 		
 		joueurActuel = new JLabel("Joueur Actuel:");
+		joueurActuel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_joueurActuel = new GridBagConstraints();
 		gbc_joueurActuel.anchor = GridBagConstraints.EAST;
 		gbc_joueurActuel.insets = new Insets(0, 0, 5, 5);
@@ -159,6 +167,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(joueurActuel, gbc_joueurActuel);
 		
 		fieldJoueurAct = new JTextField();
+		fieldJoueurAct.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldJoueurAct.setBackground(Color.WHITE);
 		fieldJoueurAct.setEditable(false);
 		GridBagConstraints gbc_fieldJoueurAct = new GridBagConstraints();
@@ -171,6 +180,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldJoueurAct.setColumns(10);
 		
 		joueur1 = new JLabel("Joueur1: ");
+		joueur1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_joueur1 = new GridBagConstraints();
 		gbc_joueur1.anchor = GridBagConstraints.EAST;
 		gbc_joueur1.insets = new Insets(0, 0, 5, 5);
@@ -179,7 +189,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(joueur1, gbc_joueur1);
 		
 		pseudo1 = new JTextField();
-		pseudo1.setFont(new Font("Century", Font.PLAIN, 13));
+		pseudo1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pseudo1.setBackground(Color.WHITE);
 		GridBagConstraints gbc_pseudo1 = new GridBagConstraints();
 		gbc_pseudo1.gridwidth = 4;
@@ -191,6 +201,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		pseudo1.setColumns(10);
 		
 		points1 = new JLabel("Points:");
+		points1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_points1 = new GridBagConstraints();
 		gbc_points1.anchor = GridBagConstraints.EAST;
 		gbc_points1.insets = new Insets(0, 0, 5, 5);
@@ -199,6 +210,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(points1, gbc_points1);
 		
 		fieldPoints1 = new JTextField();
+		fieldPoints1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldPoints1.setBackground(Color.WHITE);
 		fieldPoints1.setEditable(false);
 		GridBagConstraints gbc_fieldPoints1 = new GridBagConstraints();
@@ -211,6 +223,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldPoints1.setColumns(10);
 		
 		joueur2 = new JLabel("Joueur2:");
+		joueur2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_joueur2 = new GridBagConstraints();
 		gbc_joueur2.anchor = GridBagConstraints.EAST;
 		gbc_joueur2.insets = new Insets(0, 0, 5, 5);
@@ -219,6 +232,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(joueur2, gbc_joueur2);
 		
 		pseudo2 = new JTextField();
+		pseudo2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pseudo2.setBackground(Color.WHITE);
 		pseudo2.setEditable(false);
 		GridBagConstraints gbc_pseudo2 = new GridBagConstraints();
@@ -231,6 +245,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		pseudo2.setColumns(10);
 		
 		points2 = new JLabel("Points: ");
+		points2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_points2 = new GridBagConstraints();
 		gbc_points2.anchor = GridBagConstraints.EAST;
 		gbc_points2.insets = new Insets(0, 0, 5, 5);
@@ -239,6 +254,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(points2, gbc_points2);
 		
 		fieldPoints2 = new JTextField();
+		fieldPoints2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldPoints2.setBackground(Color.WHITE);
 		fieldPoints2.setEditable(false);
 		GridBagConstraints gbc_fieldPoints2 = new GridBagConstraints();
@@ -251,6 +267,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldPoints2.setColumns(10);
 		
 		proposition = new JLabel("Proposition: ");
+		proposition.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_proposition = new GridBagConstraints();
 		gbc_proposition.anchor = GridBagConstraints.EAST;
 		gbc_proposition.insets = new Insets(0, 0, 5, 5);
@@ -259,7 +276,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(proposition, gbc_proposition);
 		
 		fieldPropo = new JTextField();
-		fieldPropo.setFont(new Font("Century", Font.PLAIN, 13));
+		fieldPropo.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldPropo.setBackground(Color.WHITE);
 		fieldPropo.setEditable(false);
 		GridBagConstraints gbc_fieldPropo = new GridBagConstraints();
@@ -272,6 +289,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		fieldPropo.setColumns(10);
 		
 		lblChrono = new JLabel("Chrono:");
+		lblChrono.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblChrono = new GridBagConstraints();
 		gbc_lblChrono.anchor = GridBagConstraints.EAST;
 		gbc_lblChrono.insets = new Insets(0, 0, 5, 5);
@@ -280,6 +298,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		contentPane.add(lblChrono, gbc_lblChrono);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		textField.setBackground(Color.WHITE);
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -292,7 +311,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		textField.setColumns(10);
 		
 		panel = new JPanel();
-		panel.setBackground(Color.CYAN);
+		panel.setBackground(Color.GRAY);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 4;
 		gbc_panel.gridwidth = 12;
@@ -306,7 +325,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		panel.add(table);
 		
 		panel_1 = new JPanel();
-		panel_1.setBackground(Color.CYAN);
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel_1.setBackground(Color.WHITE);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.gridheight = 4;
@@ -322,7 +342,8 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		areaMessage = new JLabel("message:");
+		areaMessage = new JLabel("Message:");
+		areaMessage.setFont(new Font("Dialog", Font.PLAIN, 17));
 		areaMessage.setBackground(Color.CYAN);
 		GridBagConstraints gbc_areaMessage = new GridBagConstraints();
 		gbc_areaMessage.insets = new Insets(0, 0, 5, 0);
@@ -332,7 +353,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		panel_1.add(areaMessage, gbc_areaMessage);
 		
 		textArea = new JTextArea();
-		textArea.setFont(new Font("Castellar", Font.PLAIN, 12));
+		textArea.setFont(new Font("Dialog", Font.PLAIN, 22));
 		textArea.setBackground(Color.WHITE);
 		textArea.setEditable(false);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
@@ -343,7 +364,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		panel_1.add(textArea, gbc_textArea);
 		
 		panel_2 = new JPanel();
-		panel_2.setBackground(Color.CYAN);
+		panel_2.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.gridwidth = 12;
 		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
@@ -359,7 +380,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		panel_2.setLayout(gbl_panel_2);
 		
 		valider = new JButton("Commen\u00E7ons");
-		valider.setBackground(SystemColor.info);
+		valider.setFont(new Font("Dialog", Font.PLAIN, 15));
+		valider.setForeground(Color.BLACK);
+		valider.setBackground(new Color(255, 69, 0));
 		GridBagConstraints gbc_valider = new GridBagConstraints();
 		gbc_valider.anchor = GridBagConstraints.NORTHWEST;
 		gbc_valider.gridx = 1;
