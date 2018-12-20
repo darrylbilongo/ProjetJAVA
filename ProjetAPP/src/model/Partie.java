@@ -20,7 +20,7 @@ import java.util.Timer;
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
- * Dans la premiere partie(etapeUn), on aura droit à 10 essais et dans la partie deux(etapeDeux)
+ * Dans la premiere partie(etapeUn), on aura droit a 10 essais et dans la partie deux(etapeDeux)
  * on aura 10 essais.
  * NUMERO DU GROUPE: 17
  * @author Manuelle Ndamtang & Bilongo Darryl
@@ -33,13 +33,13 @@ public class Partie extends Observable{
 	private Mot motATrouver;
 	
 	/**
-	 * Le mot qui servira de guide pour déviner les mots aux joueurs. 
+	 * Le mot qui servira de guide pour deviner les mots aux joueurs. 
 	 */
 	private Mot etatActuel;
 	
 	/**
-	 * Ce tableau de string est constitué des lettres sur laquelles l'application se base pour 
-	 * mettre à jour l'attribut <i>etatActuel</i>.
+	 * Ce tableau de string est constitue des lettres sur laquelles l'application se base pour 
+	 * mettre a jour l'attribut <i>etatActuel</i>.
 	 */
 	private String [] lettresActuelles;
 	
@@ -49,7 +49,7 @@ public class Partie extends Observable{
 	private static ArrayList<String> motsDejaJoues;
 	
 	/**
-	 * Cette collection est chargée de garder en memoire les mots déjà utilisés durant la partie.
+	 * Cette collection est chargee de garder en memoire les mots deja utilises durant la partie.
 	 */
 	private ArrayList<String> motsDejaUtilises;
 	
@@ -125,8 +125,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode initialise la partie 
-	 * @param init le nombre de joeurs dans la partie à initialiser
-	 * @param init le nombre de joeurs dans la partie à initialiser
+	 * @param init le nombre de joeurs dans la partie a initialiser
 	 * @throws IOException issu de <b> initSockect() </b>
 	 */
 	public void init(int init) throws IOException{
@@ -145,7 +144,7 @@ public class Partie extends Observable{
 			participants = new Joueur[] {joueur1, joueur2};
 			joueurActuel = participants[0];
 		}
-	}	
+	}
 	
 	/**
 	 * Cette methode se charge de lancer la premiere etape de la partie.
@@ -202,7 +201,7 @@ public class Partie extends Observable{
 
 	
 	/**
-	 * Cette méthode genere un essai pour un mot a deviner
+	 * Cette methode genere un essai pour un mot a deviner
 	 */
 	public void getEssai() {
 		motATrouver = new Mot("");
@@ -229,8 +228,8 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode determine si le mot proposé est équivalent au mot Ã  trouver
-	 * @param m le mot proposé par le joueur
+	 * Cette methode determine si le mot propose est equivalent au mot a  trouver
+	 * @param m le mot propose par le joueur
 	 * @return true si il a trouve la bonne reponse et false sinon
 	 * @throws IOException issu de la methode verifierMot()
 	 */
@@ -262,9 +261,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot à trouver.
-	 * @param m String à tester
-	 * @return true si le joueur à trouver le mot
+	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot a trouver.
+	 * @param m String a tester
+	 * @return true si le joueur a trouver le mot
 	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -311,9 +310,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette méthode compte le nombre d'occurences d'une lettre dans un tableau de chaînes de caractères.
+	 * Cette methode compte le nombre d'occurences d'une lettre dans un tableau de chaines de caracteres.
 	 * @param s la lettre
-	 * @param a le tableau de chaînes caractères.
+	 * @param a le tableau de chaines caracteres.
 	 * @return le nombre d'occurences du string s dans le tableau a.
 	 **/
 	public int countOccurences(String s, String[] a) {
@@ -327,7 +326,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette méthode permet de mettre à jour l'etat actuel du mot à deviner dans la partie.
+	 *  Cette methode permet de mettre a jour l'etat actuel du mot a deviner dans la partie.
 	 */
 	public void updateEtatActuel() {
 		String s = "";
@@ -340,7 +339,7 @@ public class Partie extends Observable{
 
 
 	/**
-	 * Cette méthode supprime les fichiers initialement créer.
+	 * Cette methode supprime les fichiers initialement creer.
 	 */
 	public void supprFichier() {
 		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
@@ -348,7 +347,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette méthode initialise l'attribut <b>etatActuel</b> qui met à jour l'évolution des différentes propositions du joueur
+	 *  Cette methode initialise l'attribut <b>etatActuel</b> qui met a jour l'evolution des differentes propositions du joueur
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -369,7 +368,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * cette Methode
+	 * cette Methode mute la main entre les joueurs.
 	 */
 	public void transfererMain() {
 		if(nbJoueurs == 2) {
@@ -383,7 +382,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Méthode à executer lorsque la reponse trouvée est bonne
+	 * Methode a executer lorsque la reponse trouvee est bonne
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
@@ -391,11 +390,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode verifie si le mot Ã  trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
+	 * Cette methode verifie si le mot a  trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
-	 * @param mot: mot à vérifier 
+	 * @param mot: mot a  verifier 
 	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
-	 * @throws FileNotFoundException cas oÃ¹ le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.t
+	 * @throws FileNotFoundException cas ou le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
@@ -412,7 +411,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode s'occupe de créer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
+	 * Cette methode s'occupe de creer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
 	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
 	public static void classerMot(int x){
@@ -475,7 +474,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette méthode fourni une representation de toutes les informations importantes du modele 
+	 * Cette methode fourni une representation de toutes les informations importantes du modele 
 	 * de la classe Partie
 	 */
 	@Override
