@@ -214,15 +214,51 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	}
 	
 	public void readInput(){
-		while(true){
+		/*while(true){
+			String propo;
 			System.out.print("> ");
-			String propo = sc.next();
-			/*if(propo.contains("pseudo")) {
-				String s[] = propo.split("");
-				controller.setPseudoJoueur1(s[1]);
-			    pseudoJoueur = s[1];
-			}*/
-			sendPropo(propo);
+			if(controller.getParticipants()[0].isMain()) {
+				String str = controller.getModel().toString();
+				str += "Votre proposition : \n";
+				str += controller.getEtatActuel() + "\n";
+				affiche(str);
+			}
+			propo = sc.next();
+			if(controller.getParticipants()[0].isMain()) {
+				String str = controller.getModel().toString();
+				str += "La proposition du Joueur 1: \n";
+				str += controller.getEtatActuel() + "\n";
+				str += propo;
+				sendPropo(str);
+			}
+		}*/
+		for(int i = 0; i <10; i++) {
+			controller.etapeUn();
+			for(int j = 0; j < 6; j++) {
+				String propo;
+				System.out.print("> ");
+				if(controller.getParticipants()[0].isMain()) {
+					String str = controller.getModel().toString();
+					str += "Votre proposition : \n";
+					str += controller.getEtatActuel() + "\n";
+					affiche(str);
+				}
+				propo = sc.next();
+				if(controller.getParticipants()[0].isMain()) {
+					controller.traitementPropo(propo);
+					String str = controller.getModel().toString();
+					str += "La proposition du Joueur 1: \n";
+					str += controller.getEtatActuel() + "\n";
+					str += propo;
+					sendPropo(str);
+				}
+				else {
+					
+				}
+			}
 		}
 	}
+	
+	
+	
 }

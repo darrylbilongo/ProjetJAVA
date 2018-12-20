@@ -178,11 +178,7 @@ public class Partie extends Observable{
 
 	/**
 	 * Methode chargee de traiter la proposition Du joueur.
-<<<<<<< HEAD
 	 * @throws IOException liee a <b> traitementReponse</b>
-=======
-	 * @throws IOException liee à <b> traitementReponse</b>
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void propoJoueur() throws IOException {
 		if(!traitementReponse(joueurActuel.getProposition()) && elem != 6){
@@ -195,11 +191,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode se charge de realiser la deuxieme etape qui correspond
-<<<<<<< HEAD
 	 * a la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
-=======
-	 * a  la finale . Le vainqueur joue seul pour determiner l'issue de la partie.
->>>>>>> branch 'master' of https://github.com/darrylbilongo/ProjetJAVA2018.git
 	 */
 	public void etapeDeux(){
 		getEssai();
