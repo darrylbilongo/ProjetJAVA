@@ -10,23 +10,20 @@ import view.PartieVueGUI;
 
 public class PartieMVC {
 	
-	public PartieMVC() throws ArithmeticException, IOException {
+	public PartieMVC(String s) throws ArithmeticException, IOException {
 		// Creation du modele
 		Partie model = new Partie();
+		if(s.equals("gui")) {
+			PartieController ctrlGUI = new PartieController(model);
+			PartieVue gui = new PartieVueGUI(model, ctrlGUI);
+			ctrlGUI.addView(gui);
+		}
+		else if(s.equals("console")){
+			PartieController ctrlConsole = new PartieController(model);
+			PartieVue console = new PartieVueConsole(model, ctrlConsole);
+			ctrlConsole.addView(console);
+		}
 		
-		//Creation des controleurs : Un pour chaque vue
-		//Chaque controleur doit avoir une reference vers le modele pour pouvoir le commander
-		PartieController ctrlGUI = new PartieController(model);
-		//PartieController ctrlConsole = new PartieController(model);
-		 
-		//Creation des vues.
-		//Chaque vue doit connaitre son controleur et avoir une reference vers le modele pour pouvoir l'observer
-		PartieVue gui = new PartieVueGUI(model, ctrlGUI);
-		//PartieVue console = new PartieVueConsole(model, ctrlConsole);
-		 		
-		//On donne la reference à la vue pour chaque controleur
-		//ctrlConsole.addView(console);
-		ctrlGUI.addView(gui);
 	}
 				
 		public static void main(String args[]) {
@@ -34,7 +31,7 @@ public class PartieMVC {
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						new PartieMVC();
+						new PartieMVC(args[0]);
 					} catch (ArithmeticException e) {
 						e.printStackTrace();
 					} catch (IOException e) {

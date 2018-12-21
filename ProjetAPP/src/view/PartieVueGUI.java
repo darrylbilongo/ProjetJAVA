@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -392,9 +393,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbc_panel_2.gridy = 9;
 		contentPane.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{182, 109, 0};
+		gbl_panel_2.columnWidths = new int[]{182, 109, 0, 0, 0, 0, 0};
 		gbl_panel_2.rowHeights = new int[]{25, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -403,6 +404,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		valider.setForeground(Color.BLACK);
 		valider.setBackground(new Color(255, 153, 0));
 		GridBagConstraints gbc_valider = new GridBagConstraints();
+		gbc_valider.insets = new Insets(0, 0, 0, 5);
 		gbc_valider.anchor = GridBagConstraints.NORTHWEST;
 		gbc_valider.gridx = 1;
 		gbc_valider.gridy = 1;
@@ -649,9 +651,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				}
 				update(null, null);
 				break;	
-				
-			default:
-				break;
 		}
 			
 		}
