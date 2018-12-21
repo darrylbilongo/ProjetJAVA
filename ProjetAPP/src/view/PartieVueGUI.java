@@ -64,6 +64,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 	protected int timerCount = 0;
 	
 	private Object[][] data;
+	private JPanel panel_3;
 
 	/**
 	 * Constructeur de la frame
@@ -91,224 +92,241 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		nbJoueurs = new JLabel("Nombre de joueurs:");
-		nbJoueurs.setFont(new Font("Dialog", Font.PLAIN, 15));
-		GridBagConstraints gbc_nbJoueurs = new GridBagConstraints();
-		gbc_nbJoueurs.anchor = GridBagConstraints.EAST;
-		gbc_nbJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_nbJoueurs.gridx = 1;
-		gbc_nbJoueurs.gridy = 0;
-		contentPane.add(nbJoueurs, gbc_nbJoueurs);
-		
-		fieldNbJoueurs = new JTextField();
-		fieldNbJoueurs.setFont(new Font("Dialog", Font.PLAIN, 15));
-		fieldNbJoueurs.setBackground(Color.WHITE);
-		GridBagConstraints gbc_fieldNbJoueurs = new GridBagConstraints();
-		gbc_fieldNbJoueurs.gridwidth = 4;
-		gbc_fieldNbJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldNbJoueurs.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldNbJoueurs.gridx = 2;
-		gbc_fieldNbJoueurs.gridy = 0;
-		contentPane.add(fieldNbJoueurs, gbc_fieldNbJoueurs);
-		fieldNbJoueurs.setColumns(10);
-		
-		essaiRest = new JLabel("Essais restants: ");
-		essaiRest.setFont(new Font("Dialog", Font.PLAIN, 15));
-		GridBagConstraints gbc_essaiRest = new GridBagConstraints();
-		gbc_essaiRest.anchor = GridBagConstraints.EAST;
-		gbc_essaiRest.insets = new Insets(0, 0, 5, 5);
-		gbc_essaiRest.gridx = 8;
-		gbc_essaiRest.gridy = 0;
-		contentPane.add(essaiRest, gbc_essaiRest);
-		
-		fieldEssaiRest = new JTextField();
-		fieldEssaiRest.setFont(new Font("Dialog", Font.PLAIN, 15));
-		fieldEssaiRest.setBackground(Color.WHITE);
-		fieldEssaiRest.setEditable(false);
-		GridBagConstraints gbc_fieldEssaiRest = new GridBagConstraints();
-		gbc_fieldEssaiRest.gridwidth = 2;
-		gbc_fieldEssaiRest.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldEssaiRest.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldEssaiRest.gridx = 9;
-		gbc_fieldEssaiRest.gridy = 0;
-		contentPane.add(fieldEssaiRest, gbc_fieldEssaiRest);
-		fieldEssaiRest.setColumns(10);
+		panel_3 = new JPanel();
+		panel_3.setBackground(Color.LIGHT_GRAY);
+		panel_3.setForeground(Color.BLACK);
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.gridwidth = 15;
+		gbc_panel_3.gridheight = 5;
+		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.gridx = 0;
+		gbc_panel_3.gridy = 0;
+		contentPane.add(panel_3, gbc_panel_3);
+		GridBagLayout gbl_panel_3 = new GridBagLayout();
+		gbl_panel_3.columnWidths = new int[]{35, 128, 136, 89, 26, 110, 49, 87, 44, 87, 44, 11, 56, 59, 17, 92, 45, 136, 52, 0};
+		gbl_panel_3.rowHeights = new int[]{26, 26, 0, 0, 0, 0, 0};
+		gbl_panel_3.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_3.setLayout(gbl_panel_3);
 		
 		nbLettres = new JLabel("Nombre de lettres:");
-		nbLettres.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_nbLettres = new GridBagConstraints();
+		gbc_nbLettres.anchor = GridBagConstraints.WEST;
 		gbc_nbLettres.insets = new Insets(0, 0, 5, 5);
 		gbc_nbLettres.gridx = 1;
-		gbc_nbLettres.gridy = 1;
-		contentPane.add(nbLettres, gbc_nbLettres);
+		gbc_nbLettres.gridy = 0;
+		panel_3.add(nbLettres, gbc_nbLettres);
+		nbLettres.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		fieldNbLettres = new JTextField();
+		GridBagConstraints gbc_fieldNbLettres = new GridBagConstraints();
+		gbc_fieldNbLettres.anchor = GridBagConstraints.NORTHWEST;
+		gbc_fieldNbLettres.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldNbLettres.gridwidth = 2;
+		gbc_fieldNbLettres.gridx = 2;
+		gbc_fieldNbLettres.gridy = 0;
+		panel_3.add(fieldNbLettres, gbc_fieldNbLettres);
 		fieldNbLettres.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldNbLettres.setBackground(Color.WHITE);
 		fieldNbLettres.setEditable(false);
-		GridBagConstraints gbc_fieldNbLettres = new GridBagConstraints();
-		gbc_fieldNbLettres.gridwidth = 4;
-		gbc_fieldNbLettres.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldNbLettres.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldNbLettres.gridx = 2;
-		gbc_fieldNbLettres.gridy = 1;
-		contentPane.add(fieldNbLettres, gbc_fieldNbLettres);
 		fieldNbLettres.setColumns(10);
 		
+		essaiRest = new JLabel("Essais restants: ");
+		GridBagConstraints gbc_essaiRest = new GridBagConstraints();
+		gbc_essaiRest.anchor = GridBagConstraints.WEST;
+		gbc_essaiRest.insets = new Insets(0, 0, 5, 5);
+		gbc_essaiRest.gridx = 5;
+		gbc_essaiRest.gridy = 0;
+		panel_3.add(essaiRest, gbc_essaiRest);
+		essaiRest.setFont(new Font("Dialog", Font.PLAIN, 15));
+		
+		fieldEssaiRest = new JTextField();
+		GridBagConstraints gbc_fieldEssaiRest = new GridBagConstraints();
+		gbc_fieldEssaiRest.anchor = GridBagConstraints.NORTHEAST;
+		gbc_fieldEssaiRest.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldEssaiRest.gridwidth = 2;
+		gbc_fieldEssaiRest.gridx = 6;
+		gbc_fieldEssaiRest.gridy = 0;
+		panel_3.add(fieldEssaiRest, gbc_fieldEssaiRest);
+		fieldEssaiRest.setFont(new Font("Dialog", Font.PLAIN, 15));
+		fieldEssaiRest.setBackground(Color.WHITE);
+		fieldEssaiRest.setEditable(false);
+		fieldEssaiRest.setColumns(10);
+		
+		nbJoueurs = new JLabel("Nombre de joueurs:");
+		GridBagConstraints gbc_nbJoueurs = new GridBagConstraints();
+		gbc_nbJoueurs.anchor = GridBagConstraints.WEST;
+		gbc_nbJoueurs.insets = new Insets(0, 0, 5, 5);
+		gbc_nbJoueurs.gridx = 1;
+		gbc_nbJoueurs.gridy = 1;
+		panel_3.add(nbJoueurs, gbc_nbJoueurs);
+		nbJoueurs.setFont(new Font("Dialog", Font.PLAIN, 15));
+		
+		fieldNbJoueurs = new JTextField();
+		GridBagConstraints gbc_fieldNbJoueurs = new GridBagConstraints();
+		gbc_fieldNbJoueurs.anchor = GridBagConstraints.NORTHWEST;
+		gbc_fieldNbJoueurs.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldNbJoueurs.gridx = 2;
+		gbc_fieldNbJoueurs.gridy = 1;
+		panel_3.add(fieldNbJoueurs, gbc_fieldNbJoueurs);
+		fieldNbJoueurs.setFont(new Font("Dialog", Font.PLAIN, 15));
+		fieldNbJoueurs.setBackground(Color.WHITE);
+		fieldNbJoueurs.setColumns(10);
+		
 		joueurActuel = new JLabel("Joueur Actuel:");
-		joueurActuel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_joueurActuel = new GridBagConstraints();
-		gbc_joueurActuel.anchor = GridBagConstraints.EAST;
+		gbc_joueurActuel.anchor = GridBagConstraints.WEST;
 		gbc_joueurActuel.insets = new Insets(0, 0, 5, 5);
-		gbc_joueurActuel.gridx = 8;
+		gbc_joueurActuel.gridx = 5;
 		gbc_joueurActuel.gridy = 1;
-		contentPane.add(joueurActuel, gbc_joueurActuel);
+		panel_3.add(joueurActuel, gbc_joueurActuel);
+		joueurActuel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		fieldJoueurAct = new JTextField();
+		GridBagConstraints gbc_fieldJoueurAct = new GridBagConstraints();
+		gbc_fieldJoueurAct.gridwidth = 2;
+		gbc_fieldJoueurAct.anchor = GridBagConstraints.NORTHWEST;
+		gbc_fieldJoueurAct.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldJoueurAct.gridx = 6;
+		gbc_fieldJoueurAct.gridy = 1;
+		panel_3.add(fieldJoueurAct, gbc_fieldJoueurAct);
 		fieldJoueurAct.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldJoueurAct.setBackground(Color.WHITE);
 		fieldJoueurAct.setEditable(false);
-		GridBagConstraints gbc_fieldJoueurAct = new GridBagConstraints();
-		gbc_fieldJoueurAct.gridwidth = 2;
-		gbc_fieldJoueurAct.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldJoueurAct.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldJoueurAct.gridx = 9;
-		gbc_fieldJoueurAct.gridy = 1;
-		contentPane.add(fieldJoueurAct, gbc_fieldJoueurAct);
 		fieldJoueurAct.setColumns(10);
 		
 		joueur1 = new JLabel("Joueur1: ");
-		joueur1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_joueur1 = new GridBagConstraints();
-		gbc_joueur1.anchor = GridBagConstraints.EAST;
+		gbc_joueur1.anchor = GridBagConstraints.WEST;
 		gbc_joueur1.insets = new Insets(0, 0, 5, 5);
 		gbc_joueur1.gridx = 1;
 		gbc_joueur1.gridy = 2;
-		contentPane.add(joueur1, gbc_joueur1);
+		panel_3.add(joueur1, gbc_joueur1);
+		joueur1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		pseudo1 = new JTextField();
-		pseudo1.setFont(new Font("Dialog", Font.PLAIN, 15));
-		pseudo1.setBackground(Color.WHITE);
 		GridBagConstraints gbc_pseudo1 = new GridBagConstraints();
-		gbc_pseudo1.gridwidth = 4;
+		gbc_pseudo1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_pseudo1.insets = new Insets(0, 0, 5, 5);
-		gbc_pseudo1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pseudo1.gridwidth = 3;
 		gbc_pseudo1.gridx = 2;
 		gbc_pseudo1.gridy = 2;
-		contentPane.add(pseudo1, gbc_pseudo1);
+		panel_3.add(pseudo1, gbc_pseudo1);
+		pseudo1.setFont(new Font("Dialog", Font.PLAIN, 15));
+		pseudo1.setBackground(Color.WHITE);
 		pseudo1.setColumns(10);
 		
 		points1 = new JLabel("Points:");
-		points1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_points1 = new GridBagConstraints();
-		gbc_points1.anchor = GridBagConstraints.EAST;
+		gbc_points1.anchor = GridBagConstraints.WEST;
 		gbc_points1.insets = new Insets(0, 0, 5, 5);
-		gbc_points1.gridx = 8;
+		gbc_points1.gridx = 5;
 		gbc_points1.gridy = 2;
-		contentPane.add(points1, gbc_points1);
+		panel_3.add(points1, gbc_points1);
+		points1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		fieldPoints1 = new JTextField();
+		GridBagConstraints gbc_fieldPoints1 = new GridBagConstraints();
+		gbc_fieldPoints1.anchor = GridBagConstraints.NORTHWEST;
+		gbc_fieldPoints1.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldPoints1.gridwidth = 2;
+		gbc_fieldPoints1.gridx = 6;
+		gbc_fieldPoints1.gridy = 2;
+		panel_3.add(fieldPoints1, gbc_fieldPoints1);
 		fieldPoints1.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldPoints1.setBackground(Color.WHITE);
 		fieldPoints1.setEditable(false);
-		GridBagConstraints gbc_fieldPoints1 = new GridBagConstraints();
-		gbc_fieldPoints1.gridwidth = 2;
-		gbc_fieldPoints1.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldPoints1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldPoints1.gridx = 9;
-		gbc_fieldPoints1.gridy = 2;
-		contentPane.add(fieldPoints1, gbc_fieldPoints1);
 		fieldPoints1.setColumns(10);
 		
 		joueur2 = new JLabel("Joueur2:");
-		joueur2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_joueur2 = new GridBagConstraints();
-		gbc_joueur2.anchor = GridBagConstraints.EAST;
+		gbc_joueur2.anchor = GridBagConstraints.WEST;
 		gbc_joueur2.insets = new Insets(0, 0, 5, 5);
 		gbc_joueur2.gridx = 1;
 		gbc_joueur2.gridy = 3;
-		contentPane.add(joueur2, gbc_joueur2);
+		panel_3.add(joueur2, gbc_joueur2);
+		joueur2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		pseudo2 = new JTextField();
+		GridBagConstraints gbc_pseudo2 = new GridBagConstraints();
+		gbc_pseudo2.anchor = GridBagConstraints.NORTHWEST;
+		gbc_pseudo2.insets = new Insets(0, 0, 5, 5);
+		gbc_pseudo2.gridwidth = 3;
+		gbc_pseudo2.gridx = 2;
+		gbc_pseudo2.gridy = 3;
+		panel_3.add(pseudo2, gbc_pseudo2);
 		pseudo2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pseudo2.setBackground(Color.WHITE);
 		pseudo2.setEditable(false);
-		GridBagConstraints gbc_pseudo2 = new GridBagConstraints();
-		gbc_pseudo2.gridwidth = 4;
-		gbc_pseudo2.insets = new Insets(0, 0, 5, 5);
-		gbc_pseudo2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_pseudo2.gridx = 2;
-		gbc_pseudo2.gridy = 3;
-		contentPane.add(pseudo2, gbc_pseudo2);
 		pseudo2.setColumns(10);
 		
 		points2 = new JLabel("Points: ");
-		points2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_points2 = new GridBagConstraints();
-		gbc_points2.anchor = GridBagConstraints.EAST;
+		gbc_points2.anchor = GridBagConstraints.WEST;
 		gbc_points2.insets = new Insets(0, 0, 5, 5);
-		gbc_points2.gridx = 8;
+		gbc_points2.gridx = 5;
 		gbc_points2.gridy = 3;
-		contentPane.add(points2, gbc_points2);
+		panel_3.add(points2, gbc_points2);
+		points2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		fieldPoints2 = new JTextField();
+		GridBagConstraints gbc_fieldPoints2 = new GridBagConstraints();
+		gbc_fieldPoints2.anchor = GridBagConstraints.NORTHWEST;
+		gbc_fieldPoints2.insets = new Insets(0, 0, 5, 5);
+		gbc_fieldPoints2.gridwidth = 2;
+		gbc_fieldPoints2.gridx = 6;
+		gbc_fieldPoints2.gridy = 3;
+		panel_3.add(fieldPoints2, gbc_fieldPoints2);
 		fieldPoints2.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldPoints2.setBackground(Color.WHITE);
 		fieldPoints2.setEditable(false);
-		GridBagConstraints gbc_fieldPoints2 = new GridBagConstraints();
-		gbc_fieldPoints2.gridwidth = 2;
-		gbc_fieldPoints2.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldPoints2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldPoints2.gridx = 9;
-		gbc_fieldPoints2.gridy = 3;
-		contentPane.add(fieldPoints2, gbc_fieldPoints2);
 		fieldPoints2.setColumns(10);
 		
 		proposition = new JLabel("Proposition: ");
-		proposition.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_proposition = new GridBagConstraints();
-		gbc_proposition.anchor = GridBagConstraints.EAST;
-		gbc_proposition.insets = new Insets(0, 0, 5, 5);
+		gbc_proposition.anchor = GridBagConstraints.WEST;
+		gbc_proposition.insets = new Insets(0, 0, 0, 5);
 		gbc_proposition.gridx = 1;
-		gbc_proposition.gridy = 4;
-		contentPane.add(proposition, gbc_proposition);
+		gbc_proposition.gridy = 5;
+		panel_3.add(proposition, gbc_proposition);
+		proposition.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		fieldPropo = new JTextField();
+		GridBagConstraints gbc_fieldPropo = new GridBagConstraints();
+		gbc_fieldPropo.anchor = GridBagConstraints.NORTHWEST;
+		gbc_fieldPropo.insets = new Insets(0, 0, 0, 5);
+		gbc_fieldPropo.gridx = 2;
+		gbc_fieldPropo.gridy = 5;
+		panel_3.add(fieldPropo, gbc_fieldPropo);
 		fieldPropo.setFont(new Font("Dialog", Font.PLAIN, 15));
 		fieldPropo.setBackground(Color.WHITE);
 		fieldPropo.setEditable(false);
-		GridBagConstraints gbc_fieldPropo = new GridBagConstraints();
-		gbc_fieldPropo.gridwidth = 4;
-		gbc_fieldPropo.insets = new Insets(0, 0, 5, 5);
-		gbc_fieldPropo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fieldPropo.gridx = 2;
-		gbc_fieldPropo.gridy = 4;
-		contentPane.add(fieldPropo, gbc_fieldPropo);
 		fieldPropo.setColumns(10);
 		
 		lblChrono = new JLabel("Chrono:");
-		lblChrono.setFont(new Font("Dialog", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblChrono = new GridBagConstraints();
-		gbc_lblChrono.anchor = GridBagConstraints.EAST;
-		gbc_lblChrono.insets = new Insets(0, 0, 5, 5);
-		gbc_lblChrono.gridx = 8;
-		gbc_lblChrono.gridy = 4;
-		contentPane.add(lblChrono, gbc_lblChrono);
+		gbc_lblChrono.anchor = GridBagConstraints.WEST;
+		gbc_lblChrono.insets = new Insets(0, 0, 0, 5);
+		gbc_lblChrono.gridx = 5;
+		gbc_lblChrono.gridy = 5;
+		panel_3.add(lblChrono, gbc_lblChrono);
+		lblChrono.setFont(new Font("Dialog", Font.PLAIN, 15));
 		
 		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.anchor = GridBagConstraints.NORTHEAST;
+		gbc_textField.insets = new Insets(0, 0, 0, 5);
+		gbc_textField.gridwidth = 2;
+		gbc_textField.gridx = 6;
+		gbc_textField.gridy = 5;
+		panel_3.add(textField, gbc_textField);
 		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		textField.setBackground(Color.WHITE);
 		textField.setEditable(false);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 2;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 9;
-		gbc_textField.gridy = 4;
-		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
 		panel = new JPanel();
@@ -329,9 +347,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_1.setBackground(Color.WHITE);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_1.gridheight = 4;
-		gbc_panel_1.gridwidth = 3;
+		gbc_panel_1.gridwidth = 2;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 12;
 		gbc_panel_1.gridy = 5;
@@ -383,7 +401,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		valider = new JButton("Commençons");
 		valider.setFont(new Font("Dialog", Font.PLAIN, 15));
 		valider.setForeground(Color.BLACK);
-		valider.setBackground(new Color(255, 69, 0));
+		valider.setBackground(new Color(255, 153, 0));
 		GridBagConstraints gbc_valider = new GridBagConstraints();
 		gbc_valider.anchor = GridBagConstraints.NORTHWEST;
 		gbc_valider.gridx = 1;
@@ -398,7 +416,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initMotus();
-		frame.setSize(3*width/4, height/2);
+		frame.setSize(4*width/5, height/2);
 		frame.setResizable(false);
 	}
 	
@@ -601,7 +619,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 				}
 				else {
 					affiche("\nBravo vous y êtes presque!!!\nLancement de l'étape 2: \n");
-					textArea.append(controller.getModel().toString());
 					controller.etapeDeux();
 				}
 				updateTable(true);
@@ -621,7 +638,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 					fieldPropo.setText("");
 				}
 				else if(controller.getElem() == 6){
-					affiche("Dommage...\nVous avez epuise votre nombre de tentatives permises...");
+					affiche("Dommage...\nVous avez epuise votre nombre\n de tentatives permises...");
 					textArea.append("Le mot a trouver était bien : \n" + controller.getMotATrouver().getValeur());
 					valider.setText("Prêt!");
 				}
