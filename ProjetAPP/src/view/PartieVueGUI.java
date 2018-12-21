@@ -379,7 +379,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		valider = new JButton("Commen\u00E7ons");
+		valider = new JButton("Commençons");
 		valider.setFont(new Font("Dialog", Font.PLAIN, 15));
 		valider.setForeground(Color.BLACK);
 		valider.setBackground(new Color(255, 69, 0));
@@ -393,7 +393,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initMotus();
-		frame.setSize(1600, 500);
+		frame.setSize(1600, 600);
 		frame.setResizable(false);
 	}
 	
@@ -414,9 +414,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 		table = new JTable(data, s);
 		table.setFont(new Font("Century", Font.PLAIN, 20));
+		table.setBackground(new Color(0, 191, 255));
 		table.setDefaultRenderer(Object.class, new JTableRender());/*pour mettre certains fonts de couleurs sur certaines
 		cellules du tableau*/
-		//frame.repaint();
 	}
 	
  	public void updateTable(boolean b) {
@@ -424,36 +424,7 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
  		String[] propo = Mot.formatMot(fieldPropo.getText()).split("");
 		if(b) {
 
-			String[] str = controller.getEtatActuel().split("");
-			
-			if(controller.getElem() == 0) {
-				for(int i = 0 ; i < data[0].length ; i ++) {
-					data[0][i] = str[i];
-				}
-			}
-			else {
-				if(controller.traitementReponse(fieldPropo.getText())) {
-					for(int i = 0 ; i < controller.getNbLettres() ; i ++) {
-						data[controller.getElem()][i] = str[i];
-					}
-				}
-				else {
-					for(int i = 0; i < 6; i++) {
-						for(int j = 0; j < n; j++) {
-							if(i == (controller.getElem()-1)) {
-								data[i][j] = propo[j];
-							}
-							if(i == controller.getElem()) {
-								data[i][j] = str[j];
-							}
-							if(controller.getElem() == 0 && i != controller.getElem()) {
-								data[i][j] = "";
-							}
-						}	
-					}
-				}
-			}
-
+			traiterData(propo, n);
 			String[] s = new String[n];
 			for(int i = 0; i < n; i++) {
 				s[i] = Integer.toString(i);
@@ -465,8 +436,45 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		frame.repaint();
 	}
  	
+ 	/**
+ 	 * ordonne les lettres dans le tableau.
+ 	 * @param propo
+ 	 * @param n
+ 	 */
+ 	public void traiterData(String propo[], int n) {
+ 		String[] str = controller.getEtatActuel().split("");
+		
+		if(controller.getElem() == 0) {
+			for(int i = 0 ; i < data[0].length ; i ++) {
+				data[0][i] = str[i];
+			}
+		}
+		else {
+			if(controller.traitementReponse(fieldPropo.getText())) {
+				for(int i = 0 ; i < controller.getNbLettres() ; i ++) {
+					data[controller.getElem()][i] = str[i];
+				}
+			}
+			else {
+				for(int i = 0; i < 6; i++) {
+					for(int j = 0; j < n; j++) {
+						if(i == (controller.getElem()-1)) {
+							data[i][j] = propo[j];
+						}
+						if(i == controller.getElem()) {
+							data[i][j] = str[j];
+						}
+						if(controller.getElem() == 0 && i != controller.getElem()) {
+							data[i][j] = "";
+						}
+					}	
+				}
+			}
+		}
+ 	}
  	
 	//initialise l'interface graphique avec les données possibles issus du model.
+ 	@Override
 	public void initMotus() {
 		fieldNbLettres.setText(String.valueOf(controller.getNbLettres()));
 		fieldPoints1.setText("0");
@@ -491,6 +499,10 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		return true;
 	}
 	
+	/**
+	 * Cette methode teste si le joueur a ecrit un pseudo dans le fieldText qui lui est dedie
+	 * @return true si le joueur a ecrit son pseudo et false sinon.
+	 */
 	public boolean introPseudo() {
 		String n = pseudo1.getText();
 		if(n.length()==0) {
@@ -512,20 +524,34 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		
 	}
 
+	/**
+	 * cette methode alerte le joueur sur l'volution du jeu
+	 */
 	@Override
 	public void affiche(String string) {
 		textArea.setText(string);		
 	}
 	
+	/**
+	 * Cette methode lance l'etape 1
+	 */
+	@Override
 	public void lancerEtapeUn() {
 		controller.etapeUn();
 	}
 	
+	/**
+	 * Cette methode lance l'etape 2
+	 */
+	@Override
 	public void lancerEtapeDeux() {
 		affiche("Lancement de l'étape deux: \n");
 		controller.etapeDeux();
 	}
 	
+	/**
+	 * cacher les conglets aux cas ou le nombre de joueurs est égales à un
+	 */
 	public void cacherOnglets() {
 		fieldJoueurAct.setVisible(false);
 		fieldPoints2.setVisible(false);
@@ -536,6 +562,9 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		joueurActuel.setVisible(false);
 	}
 
+	/**
+	 * les actions sur les buttons
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() != null) {
@@ -594,10 +623,11 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 					valider.setText("Prêt!");
 				}
 				if(controller.getModel().getEtape() == 2 && controller.getEssaiRest() == 0) {
-					affiche("Félicitation! " + controller.getModel().toString());
+					affiche("Félicitation! \n" + controller.getModel().toString());
+					valider.setText("FIN");
+					controller.supprimerFichiers();
 				}
 				update(null, null);
-				controller.supprimerFichiers();
 				break;	
 				
 			default:

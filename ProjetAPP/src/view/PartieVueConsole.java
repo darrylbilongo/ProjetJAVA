@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.event.MouseMotionAdapter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.util.Scanner;
 import java.util.Timer;
 
 import controller.PartieController;
-import model.Mot;
 import model.Partie;
 
 public class PartieVueConsole extends PartieVue implements Observer, Runnable{
@@ -43,7 +41,7 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	
 	public PartieVueConsole(Partie model, PartieController controller) throws ArithmeticException, IOException {
 		super(model, controller);
-		motus();
+		initMotus();
 		if(nbjoueurs == 1) {
 			if(model.getEtape() == 1) {
 				lancerEtapeUn();
@@ -65,7 +63,8 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 		}
 	}
 	
-	public void motus() {
+	@Override
+	public void initMotus() {
 		System.out.println("Introduisez le nombre de joueurs: ");
 		String nb = new Scanner(System.in).next();
 		while(!(nb.equals("1") || nb.equals("2") )) {
@@ -116,9 +115,11 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
      return null;
 	}
 	
-	public void lancerEtapeUn() throws ArithmeticException, IOException {
-		affiche("\nLancement de lm'etape 1...");
+	@Override
+	public void lancerEtapeUn(){
+		affiche("\nLancement de l'etape 1...");
 		for(int i = 0; i < 10; i++) {
+			controller.getEssaiRest();
 			controller.etapeUn();
 			boolean echec = false;
 			affiche(controller.getModel().toString());
@@ -144,7 +145,8 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 		
 	}
 	
-	public void lancerEtapeDeux() throws IOException {
+	@Override
+	public void lancerEtapeDeux(){
 		affiche("\nLancement de l'etape 2...");
 		for(int i = 0; i < 10; i++) {
 			controller.etapeUn();
@@ -218,24 +220,6 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 	}
 	
 	public void readInput(){
-		/*while(true){
-			String propo;
-			System.out.print("> ");
-			if(controller.getParticipants()[0].isMain()) {
-				String str = controller.getModel().toString();
-				str += "Votre proposition : \n";
-				str += controller.getEtatActuel() + "\n";
-				affiche(str);
-			}
-			propo = sc.next();
-			if(controller.getParticipants()[0].isMain()) {
-				String str = controller.getModel().toString();
-				str += "La proposition du Joueur 1: \n";
-				str += controller.getEtatActuel() + "\n";
-				str += propo;
-				sendPropo(str);
-			}
-		}*/
 		for(int i = 0; i <10; i++) {
 			controller.etapeUn();
 			for(int j = 0; j < 6; j++) {

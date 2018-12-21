@@ -1,10 +1,10 @@
-package model;
+package jUnitTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+
+import model.Mot;
 
 class MotTest {
 
@@ -13,18 +13,9 @@ class MotTest {
 		Mot m1 = new Mot("Souiller");
 		Mot m2 = new Mot("Souiller");
 		
-		assertTrue(m1.getValeur().equals(m2.getValeur()));
-		assertTrue(m1.comparer(m2));
-		
 		assertEquals(Mot.formatMot("Souiller"), "SOUILLER");
 		assertEquals(Mot.formatMot("garçon"), "GARCON");
 		assertEquals(Mot.formatMot("élévage"), "ELEVAGE");
-		
-		
-		// LONGEUR
-		
-		assertEquals(m1.longueur(),8);
-		assertEquals(m2.longueur(),8);
 	}
 
 }

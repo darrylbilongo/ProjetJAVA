@@ -20,7 +20,7 @@ import java.util.Timer;
 /**
  * Dans cette partie de l'application, on se charge d'ouvrir une partie, dans laquelle le joueur
  * (s'il est unique) ou les joueurs (2 joueurs) pourront faire une nombre fixe d'essais.
- * Dans la premiere partie(etapeUn), on aura droit � 10 essais et dans la partie deux(etapeDeux)
+ * Dans la premiere partie(etapeUn), on aura droit a 10 essais et dans la partie deux(etapeDeux)
  * on aura 10 essais.
  * NUMERO DU GROUPE: 17
  * @author Manuelle Ndamtang & Bilongo Darryl
@@ -33,13 +33,13 @@ public class Partie extends Observable{
 	private Mot motATrouver;
 	
 	/**
-	 * Le mot qui servira de guide pour d�viner les mots aux joueurs. 
+	 * Le mot qui servira de guide pour deviner les mots aux joueurs. 
 	 */
 	private Mot etatActuel;
 	
 	/**
-	 * Ce tableau de string est constitu� des lettres sur laquelles l'application se base pour 
-	 * mettre � jour l'attribut <i>etatActuel</i>.
+	 * Ce tableau de string est constitue des lettres sur laquelles l'application se base pour 
+	 * mettre a jour l'attribut <i>etatActuel</i>.
 	 */
 	private String [] lettresActuelles;
 	
@@ -49,7 +49,7 @@ public class Partie extends Observable{
 	private static ArrayList<String> motsDejaJoues;
 	
 	/**
-	 * Cette collection est charg�e de garder en memoire les mots d�j� utilis�s durant la partie.
+	 * Cette collection est chargee de garder en memoire les mots deja utilises durant la partie.
 	 */
 	private ArrayList<String> motsDejaUtilises;
 	
@@ -67,14 +67,14 @@ public class Partie extends Observable{
 	/**
 	 * Le vainqueur de chaque partie.
 	 */
-	private static Joueur vainqueur;
+	private Joueur vainqueur;
 	
 	/**
 	 * Un tableau contenant les joueurs de la partie
 	 */
-	private static Joueur participants[];
+	private Joueur participants[];
 	
-	private static String lettresGUI[];
+	private String lettresGUI[];
 	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
@@ -125,8 +125,7 @@ public class Partie extends Observable{
 	
 	/**
 	 * Cette methode initialise la partie 
-	 * @param init le nombre de joeurs dans la partie � initialiser
-	 * @param init le nombre de joeurs dans la partie � initialiser
+	 * @param init le nombre de joeurs dans la partie a initialiser
 	 * @throws IOException issu de <b> initSockect() </b>
 	 */
 	public void init(int init) throws IOException{
@@ -202,7 +201,7 @@ public class Partie extends Observable{
 
 	
 	/**
-	 * Cette m�thode genere un essai pour un mot a deviner
+	 * Cette methode genere un essai pour un mot a deviner
 	 */
 	public void getEssai() {
 		motATrouver = new Mot("");
@@ -213,11 +212,11 @@ public class Partie extends Observable{
 		etatActuel = new Mot(""); 
 		
 		int numMot = (int)(Math.random() * cpt + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && 
+		while((motATrouver = choixMot(numMot)) == null && 
 				motsDejaJoues.contains(motATrouver.getValeur()))
 		{
 			numMot = (int)(Math.random() * cpt + 1);
-			motATrouver = Partie.choixMot(numMot);
+			motATrouver = choixMot(numMot);
 		}
 		
 		if(nbJoueurs == 1)
@@ -228,11 +227,9 @@ public class Partie extends Observable{
 		}
 	}
 	
-	
-
 	/**
-	 * Cette methode determine si le mot propos� est �quivalent au mot à trouver
-	 * @param m le mot propos� par le joueur
+	 * Cette methode determine si le mot propose est equivalent au mot a� trouver
+	 * @param m le mot propose par le joueur
 	 * @return true si il a trouve la bonne reponse et false sinon
 	 * @throws IOException issu de la methode verifierMot()
 	 */
@@ -264,9 +261,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot � trouver.
-	 * @param m String � tester
-	 * @return true si le joueur � trouver le mot
+	 * Cette methode permet d'informer si le string introduit en parametre est vraiment le mot a trouver.
+	 * @param m String a tester
+	 * @return true si le joueur a trouver le mot
 	 */
 	public boolean estTrouve(String m){
 		if(Mot.formatMot(m).equals(motATrouver.getValeur())) {
@@ -303,7 +300,7 @@ public class Partie extends Observable{
 				}
 			}
 			else {
-				if((lettresActuelles[i].equals("+") || lettresActuelles[i].equals("*"))) {
+				if((lettresActuelles[i].equals("+"))) {
 					lettresActuelles[i] = "*";
 					lettresGUI[i] = "*";
 					lettres[i] = "";
@@ -313,9 +310,9 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette m�thode compte le nombre d'occurences d'une lettre dans un tableau de cha�nes de caract�res.
+	 * Cette methode compte le nombre d'occurences d'une lettre dans un tableau de chaines de caracteres.
 	 * @param s la lettre
-	 * @param a le tableau de cha�nes caract�res.
+	 * @param a le tableau de chaines caracteres.
 	 * @return le nombre d'occurences du string s dans le tableau a.
 	 **/
 	public int countOccurences(String s, String[] a) {
@@ -329,7 +326,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette m�thode permet de mettre � jour l'etat actuel du mot � deviner dans la partie.
+	 *  Cette methode permet de mettre a jour l'etat actuel du mot a deviner dans la partie.
 	 */
 	public void updateEtatActuel() {
 		String s = "";
@@ -342,7 +339,7 @@ public class Partie extends Observable{
 
 
 	/**
-	 * Cette m�thode supprime les fichiers initialement cr�er.
+	 * Cette methode supprime les fichiers initialement creer.
 	 */
 	public void supprFichier() {
 		File fichier = new File("mot"+TAILLEMOT+"lettres.txt");
@@ -350,7 +347,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 *  Cette m�thode initialise l'attribut <b>etatActuel</b> qui met � jour l'�volution des diff�rentes propositions du joueur
+	 *  Cette methode initialise l'attribut <b>etatActuel</b> qui met a jour l'evolution des differentes propositions du joueur
 	 */
 	public void initEtatActuel() {
 		String lettreMot[] = motATrouver.getValeur().split("");
@@ -371,7 +368,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * cette Methode
+	 * cette Methode mute la main entre les joueurs.
 	 */
 	public void transfererMain() {
 		if(nbJoueurs == 2) {
@@ -385,7 +382,7 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * M�thode � executer lorsque la reponse trouv�e est bonne
+	 * Methode a executer lorsque la reponse trouvee est bonne
 	 */
 	public void bonneReponse() {
 		this.etatActuel = new Mot(motATrouver.getValeur());
@@ -393,11 +390,11 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode verifie si le mot à trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
+	 * Cette methode verifie si le mot a� trouver existe dans le dictionnaire. Pour l'instant on ne l'utilise 
 	 * pas dans le projet
-	 * @param mot: mot à vérifier 
+	 * @param mot: mot a� verifier 
 	 * @return true si le mot existe dans le dictionnaire et false dans le cas contraire.
-	 * @throws FileNotFoundException cas où le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
+	 * @throws FileNotFoundException cas ou le fichier dans lequel on se base pour verifier l'existence du fichier est inexistante.
 	 */
 	public boolean verifierMot(Mot mot) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("liste_francais.txt"));
@@ -414,10 +411,10 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette methode s'occupe de créer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
+	 * Cette methode s'occupe de creer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
 	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
-	public static void classerMot(int x){
+	public void classerMot(int x){
 		try {
 			Scanner input = new Scanner(new File("liste_francais.txt"));
 			File ffx = new File("mots" + x +"lettres.txt");
@@ -455,7 +452,7 @@ public class Partie extends Observable{
 	 * @param numero de la ligne choisi au harsard
 	 * @return retourne le mot choisi.
 	 */
-	public static Mot choixMot(int num) {
+	public Mot choixMot(int num) {
 		try {
 			Scanner input = new Scanner(new File("mots" + TAILLEMOT + "lettres.txt"));
 			int n = 0;
@@ -477,13 +474,13 @@ public class Partie extends Observable{
 	}
 	
 	/**
-	 * Cette m�thode fourni une representation de toutes les informations importantes du modele 
+	 * Cette methode fourni une representation de toutes les informations importantes du modele 
 	 * de la classe Partie
 	 */
 	@Override
 	public String toString() {
 		String s = "";
-		s += "\n\n---------------------------------------------------------\n";
+		s += "---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
 		s += " Etape en cours : " + etape;
@@ -493,7 +490,6 @@ public class Partie extends Observable{
 		}
 		s += "\nNombre de lettres : " + TAILLEMOT;
 		s += "\n---------------------------------------------------------\n";
-		s += "\n";
 		return s;
 	}
 
@@ -538,35 +534,25 @@ public class Partie extends Observable{
 		return lettresActuelles;
 	}
 
-
-	public void setLettresActuelles(String[] lettresActuelles) {
-		this.lettresActuelles = lettresActuelles;
-	}
-
 	public Joueur getJoueurActuel() {
 		return joueurActuel;
 	}
-
-	public void setJoueurActuel(Joueur joueurActuel) {
-		this.joueurActuel = joueurActuel;
-	}
-
 
 	public void setEtatActuel(Mot etatActuel) {
 		this.etatActuel = etatActuel;
 	}
 
 
-	public static String[] getLettresGUI() {
+	public String[] getLettresGUI() {
 		return lettresGUI;
 	}
 
-	public static Joueur[] getParticipants() {
+	public Joueur[] getParticipants() {
 		return participants;
 	}
 
-	public static void setParticipants(Joueur[] participants) {
-		Partie.participants = participants;
+	public void setParticipants(Joueur[] participants) {
+		this.participants = participants;
 	}
 
 	public static int getTaillemot() {

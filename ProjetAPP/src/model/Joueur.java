@@ -5,11 +5,7 @@ import java.io.InputStreamReader;
 
 import javax.swing.JOptionPane;
 
-/**
- * 
- * @author Darryl Bilongo 2TL2
- *
- */
+
 public class Joueur {	
 	/**
 	 * Le pseudo du joueur
@@ -33,7 +29,7 @@ public class Joueur {
 	
 	
 	/**
-	 * 
+	 * Le mot donne comme proposition par le joueur
 	 */
 	private Mot proposition;
 	
@@ -95,7 +91,7 @@ public class Joueur {
 
 
 	/**
-	 * Cette methode 
+	 * Cette methode retourne le nombre de points du joueurs
 	 * @return les points du joeur
 	 */
 	public int getPoints() {
@@ -124,25 +120,13 @@ public class Joueur {
 	}
 
 	/**
-	 * Passe la main au deuxième joeur de la partie
+	 * Passe la main au deuxieme joueur de la partie
 	 * @param j l'autre joueur de la partie
 	 */
 	public void passerMain(Joueur j) {
 		this.main = false;
 		j.main = true;
 	}
-	
-	/**
-	 * Cette methode demande au joueur ayant la main
-	 * d'encoder une proposition pour le mot à deviner
-	 * @return Le mot encode par le joueur sur la console
-	 */
-	public Mot proposerMot(String s){
-		Mot proposition = new Mot(s);
-		return proposition;
-	}
-	
-	
 	
 	/**
 	 * Cette methode ajoute 50 points au joueur pour chaque bonne reponse

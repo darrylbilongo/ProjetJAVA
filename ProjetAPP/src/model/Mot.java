@@ -6,17 +6,22 @@ public class Mot {
 	/**
 	 *  Valeur du mot
 	 */
-	private String valeur; // valeur en String
+	private String valeur;
 	
 
 	/**
-	 * 
-	 * @param valeur
+	 * Constructeur prenant en parametre la valeur de la chaîne de caractères
 	 */
 	public Mot(String valeur) {
 		this.valeur = formatMot(valeur);
 	}
 	
+	/**
+	 * Cette methode permet d'ignorer les accents les accents 
+	 * et le caractères spéciaux du mot mis en paramètre et le mette en majuscule...
+	 * @param valeur le mot 
+	 * @return Le String transformé
+	 */
 	public static String formatMot(String valeur) {
 		String  mot = Normalizer.normalize(valeur, Normalizer.Form.NFD);
 		return mot.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
@@ -24,7 +29,7 @@ public class Mot {
 	
 	
 	/**
-	 * 
+	 * Getter de valeur
 	 * @return la valeur en String du mot
 	 */
 	public String getValeur() {
@@ -32,31 +37,11 @@ public class Mot {
 	}
 
 	/**
-	 * 
+	 * Setter de valeur
 	 * @param valeur la nouvelle valeur Ã  attribuer au mot
 	 */
 	public void setValeur(String valeur) {
 		this.valeur = valeur;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int longueur() {
-		return valeur.length();
-	}
-	
-	/**
-	 * 
-	 * @param m
-	 * @return
-	 */
-	public boolean comparer(Mot m) {
-		if(m.valeur.equals(this.valeur)) {
-			return true;
-		}		
-		return false;
 	}
 	
 }
