@@ -67,14 +67,14 @@ public class Partie extends Observable{
 	/**
 	 * Le vainqueur de chaque partie.
 	 */
-	private static Joueur vainqueur;
+	private Joueur vainqueur;
 	
 	/**
 	 * Un tableau contenant les joueurs de la partie
 	 */
-	private static Joueur participants[];
+	private Joueur participants[];
 	
-	private static String lettresGUI[];
+	private String lettresGUI[];
 	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
@@ -212,11 +212,11 @@ public class Partie extends Observable{
 		etatActuel = new Mot(""); 
 		
 		int numMot = (int)(Math.random() * cpt + 1);
-		while((motATrouver = Partie.choixMot(numMot)) == null && 
+		while((motATrouver = choixMot(numMot)) == null && 
 				motsDejaJoues.contains(motATrouver.getValeur()))
 		{
 			numMot = (int)(Math.random() * cpt + 1);
-			motATrouver = Partie.choixMot(numMot);
+			motATrouver = choixMot(numMot);
 		}
 		
 		if(nbJoueurs == 1)
@@ -300,7 +300,7 @@ public class Partie extends Observable{
 				}
 			}
 			else {
-				if((lettresActuelles[i].equals("+") || lettresActuelles[i].equals("*"))) {
+				if((lettresActuelles[i].equals("+"))) {
 					lettresActuelles[i] = "*";
 					lettresGUI[i] = "*";
 					lettres[i] = "";
@@ -414,7 +414,7 @@ public class Partie extends Observable{
 	 * Cette methode s'occupe de creer les fichiers txt sur lequels on va se baser pour fouiller les mots d'une taille fixe.
 	 * @param x le nombre de lettres choisi pour le jeu.
 	 */
-	public static void classerMot(int x){
+	public void classerMot(int x){
 		try {
 			Scanner input = new Scanner(new File("liste_francais.txt"));
 			File ffx = new File("mots" + x +"lettres.txt");
@@ -452,7 +452,7 @@ public class Partie extends Observable{
 	 * @param numero de la ligne choisi au harsard
 	 * @return retourne le mot choisi.
 	 */
-	public static Mot choixMot(int num) {
+	public Mot choixMot(int num) {
 		try {
 			Scanner input = new Scanner(new File("mots" + TAILLEMOT + "lettres.txt"));
 			int n = 0;
@@ -480,7 +480,7 @@ public class Partie extends Observable{
 	@Override
 	public String toString() {
 		String s = "";
-		s += "\n\n---------------------------------------------------------\n";
+		s += "---------------------------------------------------------\n";
 		s += "Nombre de Joueurs: " + this.nbJoueurs;
 		s += "\tEssais restants: " + essaisRestant;
 		s += " Etape en cours : " + etape;
@@ -490,7 +490,6 @@ public class Partie extends Observable{
 		}
 		s += "\nNombre de lettres : " + TAILLEMOT;
 		s += "\n---------------------------------------------------------\n";
-		s += "\n";
 		return s;
 	}
 
@@ -544,16 +543,16 @@ public class Partie extends Observable{
 	}
 
 
-	public static String[] getLettresGUI() {
+	public String[] getLettresGUI() {
 		return lettresGUI;
 	}
 
-	public static Joueur[] getParticipants() {
+	public Joueur[] getParticipants() {
 		return participants;
 	}
 
-	public static void setParticipants(Joueur[] participants) {
-		Partie.participants = participants;
+	public void setParticipants(Joueur[] participants) {
+		this.participants = participants;
 	}
 
 	public static int getTaillemot() {

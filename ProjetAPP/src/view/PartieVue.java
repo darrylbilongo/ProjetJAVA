@@ -17,4 +17,7 @@ public abstract class PartieVue implements Observer{
 	}
 	
 	public abstract void affiche(String string) ;
+	public abstract void lancerEtapeUn();
+	public abstract void lancerEtapeDeux();
+	public abstract void initMotus();
 }
