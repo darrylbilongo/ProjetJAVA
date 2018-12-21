@@ -422,17 +422,18 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
  	public void updateTable(boolean b) {
 		int n = controller.getNbLettres();
  		String[] propo = Mot.formatMot(fieldPropo.getText()).split("");
-		if(b) {
-
-			traiterData(propo, n);
-			String[] s = new String[n];
-			for(int i = 0; i < n; i++) {
-				s[i] = Integer.toString(i);
-			}
-			
-			table = new JTable(data, s);
-			table.setBackground(new Color(0, 191, 255));	
+ 		if(b) {
+ 			traiterData(propo, n);
+ 		}
+ 		else {
+ 			traiterData(controller.getModel().getLettresActuelles(), n);
+ 		}
+		String[] s = new String[n];
+		for(int i = 0; i < n; i++) {
+			s[i] = Integer.toString(i);
 		}
+		table = new JTable(data, s);
+		table.setBackground(new Color(0, 191, 255));	
 		frame.repaint();
 	}
  	
@@ -458,9 +459,6 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 			else {
 				for(int i = 0; i < 6; i++) {
 					for(int j = 0; j < n; j++) {
-						if(i == (controller.getElem()-1)) {
-							data[i][j] = propo[j];
-						}
 						if(i == controller.getElem()) {
 							data[i][j] = str[j];
 						}

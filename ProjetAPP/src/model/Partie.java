@@ -1,20 +1,12 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
-import java.util.Timer;
 
 
 /**
@@ -74,7 +66,6 @@ public class Partie extends Observable{
 	 */
 	private Joueur participants[];
 	
-	private String lettresGUI[];
 	
 	/**
 	 * Cet entier se decremente e chaque essai. Il est devra etre 
@@ -88,7 +79,7 @@ public class Partie extends Observable{
 	 * surlequel  les joueurs vont se baser pour jouer. 
 	 * Ce nombre est lier e l'objet Partie, pas e une instance de Partie.
 	 */
-	private final static int TAILLEMOT = (int)(Math.random() * (11 - 6) + 6);
+	private final int TAILLEMOT = (int)(Math.random() * (11 - 6) + 6);
 	
 	/**
 	 * Cet entier designe l'etape dans laquelle le ou les joueur(s) se situent.
@@ -104,10 +95,6 @@ public class Partie extends Observable{
 	 */
 	private Joueur joueurActuel;
 
-	private Timer timer;
-	private int timeCount;
-	
-
 	
 	/**
 	 * Ce Constructeur prenant aucun parametre se charge d'initialiser le jeu par defaut 
@@ -119,8 +106,7 @@ public class Partie extends Observable{
 		essaisRestant = 10;
 		classerMot(TAILLEMOT);	
 		participants = new Joueur[2];
-		timeCount = 0;
-		timer = new Timer();
+		motsDejaJoues = new ArrayList<String>();
 	}
 	
 	/**
@@ -206,8 +192,6 @@ public class Partie extends Observable{
 	public void getEssai() {
 		motATrouver = new Mot("");
 		lettresActuelles = new String[TAILLEMOT];
-		lettresGUI = new String[TAILLEMOT];
-		motsDejaJoues = new ArrayList<String>();
 		motsDejaUtilises = new ArrayList<String>();
 		etatActuel = new Mot(""); 
 		
@@ -288,21 +272,18 @@ public class Partie extends Observable{
 				int occ2 = countOccurences(lettres[i], lettresATrouver);
 				if(lettres[i].equals(lettresATrouver[i])){
 					lettresActuelles[i] = lettres[i];
-					lettresGUI[i]=lettres[i];
 					lettres[i] = "";
 				}
 				else if(occ2 != occ1) {
 					if(lettresActuelles[i].equals("*")) {
 						lettresActuelles[i]= "+";
 					}
-					lettresGUI[i] = "+";
 					lettres[i] = "";
 				}
 			}
 			else {
 				if((lettresActuelles[i].equals("+"))) {
 					lettresActuelles[i] = "*";
-					lettresGUI[i] = "*";
 					lettres[i] = "";
 				}
 			}
@@ -356,12 +337,10 @@ public class Partie extends Observable{
 			if(i == 0 || i == 2) {
 				etatInit += lettreMot[i];
 				lettresActuelles[i] = lettreMot[i];
-				lettresGUI[i] = lettreMot[i];
 			}
 			else {
 				etatInit += "*";
 				lettresActuelles[i] = "*";
-				lettresGUI[i] = lettreMot[i];
 			}
 		}
 		etatActuel = new Mot(etatInit);
@@ -542,11 +521,6 @@ public class Partie extends Observable{
 		this.etatActuel = etatActuel;
 	}
 
-
-	public String[] getLettresGUI() {
-		return lettresGUI;
-	}
-
 	public Joueur[] getParticipants() {
 		return participants;
 	}
@@ -555,7 +529,7 @@ public class Partie extends Observable{
 		this.participants = participants;
 	}
 
-	public static int getTaillemot() {
+	public int getTaillemot() {
 		return TAILLEMOT;
 	}
 

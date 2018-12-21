@@ -85,7 +85,7 @@ public class PartieController{
 	public void updatePartie(){
 		if(getEssaiRest() == 0 && model.getEtape() == 1) {
 			model.setEtape(2);
-			model.setEssaisRestant(10);
+			model.setEssaisRestant(11);
 			model.getJoueurActuel().setPoints(0);
 		}
 	}
@@ -94,6 +94,15 @@ public class PartieController{
 		if(model.getEtape() == 2 && model.getEssaisRestant() == 0) {
 			model.supprFichier();
 		}
+	}
+		
+	public boolean verifierMot(String s){
+		if(model.getMotATrouver().getValeur().charAt(0) == s.charAt(0)) {
+			if(s.length() == model.getTaillemot()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public Joueur getJoueurActuel() {

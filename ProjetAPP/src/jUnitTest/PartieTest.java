@@ -48,11 +48,17 @@ public class PartieTest {
 	public void testTraitementReponse() {
 		partie1 = new Partie();
 		try {
+			partie1.init(1);
+			partie1.
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
 			partie1.getEssai();
 			String tab[] = {"poposs", "arbusse", "Toulosse", "broquantt", "mystrrieux"};//vue que les mots sont tirés au hasard je m'assure que ces mots ne figurent dans le dictionnaire
 			String str = "";
 			for(int i = 0; i < tab.length; i++) {
-				if(Partie.getTaillemot() == tab[i].length()) {
+				if(partie1.getTaillemot() == tab[i].length()) {
 					str = tab[i];
 				}
 			}
@@ -92,15 +98,10 @@ public class PartieTest {
 	//test de la méthode getEssai()
 	@Test
 	public void testGetEssai() {
-		partie1 = new Partie();
-		try {
-			partie1.init(1);
-			partie1.getEssai();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		assertEquals(partie1.getMotATrouver().getValeur().length(), Partie.getTaillemot());
-		assertEquals(partie1.getLettresActuelles().length, Partie.getTaillemot());
+		partie1.getEssai();
+		assertNotNull(partie1.getMotATrouver().getValeur());
+		assertEquals(partie1.getMotATrouver().getValeur().length(), partie1.getTaillemot());
+		assertEquals(partie1.getLettresActuelles().length, partie1.getTaillemot());
 		
 	}
 	

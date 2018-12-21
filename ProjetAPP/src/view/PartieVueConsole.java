@@ -141,15 +141,19 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 				affiche("Dommage...\nVous avez épuisé votre nombre de tentatives permises...\n"
 						+ "Le mot à trouver était bien : " + controller.getMotATrouver().getValeur());
 			}
+			if(controller.getEssaiRest() == 0) {
+				affiche("Fin de l'etape\n" + controller.getModel().toString());
+			}
+			controller.updatePartie();
 		}
-		
 	}
 	
 	@Override
 	public void lancerEtapeDeux(){
-		affiche("\nLancement de l'etape 2...");
+		affiche("\n\nBravo, vous y êtes presque!!!");
+		affiche("Lancement de l'etape 2...");
 		for(int i = 0; i < 10; i++) {
-			controller.etapeUn();
+			controller.etapeDeux();
 			boolean echec = false; 
 			while(controller.getElem()!= 6) {
 				affiche(controller.getModel().toString());
@@ -170,6 +174,7 @@ public class PartieVueConsole extends PartieVue implements Observer, Runnable{
 						+ "Le mot à trouver était bien : " + controller.getMotATrouver().getValeur());
 			}
 		}
+		affiche("Fin de l'etape\n" + controller.getModel().toString());
 		controller.supprimerFichiers();
 	}
 	
