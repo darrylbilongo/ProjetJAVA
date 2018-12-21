@@ -23,7 +23,6 @@ public class PartieMVC {
 			PartieVue console = new PartieVueConsole(model, ctrlConsole);
 			ctrlConsole.addView(console);
 		}
-		
 	}
 				
 		public static void main(String args[]) {
