@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -391,9 +392,13 @@ public class PartieVueGUI extends PartieVue implements ActionListener{
 		valider.addActionListener(this);
 		frame.setVisible(true);
 		
+		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int)dimension.getHeight();
+		int width = (int)dimension.getWidth();
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initMotus();
-		frame.setSize(1600, 600);
+		frame.setSize(3*width/4, height/2);
 		frame.setResizable(false);
 	}
 	
