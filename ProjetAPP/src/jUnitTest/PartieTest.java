@@ -49,7 +49,6 @@ public class PartieTest {
 		partie1 = new Partie();
 		try {
 			partie1.init(1);
-			partie1.
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
